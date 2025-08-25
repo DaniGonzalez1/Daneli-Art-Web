@@ -41,8 +41,8 @@ Tecnologías que usé
 
         GitHub: Para guardar el código.
 
-        [Netlify / Vercel / etc]: Para el hosting del frontend.
+        [Netlify / Vercel ]: Para el hosting del frontend.
 
-        [Heroku / Render / etc]: Para el hosting del backend.
+        [Heroku / Render ]: Para el hosting del backend.
 
     
