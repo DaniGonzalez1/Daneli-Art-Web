@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es" style="scroll-behavior: smooth;">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería - Daneli</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&family=Playwrite+IT+Moderna:wght@400&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* Estilos personalizados y paleta de colores actualizada */
+        :root {
+            --rosa-pastel: #fad4e1;
+            --verde: #6d8f8a;
+            --verde-oscuro: #3a4f4c;
+            --lila: #e6d7f7;
+            --lila-oscuro: #9b8ab8;
+            --fondo-rosa-claro: #fff5f7;
+            --texto-oscuro: #333;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--fondo-rosa-claro);
+            color: var(--texto-oscuro);
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .bg-rosa {
+            background-color: var(--rosa-pastel);
+        }
+
+        .bg-verde {
+            background-color: var(--verde);
+        }
+
+        .text-lila-oscuro {
+            color: var(--lila-oscuro);
+        }
+
+</style>
+</head>
+
+<body class="antialiased">
+
+    <!-- Header -->
+    <header class="bg-fondo-rosa-claro/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#inicio" class="text-2xl md:text-3xl text-texto-oscuro font-bold"
+                style="font-family: 'Playwrite IT Moderna', cursive;">Daneli art ♡</a>
+
+            <div class="hidden md:flex space-x-8 items-center">
+
+
+                <a href="#inicio" class="text-gray-700 hover:text-verde transition">Inicio</a>
+                <a href="#galeria" class="text-gray-700 hover:text-verde transition">Galería</a>
+                <a href="#broches" class="text-gray-700 hover:text-verde transition">Tienda</a>
+                <a href="#apps" class="text-gray-700 hover:text-verde transition">Proyectos</a>
+                <a href="#sobre-mi" class="text-gray-700 hover:text-verde transition">Sobre mí</a>
+                <a href="#contacto"
+                    class="bg-rosa text-gray-800 px-4 py-2 rounded-full hover:bg-opacity-80 transition">Contacto</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden text-verde">
+                <i class="fas fa-bars fa-lg"></i>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+            <a href="#galeria" class="block py-2 text-gray-700 hover:text-verde transition">Galería</a>
+            <a href="#broches" class="block py-2 text-gray-700 hover:text-verde transition">Tienda</a>
+            <a href="#apps" class="block py-2 text-gray-700 hover:text-verde transition">Proyectos</a>
+            <a href="#sobre-mi" class="block py-2 text-gray-700 hover:text-verde transition">Sobre mí</a>
+            <a href="#contacto"
+                class="block mt-2 bg-rosa text-gray-800 px-4 py-2 rounded-full hover:bg-opacity-80 transition text-center">Contacto</a>
+        </div>
+    </header>

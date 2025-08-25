@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="es" style="scroll-behavior: smooth;">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daneli - Artista & Desarrolladora</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- p5.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&family=Playwrite+IT+Moderna:wght@400&display=swap"
+    rel="stylesheet">
+
+
+    <style>
+        /* Estilos personalizados y paleta de colores  */
+        :root {
+            --rosa-pastel: #fad4e1;
+            --verde: #6d8f8a;
+            --verde-oscuro: #3a4f4c;
+            --lila: #e6d7f7;
+            --lila-oscuro: #9b8ab8;
+            --fondo-rosa-claro: #fff5f7;
+            --texto-oscuro: #333;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--fondo-rosa-claro);
+            color: var(--texto-oscuro);
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Playwrite IT Moderna', serif;
+        }
+
+        .font-cursive {
+            font-family: 'Edu NSW ACT Hand', cursive;
+            font-weight: 700; /* grosor  */
+        }
+
+        .bg-rosa {
+            background-color: var(--rosa-pastel);
+        }
+
+        .bg-verde {
+            background-color: var(--verde);
+        }
+
+        .bg-lila {
+            background-color: var(--lila);
+        }
+
+        .bg-fondo-rosa-claro {
+            background-color: var(--fondo-rosa-claro);
+        }
+
+        .text-verde {
+            color: var(--verde);
+        }
+
+        .text-lila-oscuro {
+            color: var(--lila-oscuro);
+        }
+
+
+
+        .border-rosa {
+            border-color: var(--rosa-pastel);
+        }
+
+        .hover-bg-verde:hover {
+            background-color: var(--verde);
+            color: white;
+        }
+
+        /* Contenedores para sketches de p5.js */
+
+    
+
+        #p5-hero-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+
+        #p5-gradient-project {
+            width: 100%;
+            height: 100%;
+            min-height: 450px;
+            /* Asegura una altura mínima visible */
+        }
+
+            /* Contenedor para las luciérnagas, superpuesto a la imagen */
+
+        #p5-fireflies-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 15; /* Por encima de la imagen pero debajo del texto */
+            pointer-events: none; /* Permite hacer clic a través del lienzo */
+        }
+
+        /* Efecto de hover para la galería */
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-item .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(109, 143, 138, 0.8);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover .overlay {
+            opacity: 1;
+        }
+
+         /* Estilos para la animación de scroll */
+
+        .fade-in-section {
+            opacity: 0 !important;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1 !important;
+            transform: translateY(0);
+        }
+
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <!-- Header -->
+    <header class="bg-fondo-rosa-claro/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#inicio" class="text-xl md:text-2xl text-texto-oscuro font-bold"
+                style="font-family: 'Playwrite IT Moderna', cursive;">Daneli art ♡</a>
+            
+            <div class="hidden md:flex space-x-8 items-center">
+
+                
+                <a href="#inicio" class="text-gray-700 hover:text-verde transition">Inicio</a>
+                <!-- Menú Desplegable de Galería -->
+                <div class="relative">
+                    <button id="gallery-button" class="text-gray-700 hover:text-verde transition flex items-center">
+                        Galería
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="gallery-dropdown" class="absolute z-10 hidden bg-white shadow-lg rounded-md mt-2 w-40">
+                        <a href="#galeria" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Storytellings</a>
+                        <a href="galeria.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Portafolio</a>
+                    </div>
+                </div>
+                <a href="#broches" class="text-gray-700 hover:text-verde transition">Tienda</a>
+                <a href="#apps" class="text-gray-700 hover:text-verde transition">Proyectos</a>
+                <a href="#sobre-mi" class="text-gray-700 hover:text-verde transition">Sobre mí</a>
+                <a href="#contacto"
+                    class="text-gray-800 px-4 py-2 rounded-full hover:bg-opacity-80 transition">Contacto</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden text-verde">
+                <i class="fas fa-bars fa-lg"></i>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+            <a href="galeria.html" class="block py-2 text-gray-700 hover:text-verde transition">Galería</a>
+            <a href="#broches" class="block py-2 text-gray-700 hover:text-verde transition">Tienda</a>
+            <a href="#apps" class="block py-2 text-gray-700 hover:text-verde transition">Proyectos</a>
+            <a href="#sobre-mi" class="block py-2 text-gray-700 hover:text-verde transition">Sobre mí</a>
+            <a href="#contacto"
+                class="block mt-2 bg-rosa text-gray-800 px-4 py-2 rounded-full hover:bg-opacity-80 transition text-center">Contacto</a>
+        </div>
+    </header>
+
+    <main>
+    
+        <!-- Hero Section -->
+        <section id="inicio" class="relative h-screen flex items-center justify-center text-center overflow-hidden p-4">
+            <div id="p5-hero-container"></div>
+            <!-- Contenedor principal para el texto y la imagen -->
+            <div class="relative z-10 bg-fondo-rosa-claro/50 backdrop-blur-sm p-8 rounded-lg">
+                <!-- Bloque de texto -->
+                <div class="mb-8">
+                    <h1 class="text-xl md:text-2xl text-lila-oscuro">Bienvenid@ a mi mundo, donde cada obra guarda un pedacito de mi alma y mi esencia, <br>mezclando Ilustración digital, desarrollo web interactivo y piezas hechas
+                        a mano.</h1>
+                </div>
+                <!-- Imagen -->
+                <img src="img/ilustracionhome.jpg"
+                    alt="Ilustración principal de Daneli" class="mx-auto rounded-lg shadow-xl max-w-3xl w-full">
+                    <div id="p5-fireflies-container"></div>
+            </div>
+        </section>
+
+        <!-- Storytellings -->
+        <section id="galeria" class="py-20 bg-rosa/10 fade-in-section">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-12 text-lila-oscuro">Storytellings</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Items de la galería -->
+                    <a href="storytelling1.html" class="gallery-item rounded-lg shadow-lg relative"><img
+                            src="img/ilustracion1.png" alt="Ilustración Digital 1"
+                            class="w-full h-full object-cover">
+                           
+                        <div class="overlay">
+                            <h3 class="text-2xl font-bold">Pieza Original</h3>
+                            <p>Técnica mixta digital</p>
+                        </div>
+                     
+                        </a>
+                    
+                     <a href="storytelling2.html" class="gallery-item rounded-lg shadow-lg"><img
+                            src="img/ilustracion2.png" alt="Fanart"
+                            class="w-full h-full object-cover">
+                        <div class="overlay">
+                            <h3 class="text-2xl font-bold">Fanart</h3>
+                            <p>Procreate</p>
+                        </div>
+                        </a>
+                    
+                    <a href="storytelling3.html" class="gallery-item rounded-lg shadow-lg"><img
+                            src="img/ilustracion3.png" alt="NFT Artwork"
+                            class="w-full h-full object-cover">
+                        <div class="overlay">
+                            <h3 class="text-2xl font-bold">Colección NFT</h3>
+                            <p>Disponible en Salvor.io</p>
+                        </div>
+                        </a>
+                    
+                </div>
+            </div>
+        </section>
+
+        <!-- Productos -->
+        <section id="broches" class="py-20 bg-fondo-rosa-claro fade-in-section">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-12 text-lila-oscuro">Productos</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Items de la tienda -->
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center"><img
+                            src="https://placehold.co/400x400/fad4e1/333?text=Broche+1" alt="Broche bordado 1"
+                            class="w-full h-64 object-cover rounded-md mb-4">
+                        <h3 class="text-2xl font-bold mb-2">Gato Místico</h3>
+                        <p class="text-gray-600 mb-4">$15.000 CLP</p><a href="tienda.html"
+                            class="bg-verde text-white px-6 py-2 rounded-full hover-bg-verde transition">Comprar</a>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center"><img
+                            src="https://placehold.co/400x400/6d8f8a/FFF?text=Broche+2" alt="Broche bordado 2"
+                            class="w-full h-64 object-cover rounded-md mb-4">
+                        <h3 class="text-2xl font-bold mb-2">Flora Nocturna</h3>
+                        <p class="text-gray-600 mb-4">$15.000 CLP</p><a href="tienda.html"
+                            class="bg-verde text-white px-6 py-2 rounded-full hover-bg-verde transition">Comprar</a>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center"><img
+                            src="https://placehold.co/400x400/e6d7f7/333?text=Broche+3" alt="Broche bordado 3"
+                            class="w-full h-64 object-cover rounded-md mb-4">
+                        <h3 class="text-2xl font-bold mb-2">Ojo Cósmico</h3>
+                        <p class="text-gray-600 mb-4">$15.000 CLP</p><a href="tienda.html"
+                            class="bg-verde text-white px-6 py-2 rounded-full hover-bg-verde transition">Comprar</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Proyectos digitales y Apps -->
+        <section id="apps" class="py-20 bg-rosa/10 fade-in-section">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-12 text-lila-oscuro">Proyectos digitales y Apps</h2>
+                <div class="space-y-12">
+                   
+                  
+                    <!-- Proyecto 1  -->
+                    <div class="md:flex items-center gap-8 flex-row-reverse">
+                        <div class="md:w-1/2 rounded-lg shadow-lg overflow-hidden">
+                            <div id="p5-gradient-project"></div>
+                        </div>
+                        <div class="md:w-1/2 mt-6 md:mt-0">
+                            <h3 class="text-3xl font-bold mb-3">Degradado Dual</h3>
+                            <p class="text-gray-700 mb-4">Un experimento visual con p5.js que genera un degradado
+                                animado en tiempo real. La animación explora la dualidad de la paleta de colores,
+                                moviéndose entre tonos fríos y cálidos para crear una atmósfera cambiante y relajante.
+                            </p>
+                            <span
+                                class="inline-block bg-verde/30 text-gray-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded-full">p5.js</span>
+                            <span
+                                class="inline-block bg-verde/30 text-gray-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded-full">Arte
+                                Generativo</span>
+                        </div>
+                        
+                    </div>
+                    <!-- Proyecto 2 -->
+                    <div class="md:flex items-center gap-8">
+                        <div class="md:w-1/2"><img src="https://placehold.co/800x600/fad4e1/333?text=App+Móvil" alt="App Móvil"
+                                class="rounded-lg shadow-lg"></div>
+                        <div class="md:w-1/2 mt-6 md:mt-0">
+                            <h3 class="text-3xl font-bold mb-3">App de Daily notes</h3>
+                            <p class="text-gray-700 mb-4">Una app móvil desarrollada con Java que combina
+                                ilustraciones amigables y una interfaz de sencillo uso. La interfaz fue diseñada para ser
+                                intuitiva y estéticamente agradable.</p><span
+                                class="inline-block bg-rosa/50 text-gray-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded-full">Java</span><span
+                                class="inline-block bg-rosa/50 text-gray-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded-full">Firebase</span>
+
+                                <div class="text-center mt-12">
+                                    <a href="https://github.com/"
+                                        class="text-verde font-bold px-8 py-3 rounded-full hover:bg-opacity-80 transition text-lg">Ver en
+                                        GitHub</a>
+                                </div>
+
+                                
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            
+            
+        </section>
+
+        <!-- Sobre mí -->
+        <section id="sobre-mi" class="py-20 bg-fondo-rosa-claro relative fade-in-section">
+    
+            <div class="container mx-auto px-6 md:flex items-center gap-12">
+                <div class="md:w-1/3"><img src="https://placehold.co/600x800/e6d7f7/333?text=Retrato"
+                        alt="Retrato de la artista" class="rounded-full shadow-xl mx-auto"></div>
+                <div class="md:w-2/3 mt-8 md:mt-0">
+                    <h2 class="text-4xl font-bold mb-4 text-lila-oscuro">Mi Historia</h2>
+                    <p class="text-gray-700 leading-relaxed mb-4">¡Hola! Soy Daneli, una artista visual y desarrolladora
+                        web con un amor profundo por la narración de historias a través de imágenes y código. Mi viaje
+                        comenzó con un lápiz y un cuaderno, dibujando mundos fantásticos. Con el tiempo, descubrí que la
+                        tecnología podía ser un lienzo tan expresivo como el papel.</p>
+                    <p class="text-gray-700 leading-relaxed">Mi trabajo explora la intersección entre lo análogo y lo
+                        digital. Me encanta crear ilustraciones que evocan emociones y, al mismo tiempo, construir
+                        experiencias web interactivas que invitan a la exploración. Desde broches bordados a mano hasta
+                        aplicaciones móviles, cada proyecto es una oportunidad para fusionar mi sensibilidad artística
+                        con mis habilidades técnicas.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contacto -->
+        <section id="contacto" class="py-20 bg-rosa/10 fade-in-section">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl font-bold mb-4 text-lila-oscuro">Hablemos</h2>
+                <p class="text-gray-700 max-w-2xl mx-auto mb-8">¿Tienes una idea para un proyecto, una comisión o
+                    simplemente quieres saludar? ¡Me encantaría saber de ti!</p>
+                <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="max-w-xl mx-auto text-left">
+                    <div class="mb-4"><label for="name" class="block text-gray-700 mb-2">Nombre</label><input
+                            type="text" id="name" name="name"
+                            class="w-full px-4 py-2 border border-rosa rounded-lg focus:outline-none focus:ring-2 focus:ring-rosa"
+                            required></div>
+                    <div class="mb-4"><label for="email" class="block text-gray-700 mb-2">Email</label><input
+                            type="email" id="email" name="email"
+                            class="w-full px-4 py-2 border border-rosa rounded-lg focus:outline-none focus:ring-2 focus:ring-rosa"
+                            required></div>
+                    <div class="mb-4"><label for="message" class="block text-gray-700 mb-2">Mensaje</label><textarea
+                            id="message" name="message" rows="5"
+                            class="w-full px-4 py-2 border border-rosa rounded-lg focus:outline-none focus:ring-2 focus:ring-rosa"
+                            required></textarea></div>
+                    <div class="text-center"><button type="submit"
+                            class="bg-rosa text-gray-800 font-bold px-8 py-3 rounded-full hover:bg-opacity-80 transition text-lg">Enviar
+                            Mensaje</button></div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-verde text-white">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="#" class="hover:text-rosa transition"><i class="fab fa-instagram fa-2x"></i></a><a href="#"
+                    class="hover:text-rosa transition"><i class="fab fa-twitter fa-2x"></i></a><a href="#"
+                    class="hover:text-rosa transition"><i class="fab fa-etsy fa-2x"></i></a><a href="#"
+                    class="hover:text-rosa transition"><i class="fab fa-github fa-2x"></i></a>
+            </div>
+            <p>&copy; 2025 Daneli. Creado con amor. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- Mobile Menu Toggle ---
+        document.getElementById('mobile-menu-button').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        
+        // --- p5.js Sketches (Instance Mode) ---
+        // "instance mode" para tener múltiples sketches en la misma página sin conflictos.
+
+        // Sketch 1: Hero Background
+        const heroSketch = (p) => {
+            p.setup = function () {
+                let container = document.getElementById('p5-hero-container');
+                p.createCanvas(container.offsetWidth, container.offsetHeight).parent(container);
+                p.noStroke();
+            };
+
+            p.draw = function () {
+                p.background('rgba(255, 245, 247, 0.5)'); // rosa pálido
+                let pink = p.color(250, 212, 225, 150);
+                let lilac = p.color(230, 215, 247, 150);
+
+                p.fill(pink);
+                p.ellipse(p.mouseX, p.mouseY, 30, 30);
+                p.fill(lilac);
+                p.ellipse(p.width - p.mouseX, p.height - p.mouseY, 20, 20);
+
+               
+            };
+
+            p.windowResized = function () {
+                let container = document.getElementById('p5-hero-container');
+                p.resizeCanvas(container.offsetWidth, container.offsetHeight);
+            };
+        };
+        new p5(heroSketch);
+
+    
+
+        // Sketch 3: Animated Gradient Project
+        const gradientSketch = (p) => {
+            let color1, color2, color3;
+
+            p.setup = function () {
+                let container = document.getElementById('p5-gradient-project');
+                p.createCanvas(container.offsetWidth, container.offsetHeight).parent(container);
+                color1 = p.color('#3a4f4c'); // Verde oscuro
+                color2 = p.color('#fad4e1'); // Rosa pastel
+                color3 = p.color('#fff5f7'); // Fondo rosa claro 
+            };
+
+            p.draw = function () {
+                let amount = p.map(p.sin(p.frameCount * 0.01), -1, 1, 0, 1);
+
+                for (let y = 0; y < p.height; y++) {
+                    let inter;
+                    let n = p.map(y, 0, p.height, 0, 1);
+                    if (n < amount) {
+                        let n2 = p.map(n, 0, amount, 0, 1);
+                        inter = p.lerpColor(color1, color2, n2);
+                    } else {
+                        let n2 = p.map(n, amount, 1, 0, 1);
+                        inter = p.lerpColor(color2, color3, n2);
+                    }
+                    p.stroke(inter);
+                    p.line(0, y, p.width, y);
+                }
+            };
+
+            p.windowResized = function () {
+                let container = document.getElementById('p5-gradient-project');
+                p.resizeCanvas(container.offsetWidth, container.offsetHeight);
+            };
+        };
+        new p5(gradientSketch);
+
+        // Sketch 4: Fireflies
+            const fireflySketch = (p) => {
+                let fireflies = [];
+                let container;
+
+                p.setup = function () {
+                    container = document.getElementById('p5-fireflies-container');
+                    p.createCanvas(container.offsetWidth, container.offsetHeight).parent(container);
+                    for (let i = 0; i < 20; i++) {
+                        fireflies.push(new Firefly());
+                    }
+                };
+
+                p.draw = function () {
+                    p.clear(); // Fondo transparente
+                    fireflies.forEach(firefly => {
+                        firefly.update();
+                        firefly.display();
+                    });
+                };
+
+                p.windowResized = function () {
+                    p.resizeCanvas(container.offsetWidth, container.offsetHeight);
+                };
+
+                class Firefly {
+                    constructor() {
+                        this.x = p.random(p.width);
+                        this.y = p.random(p.height);
+                        this.size = p.random(2, 5);
+                        this.vx = p.random(-0.5, 0.5);
+                        this.vy = p.random(-0.5, 0.5);
+                        this.alpha = p.random(100, 255);
+                        this.alphaChange = p.random(-2, 2);
+                    }
+
+                    update() {
+                        this.x += this.vx;
+                        this.y += this.vy;
+                        this.alpha += this.alphaChange;
+
+                        if (this.x < 0 || this.x > p.width) this.vx *= -1;
+                        if (this.y < 0 || this.y > p.height) this.vy *= -1;
+                        if (this.alpha < 100 || this.alpha > 255) this.alphaChange *= -1;
+                    }
+
+                    display() {
+                        p.noStroke();
+                        p.fill(255, 255, 0, this.alpha); // Color amarillo
+                        p.ellipse(this.x, this.y, this.size, this.size);
+                    }
+                }
+            };
+            new p5(fireflySketch);
+
+             
+
+             // --- Gallery Dropdown Logic ---
+                const galleryButton = document.getElementById('gallery-button');
+                const galleryDropdown = document.getElementById('gallery-dropdown');
+
+                galleryButton.addEventListener('click', () => {
+                    galleryDropdown.classList.toggle('hidden');
+                });
+
+                // Close dropdown if clicking outside
+                window.addEventListener('click', (e) => {
+                    if (!galleryButton.contains(e.target) && !galleryDropdown.contains(e.target)) {
+                        galleryDropdown.classList.add('hidden');
+                    }
+                });
+
+             
+
+                  // --- Animación de Scroll para Secciones ---
+                    const sections = document.querySelectorAll('.fade-in-section');
+
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add('is-visible');
+                            }
+                        });
+                    }, {
+                        threshold: 0.1 // La animación se activa cuando el 10% de la sección es visible
+                    });
+
+                    sections.forEach(section => {
+                        observer.observe(section);
+                    });
+
+
+
+    </script>
+</body>
+
+</html>
