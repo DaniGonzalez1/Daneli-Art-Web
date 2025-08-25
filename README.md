@@ -4,7 +4,7 @@ Daneli Art ♡ - Mi Portafolio
 
 ¿De qué se trata?
 
-Este es un portafolio digital hecho 100% por mí. Es una web estática para el frontend, pensada para mostrar mis ilustraciones y proyectos, pero ahora cuenta con un pequeño backend para gestionar el formulario de contacto. El foco principal sigue siendo una experiencia de usuario bonita y fluida.
+Este es un portafolio digital hecho 100% por mí. Es una web estática para el frontend, pensada para mostrar mis ilustraciones y proyectos, pero va a contar con un pequeño backend para gestionar el formulario de contacto. El foco principal sigue siendo una experiencia de usuario bonita y fluida.
 ¿Qué tiene de especial?
 
     🎨 Animaciones con p5.js: La web reacciona a tus movimientos.
