@@ -30,7 +30,7 @@
             --verde: #6d8f8a;
             --verde-oscuro: #3a4f4c;
             --lila: #e6d7f7;
-            --lila-oscuro: #9b8ab8;
+            --lila-oscuro: #644a91;
             --fondo-rosa-claro: #fff5f7;
             --texto-oscuro: #333;
         }
@@ -113,6 +113,12 @@
 
             /* Contenedor para las luciérnagas, superpuesto a la imagen */
 
+        #p5-fireflies-container-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
         #p5-fireflies-container {
             position: absolute;
             top: 0;
@@ -171,8 +177,7 @@
     <!-- Header -->
     <header class="bg-fondo-rosa-claro/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#inicio" class="text-xl md:text-2xl text-texto-oscuro font-bold"
-                style="font-family: 'Playwrite IT Moderna', cursive;">Daneli art ♡</a>
+            <a href="#inicio"><img src="img/LOGO DANELI.png" alt="logo de daneli" class="h-20 w-auto"></a>
             
             <div class="hidden md:flex space-x-8 items-center">
 
@@ -216,21 +221,64 @@
     <main>
     
         <!-- Hero Section -->
-        <section id="inicio" class="relative h-screen flex items-center justify-center text-center overflow-hidden p-4">
-            <div id="p5-hero-container"></div>
+    <section id="inicio"
+        class="relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden p-4 sm:p-8">
+        <div id="p5-hero-container"></div>
             <!-- Contenedor principal para el texto y la imagen -->
-            <div class="relative z-10 bg-fondo-rosa-claro/50 backdrop-blur-sm p-8 rounded-lg">
+            <div class="relative z-10 w-full max-w-7xl mx-auto">
                 <!-- Bloque de texto -->
-                <div class="mb-8">
+                <div class="mb-8 md:mb-12">
                     <h1 class="text-xl md:text-2xl text-lila-oscuro">Bienvenid@ a mi mundo, donde cada obra guarda un pedacito de mi alma y mi esencia, <br>mezclando Ilustración digital, desarrollo web interactivo y piezas hechas
                         a mano.</h1>
                 </div>
-                <!-- Imagen -->
-                <img src="img/ilustracionhome.jpg"
-                    alt="Ilustración principal de Daneli" class="mx-auto rounded-lg shadow-xl max-w-3xl w-full">
-                    <div id="p5-fireflies-container"></div>
+            <div class="flex justify-center items-center gap-4 w-full">
+            
+                <!-- Columna Izquierda -->
+                <div class="w-1/4 flex flex-col gap-4">
+                    <!-- CAMBIO: Clases de rotación eliminadas -->
+                    <div class="transform transition-transform duration-300 hover:scale-105">
+                        
+                        <img src="img/G1.png" alt="Ilustración de Daneli 1"
+                            class="w-full h-full object-cover rounded-lg shadow-xl">
+                    </div>
+                    <!-- CAMBIO: Clases de rotación eliminadas -->
+                    <div class="transform transition-transform duration-300 hover:scale-105">
+                        <img src="img/G10.png" alt="Ilustración de Daneli 2"
+                            class="w-full h-full object-cover rounded-lg shadow-xl">
+                    </div>
+                </div>
+            
+                <!-- Columna Central (Imagen Principal) -->
+                <div class="w-1/2 flex flex-col gap-4">
+                    <div id="p5-fireflies-container-wrapper"
+                        class="rounded-lg shadow-2xl overflow-hidden transform transition-transform duration-300 hover:scale-110">
+                        <img src="img/ilustracionhome.jpg" alt="Ilustración principal de Daneli"
+                            class="w-full h-full object-cover">
+                        <div id="p5-fireflies-container"></div>
+                    </div>
+                    <div class="transform transition-transform duration-300 hover:scale-105">
+                        <!-- REEMPLAZA ESTE SRC por la URL de tu nueva imagen -->
+                        <img src="https://placehold.co/800x300/e6d7f7/333?text=Tu+Nueva+Imagen+Aquí" alt="Ilustración secundaria de Daneli"
+                            class="w-full h-full object-cover rounded-lg shadow-xl">
+                    </div>
+                </div>
+            
+                <!-- Columna Derecha -->
+                <div class="w-1/4 flex flex-col gap-4">
+                
+                    <div class="transform transition-transform duration-300 hover:scale-105">
+                        <img src="img/G11.png" alt="Ilustración de Daneli 3"
+                            class="w-full h-full object-cover rounded-lg shadow-xl">
+                    </div>
+                   
+                    <div class="transform transition-transform duration-300 hover:scale-105">
+                        <img src="img/G10.png" alt="Ilustración de Daneli 4"
+                            class="w-full h-full object-cover rounded-lg shadow-xl">
+                    </div>
+                </div>
             </div>
-        </section>
+            </div>
+            </section>
 
         <!-- Storytellings -->
         <section id="galeria" class="py-20 bg-rosa/10 fade-in-section">
@@ -361,7 +409,7 @@
     
             <div class="container mx-auto px-6 md:flex items-center gap-12">
                 <div class="md:w-1/3"><img src="img/Sobremi.png"
-                        alt="Retrato de la artista" class="rounded-full shadow-xl mx-auto"></div>
+                        alt="Retrato de la artista" class="transform transition-transform duration-300 hover:scale-105 rounded-full shadow-xl mx-auto"></div>
                 <div class="md:w-2/3 mt-8 md:mt-0">
                     <h2 class="text-4xl font-bold mb-4 text-lila-oscuro">Mi Historia</h2>
                     <p class="text-gray-700 leading-relaxed mb-4">¡Hola! Soy Daneli, una artista visual y desarrolladora
