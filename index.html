@@ -32,7 +32,7 @@
             --lila: #e6d7f7;
             --lila-oscuro: #644a91;
             --fondo-rosa-claro: #fff5f7;
-            --texto-oscuro: #333;
+            --texto-oscuro: #4a4a4a;
         }
 
         body {
@@ -41,20 +41,20 @@
             color: var(--texto-oscuro);
         }
 
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-            font-family: 'Playwrite IT Moderna', serif;
+            h1, h2 {
+            font-family: 'Playwrite IT Moderna', cursive;
+        }
+        
+        h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600; 
         }
 
+        
         .font-cursive {
-            font-family: 'Edu NSW ACT Hand', cursive;
-            font-weight: 700; /* grosor  */
+            font-family: 'Playwrite IT Moderna', cursive;
+            font-weight: 400;
         }
-
         .bg-rosa {
             background-color: var(--rosa-pastel);
         }
@@ -228,22 +228,21 @@
             <div class="relative z-10 w-full max-w-7xl mx-auto">
                 <!-- Bloque de texto -->
                 <div class="mb-8 md:mb-12">
-                    <h1 class="text-xl md:text-2xl text-lila-oscuro">Bienvenid@ a mi mundo, donde cada obra guarda un pedacito de mi alma y mi esencia, <br>mezclando Ilustración digital, desarrollo web interactivo y piezas hechas
-                        a mano.</h1>
+                    <h1 class="text-3xl md:text-5xl text-lila-oscuro">Creando mundos donde el arte y el código se encuentran.</h1>
                 </div>
             <div class="flex justify-center items-center gap-4 w-full">
             
                 <!-- Columna Izquierda -->
                 <div class="w-1/4 flex flex-col gap-4">
-                    <!-- CAMBIO: Clases de rotación eliminadas -->
+                  
                     <div class="transform transition-transform duration-300 hover:scale-105">
                         
-                        <img src="img/G1.png" alt="Ilustración de Daneli 1"
+                        <img src="img/3eifel.png" alt="Ilustración de Daneli 1"
                             class="w-full h-full object-cover rounded-lg shadow-xl">
                     </div>
-                    <!-- CAMBIO: Clases de rotación eliminadas -->
+                    
                     <div class="transform transition-transform duration-300 hover:scale-105">
-                        <img src="img/G10.png" alt="Ilustración de Daneli 2"
+                        <img src="img/8sadmetro.png" alt="Ilustración de Daneli 2"
                             class="w-full h-full object-cover rounded-lg shadow-xl">
                     </div>
                 </div>
@@ -257,8 +256,8 @@
                         <div id="p5-fireflies-container"></div>
                     </div>
                     <div class="transform transition-transform duration-300 hover:scale-105">
-                        <!-- REEMPLAZA ESTE SRC por la URL de tu nueva imagen -->
-                        <img src="https://placehold.co/800x300/e6d7f7/333?text=Tu+Nueva+Imagen+Aquí" alt="Ilustración secundaria de Daneli"
+                        
+                        <img src="img/2catwhite.png" alt="Ilustración secundaria de Daneli"
                             class="w-full h-full object-cover rounded-lg shadow-xl">
                     </div>
                 </div>
@@ -267,12 +266,12 @@
                 <div class="w-1/4 flex flex-col gap-4">
                 
                     <div class="transform transition-transform duration-300 hover:scale-105">
-                        <img src="img/G11.png" alt="Ilustración de Daneli 3"
+                        <img src="img/9beach.png" alt="Ilustración de Daneli 3"
                             class="w-full h-full object-cover rounded-lg shadow-xl">
                     </div>
                    
                     <div class="transform transition-transform duration-300 hover:scale-105">
-                        <img src="img/G10.png" alt="Ilustración de Daneli 4"
+                        <img src="img/1catazul.png" alt="Ilustración de Daneli 4"
                             class="w-full h-full object-cover rounded-lg shadow-xl">
                     </div>
                 </div>
@@ -286,7 +285,7 @@
                 <h2 class="text-4xl font-bold text-center mb-12 text-lila-oscuro">Storytellings</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Items de la galería -->
-                    <a href="storytelling1.html" class="gallery-item rounded-lg shadow-lg relative"><img
+                    <a href="storytelling1.html" class="gallery-item rounded-lg shadow-lg relative transform scale-90 mx-auto"><img
                             src="img/ilustracion1.png" alt="Ilustración Digital 1"
                             class="w-full h-full object-cover">
                            
@@ -297,8 +296,8 @@
                      
                         </a>
                     
-                     <a href="storytelling2.html" class="gallery-item rounded-lg shadow-lg"><img
-                            src="img/ilustracion2.png" alt="Fanart"
+                     <a href="storytelling2.html" class="gallery-item rounded-lg shadow-lg relative transform scale-90 mx-auto"><img
+                            src="img/4hug.png" alt="Fanart"
                             class="w-full h-full object-cover">
                         <div class="overlay">
                             <h3 class="text-2xl font-bold">Fanart</h3>
@@ -306,7 +305,7 @@
                         </div>
                         </a>
                     
-                    <a href="storytelling3.html" class="gallery-item rounded-lg shadow-lg"><img
+                    <a href="storytelling3.html" class="gallery-item rounded-lg shadow-lg relative transform scale-90 mx-auto"><img
                             src="img/ilustracion3.png" alt="NFT Artwork"
                             class="w-full h-full object-cover">
                         <div class="overlay">
@@ -329,7 +328,7 @@
                             src="img/bailarina1.png" alt="Broche bordado 1"
                             class="w-full h-64 object-cover rounded-md mb-4">
                         <h3 class="text-2xl font-bold mb-2">Grace in the Wild</h3>
-                        <p class="text-gray-600 mb-4"></p><a href="http://salvor.io/collections/0xa7a90ca7c3bbc736140b95ad9c63fca451005a23/5"
+                        <p class="text-gray-600 mb-4"></p><a href="http://salvor.io/collections/0xa7a90ca7c3bbc736140b95ad9c63fca451005a23/5" target="_blank" rel="noopener noreferrer"
                             class="bg-verde text-white px-6 py-2 rounded-full hover-bg-verde transition">Adquirir</a>
                     </div>
                     <div class="bg-white p-6 rounded-lg shadow-md text-center"><img
@@ -400,8 +399,29 @@
                     </div>
                 </div>
             </div>
-            
-            
+
+    <!-- Newsletter Section -->
+    <div class="w-full max-w-2xl mx-auto p-4 mt-20 fade-in-section">
+        <div class="text-center mb-8">
+            <h3 class="text-xl sm:text-2xl font-semibold text-gray-600 uppercase tracking-widest mb-4">Newsletter | Arte e
+                IA</h3>
+            <p class="text-base text-gray-500 max-w-lg mx-auto">Regístrate para recibir noticias y actualizaciones sobre
+                creatividad digital.</p>
+        </div>
+        <form id="newsletter-form"
+            class="max-w-xl mx-auto flex flex-col sm:flex-row items-stretch border border-rosa rounded-lg overflow-hidden shadow-md">
+            <input type="email" id="email-newsletter" name="email" placeholder="Escribe tu correo electrónico..." required
+                class="w-full sm:flex-grow px-4 py-3 text-base border-none focus:outline-none focus:ring-0">
+            <button type="submit"
+                class="w-full sm:w-auto sm:px-8 bg-lila-oscuro text-verde uppercase text-sm font-semibold py-3 flex-shrink-0 hover:bg-lila-oscuro/90 transition-colors shadow-none">Suscribirse</button>
+        </form>
+        <div id="success-message" class="text-center mt-4 text-sm text-lila-oscuro font-medium hidden">¡Gracias por
+            suscribirte! Revisa tu bandeja de entrada.</div>
+        <div id="error-message" class="text-center mt-4 text-sm text-red-600 font-medium hidden">Hubo un error. Inténtalo de
+            nuevo.</div>
+    </div>
+   
+                
         </section>
 
         <!-- Sobre mí -->
@@ -434,18 +454,18 @@
                 <form action="" method="POST" class="max-w-xl mx-auto text-left">
                     <div class="mb-4"><label for="name" class="block text-gray-700 mb-2">Nombre</label><input
                             type="text" id="name" name="name"
-                            class="w-full px-4 py-2 border border-rosa rounded-lg focus:outline-none focus:ring-2 focus:ring-rosa"
+                            class="w-full px-4 py-2 border border-rosa rounded-lg focus:outline-none focus:ring-2 focus:ring-rosa shadow-sm"
                             required></div>
                     <div class="mb-4"><label for="email" class="block text-gray-700 mb-2">Email</label><input
                             type="email" id="email" name="email"
-                            class="w-full px-4 py-2 border border-rosa rounded-lg focus:outline-none focus:ring-2 focus:ring-rosa"
+                            class="w-full px-4 py-2 border border-rosa rounded-lg focus:outline-none focus:ring-2 focus:ring-rosa shadow-sm"
                             required></div>
-                    <div class="mb-4"><label for="message" class="block text-gray-700 mb-2">Mensaje</label><textarea
+                    <div class="mb-4"><label for="message" class="block text-gray-700 mb-2 ">Mensaje</label><textarea
                             id="message" name="message" rows="5"
-                            class="w-full px-4 py-2 border border-rosa rounded-lg focus:outline-none focus:ring-2 focus:ring-rosa"
+                            class="w-full px-4 py-2 border border-rosa rounded-lg focus:outline-none focus:ring-2 focus:ring-rosa shadow-md"
                             required></textarea></div>
                     <div class="text-center"><button type="submit"
-                            class="bg-rosa text-gray-800 font-bold px-8 py-3 rounded-full hover:bg-opacity-80 transition text-lg">Enviar
+                            class="bg-rosa text-gray-800 font-bold px-8 py-3 rounded-full hover:bg-opacity-80 transition text-lg shadow-md">Enviar
                             Mensaje</button></div>
                 </form>
             </div>
@@ -456,9 +476,10 @@
     <footer class="bg-verde text-white">
         <div class="container mx-auto px-6 py-8 text-center">
             <div class="flex justify-center space-x-6 mb-4">
-                <a href="#" class="hover:text-rosa transition"><i class="fab fa-instagram fa-2x"></i></a><a href="#"
+                <a href="#" class="hover:text-rosa transition"><i class="fab fa-instagram fa-2x"></i></a>
+                <a href="#"
                     class="hover:text-rosa transition"><i class="fab fa-twitter fa-2x"></i></a><a href="#"
-                    class="hover:text-rosa transition"><i class="fab fa-etsy fa-2x"></i></a><a href="#"
+                    class="hover:text-rosa transition"><i class="fab fa-etsy fa-2x"></i></a><a href="https://github.com/DaniGonzalez1" target="_blank" rel="noopener noreferrer"
                     class="hover:text-rosa transition"><i class="fab fa-github fa-2x"></i></a>
             </div>
             <p>&copy; 2025 Daneli. Creado con amor. Todos los derechos reservados.</p>
@@ -632,6 +653,63 @@
                     sections.forEach(section => {
                         observer.observe(section);
                     });
+
+
+                    // Manejo de newlleter
+
+
+                    const API_ENDPOINT = '';
+
+                        const form = document.getElementById('newsletter-form');
+                        const emailInput = document.getElementById('email-newsletter');
+                        const successMessage = document.getElementById('success-message');
+                        const errorMessage = document.getElementById('error-message');
+
+                        form.addEventListener('submit', async function (event) {
+                            // 1. Previene el envío estándar del formulario (evita recarga de página).
+                            event.preventDefault();
+
+                            // Oculta mensajes anteriores
+                            successMessage.classList.add('hidden');
+                            errorMessage.classList.add('hidden');
+
+                            const userEmail = emailInput.value;
+
+                            // 2. Crea el cuerpo JSON con la estructura exacta que espera Brevo
+                            const requestBody = {
+                                "body": {
+                                    "email": userEmail
+                                }
+                            };
+
+                            try {
+                                // 3. Envía la solicitud POST a tu API / webhook
+                                const response = await fetch(API_ENDPOINT, {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                       
+                                    },
+                                    body: JSON.stringify(requestBody) // Convierte el objeto JS a una cadena JSON
+                                });
+
+                                // 4. Verifica la respuesta
+                                if (response.ok) {
+                                    // El webhook/API respondió correctamente (código 2xx)
+                                    successMessage.classList.remove('hidden');
+                                    form.reset(); // Opcional: limpia el campo
+                                } else {
+                                    // El webhook/API devolvió un error (ej: 400, 500)
+                                    console.error('Error del servidor:', response.status);
+                                    errorMessage.classList.remove('hidden');
+                                }
+
+                            } catch (error) {
+                                // Fallo de red (ej: URL incorrecta o problemas de conexión)
+                                console.error('Fallo al conectar con el servidor:', error);
+                                errorMessage.classList.remove('hidden');
+                            }
+                        });
 
 
 
