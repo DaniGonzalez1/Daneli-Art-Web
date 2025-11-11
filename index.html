@@ -6,483 +6,728 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daneli - Artista & Desarrolladora</title>
 
-    <!-- Tailwind CSS -->
+    <!-- Carga de Tailwind CSS con JIT para personalización -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Carga de Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:wght@300;400;600&family=Playwrite+IT+Moderna:wght@400&display=swap"
+        rel="stylesheet">
 
-    <!-- p5.js -->
+    <script>
+        // Definición de la NUEVA PALETA DE COLORES (Marsala, Rosa, Pistacho, Oliva)
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                 
+                        'custom-fondo-claro': '#FBF8F5', // Crema suave 
+                        'custom-texto-principal': '#da355e',
+                        'custom-verde-oliva': '#4E6A5E', // VERDE CALIPSO
+                        'custom-rosa-palido': '#CB7885', // Rosa Medio (Acento)
+                        'custom-acento-hover': '#D4D994', // Verde Pistacho (Hovers)
+                        'custom-rosa-seccion': '#CB7885', // Rosa Medio (Fondo de sección)
+                        'custom-texto-oscuro': '#4E6A5E', // Verde Oliva 
+                    },
+                    fontFamily: {
+                        'playfair': ['Playfair Display', 'serif'],
+                        'poppins': ['Poppins', 'sans-serif'],
+                        'playwrite': ['Playwrite IT Moderna', 'cursive'],
+                    },
+                }
+            }
+        }
+    </script>
+
+    <!-- p5.js (Usado para el cursor dinámico) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&family=Playwrite+IT+Moderna:wght@400&display=swap"
-    rel="stylesheet">
-
-
     <style>
-        /* Estilos personalizados y paleta de colores  */
+        /* Definición de variables CSS para uso directo en el código */
         :root {
-            --rosa-pastel: #fad4e1;
-            --verde: #6d8f8a;
-            --verde-oscuro: #3a4f4c;
-            --lila: #e6d7f7;
-            --lila-oscuro: #644a91;
-            --fondo-rosa-claro: #fff5f7;
-            --texto-oscuro: #4a4a4a;
+            /* Colores de la imagen */
+            --fondo-rosa-claro: #FBF8F5;
+            /* Crema */
+            --rojo-sol: #da355e;
+            /* Texto Verde Oliva -> AHORA MARSALA MÁS VIBRANTE */
+            --azul-profundo: #4E6A5E;
+            /* Marsala -> AHORA VERDE CALIPSO */
+            --azul-claro: #CB7885;
+            /* Rosa Medio */
+            --turquesa: #D4D994;
+            /* Verde Pistacho (Hovers) */
+            --texto-oscuro: #4E6A5E;
+            /* Texto Verde Oliva -> AHORA VERDE CALIPSO */
+            --rosa-pastel: #CB7885;
+            /* Rosa Medio */
         }
 
+        /* Tipografía Base */
         body {
-            font-family: 'Poppins', sans-serif;
             background-color: var(--fondo-rosa-claro);
             color: var(--texto-oscuro);
+            scroll-snap-type: y mandatory;
         }
 
-            h1, h2 {
-            font-family: 'Playwrite IT Moderna', cursive;
-        }
-        
-        h3, h4, h5, h6 {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600; 
+        /* Aplica Scroll Snap a todas las secciones principales */
+        main>section {
+            scroll-snap-align: start;
         }
 
-        
-        .font-cursive {
-            font-family: 'Playwrite IT Moderna', cursive;
-            font-weight: 400;
+        h1,
+        h2 {
+            font-family: 'Playfair Display', 'serif';
         }
-        .bg-rosa {
+
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Poppins', 'sans-serif';
+        }
+
+
+
+        /* Clases Tailwind usando las variables CSS (necesario para la sombra y bordes no directos) */
+        .bg-custom-azul-profundo {
+            background-color: var(--azul-profundo);
+            /* Marsala */
+        }
+
+        .text-custom-turquesa {
+            color: var(--turquesa);
+            /* Pistacho */
+        }
+
+        .text-custom-azul-profundo {
+            color: var(--azul-profundo);
+            /* Marsala */
+        }
+
+        .text-custom-rojo-sol {
+            color: var(--rojo-sol);
+            /* Texto Verde Oliva */
+        }
+
+        .bg-custom-azul-claro {
+            background-color: var(--azul-claro);
+            /* Rosa Medio */
+        }
+
+        .bg-custom-rojo-suave {
             background-color: var(--rosa-pastel);
+            /* Rosa Medio */
         }
 
-        .bg-verde {
-            background-color: var(--verde);
+        .hover-bg-turquesa:hover {
+            background-color: var(--turquesa);
+            /* Pistacho */
+            color: var(--texto-oscuro);
+            /* Texto Verde Oliva */
         }
 
-        .bg-lila {
-            background-color: var(--lila);
-        }
-
-        .bg-fondo-rosa-claro {
-            background-color: var(--fondo-rosa-claro);
-        }
-
-        .text-verde {
-            color: var(--verde);
-        }
-
-        .text-lila-oscuro {
-            color: var(--lila-oscuro);
-        }
-
-
-
-        .border-rosa {
-            border-color: var(--rosa-pastel);
-        }
-
-        .hover-bg-verde:hover {
-            background-color: var(--verde);
-            color: white;
-        }
-
-        /* Contenedores para sketches de p5.js */
-
+        /* Estilos P5.js */
     
-
         #p5-hero-container {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 0;
+            z-index: 9999;
+            pointer-events: none;
+            /* Crucial para hacer click en los botones y enlaces */
         }
 
-
-        #p5-gradient-project {
-            width: 100%;
-            height: 100%;
-            min-height: 450px;
-            /* Asegura una altura mínima visible */
-        }
-
-            /* Contenedor para las luciérnagas, superpuesto a la imagen */
-
-        #p5-fireflies-container-wrapper {
-            position: relative;
-            width: 100%;
-            height: 100%;
-        }
-
-        #p5-fireflies-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 15; /* Por encima de la imagen pero debajo del texto */
-            pointer-events: none; /* Permite hacer clic a través del lienzo */
-        }
-
-        /* Efecto de hover para la galería */
-
+        /* Estilos de Galería  */
         .gallery-item {
             position: relative;
             overflow: hidden;
+            border-radius: 0.75rem;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
-        .gallery-item .overlay {
+        .gallery-item:hover {
+            box-shadow: 0 8px 20px -5px oklch(35% 0.1 20 / 0.4);
+            /* Sombra Marsala */
+            transform: translateY(-4px);
+        }
+
+        .gallery-item img {
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-overlay {
             position: absolute;
-            top: 0;
+            bottom: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(109, 143, 138, 0.8);
+            right: 0;
+            background: linear-gradient(to top, oklch(35% 0.1 20 / 0.8) 0%, oklch(35% 0.1 20 / 0) 100%);
+            /* Gradiente Marsala */
             color: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
+            padding: 1.5rem 1rem;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transform: translateY(10px);
+            transition: all 0.4s ease;
         }
 
-        .gallery-item:hover .overlay {
+        .gallery-item:hover .gallery-overlay {
             opacity: 1;
+            transform: translateY(0);
         }
 
-         /* Estilos para la animación de scroll */
 
+        /* Animación de scroll general (Secciones) */
         .fade-in-section {
             opacity: 0 !important;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
+
         .fade-in-section.is-visible {
             opacity: 1 !important;
             transform: translateY(0);
         }
 
+        /* ---------------------------------------------------------------------- */
+        /* ANIMACIONES PARA TÍTULOS (H2) */
+        .fade-in-right-h2 {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: opacity 1.2s ease-out, transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .fade-in-right-h2.is-visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* ---------------------------------------------------------------------- */
+
+        /* Estilo para el botón transparente con borde  */
+        .btn-historia {
+            border: 2px solid var(--azul-profundo);
+            /* Marsala */
+            color: var(--azul-profundo);
+            /* Marsala */
+            background-color: transparent;
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            transition: all 0.3s ease;
+            box-shadow: none;
+        }
+
+        /* Estado Hover (fondo marsala) */
+        .btn-historia:hover {
+            background-color: var(--azul-profundo);
+            /* Marsala */
+            color: white;
+            box-shadow: 0 4px 10px var(--azul-profundo);
+        }
+
+        /* Estilo Invertido para fondo oscuro (Contacto) */
+        .btn-contacto-inverso {
+            border: 2px solid white;
+            color: white;
+            background-color: transparent;
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            transition: all 0.3s ease;
+            box-shadow: none;
+        }
+
+        /* Estado Hover para fondo oscuro (Contacto) */
+        .btn-contacto-inverso:hover {
+            background-color: var(--turquesa);
+            /* Pistacho */
+            color: var(--texto-oscuro);
+            /* Texto Verde Oliva */
+            border-color: var(--turquesa);
+            /* Pistacho */
+            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.3);
+        }
+
+        /* --- Micro-Interacciones en Íconos Sociales --- */
+        .social-icon:hover {
+            transform: translateY(-3px);
+            color: var(--turquesa);
+            /* Pistacho */
+        }
+
+        /* Estilo para los iconos de fondo en la sección Contacto */
+        .contact-icon-bg {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.07);
+            animation: slowFloat 20s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        @keyframes slowFloat {
+
+            0%,
+            100% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-10px) translateX(5px) rotate(2deg);
+            }
+        }
+
+     
+        .gallery-item.is-visible {
+            opacity: 1 !important;
+            transform: translateY(0);
+        }
+
+        .delay-1 {
+            transition-delay: 0.2s;
+        }
+
+        .delay-2 {
+            transition-delay: 0.4s;
+        }
+
+        .delay-3 {
+            transition-delay: 0.6s;
+        }
+
+        .delay-4 {
+            transition-delay: 0.8s;
+        }
     </style>
 </head>
 
 <body class="antialiased">
+    <!-- MOVIMIENTO DEL CURSOR GLOBAL -->
+    <div id="p5-hero-container"></div>
 
     <!-- Header -->
-    <header class="bg-fondo-rosa-claro/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+    <header class="bg-custom-fondo-claro/95 backdrop-blur-md sticky top-0 z-50 shadow-md">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#inicio"><img src="img/LOGO DANELI.png" alt="logo de daneli" class="h-20 w-auto"></a>
-            
-            <div class="hidden md:flex space-x-8 items-center">
+            <a href="#inicio">
+                <!-- TÍTULO EN TEXTO OSCURO (Verde Oliva) -->
+                <h1 class="text-3xl font-playfair italic text-custom-texto-principal tracking-wide">Daneli Artist</h1>
+            </a>
 
-                
-                <a href="#inicio" class="text-gray-700 hover:text-verde transition">Inicio</a>
-                <!-- Menú Desplegable de Galería -->
-                <div class="relative">
-                    <button id="gallery-button" class="text-gray-700 hover:text-verde transition flex items-center">
+            <div class="hidden md:flex space-x-8 items-center font-poppins text-sm font-light">
+                <a href="#inicio" class="text-gray-700 hover:text-custom-verde-oliva transition">Inicio</a>
+
+                <!-- Menú Desplegable de Galería  -->
+                <div class="relative group">
+                    <button
+                        class="text-gray-700 hover:text-custom-verde-oliva transition flex items-center focus:outline-none">
                         Galería
-                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                        </svg>
+                        <i class="fas fa-caret-down ml-1 text-xs"></i>
                     </button>
-                    <div id="gallery-dropdown" class="absolute z-10 hidden bg-white shadow-lg rounded-md mt-2 w-40">
-                        <a href="#galeria" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Storytellings</a>
-                        <a href="galeria.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Portafolio</a>
+                    <div
+                        class="absolute z-10 hidden group-hover:block bg-white shadow-xl rounded-lg mt-2 w-40 overflow-hidden transition-all duration-300">
+                        <a href="storytelling_main.html"
+                            class="block px-4 py-2 text-sm text-custom-texto-oscuro hover:bg-gray-100">Storytelling</a>
+                        <a href="galeria.html"
+                            class="block px-4 py-2 text-sm text-custom-texto-oscuro hover:bg-gray-100">Portafolio
+                            Completo</a>
                     </div>
                 </div>
-                <a href="#broches" class="text-gray-700 hover:text-verde transition">Tienda</a>
-                <a href="#apps" class="text-gray-700 hover:text-verde transition">Proyectos</a>
-                <a href="#sobre-mi" class="text-gray-700 hover:text-verde transition">Sobre mí</a>
-                <a href="#contacto"
-                    class="text-gray-800 px-4 py-2 rounded-full hover:bg-opacity-80 transition">Contacto</a>
+                <a href="#broches" class="text-gray-700 hover:text-custom-verde-oliva transition">Tienda</a>
+                <a href="animaciones.html" class="text-gray-700 hover:text-custom-verde-oliva transition">Proyectos
+                    Digitales</a>
+                <a href="miperfil.html" class="text-gray-700 hover:text-custom-verde-oliva transition">Mi Perfil</a>
+                <!-- Botón de contacto, hover Pistacho --><a href="#contacto"
+                    class="bg-custom-verde-oliva text-white px-4 py-2 rounded-full hover:bg-custom-acento-hover hover:text-custom-texto-principal transition-colors shadow-lg text-sm">Contáctame</a>
             </div>
-            <button id="mobile-menu-button" class="md:hidden text-verde">
-                <i class="fas fa-bars fa-lg"></i>
+
+            <button id="mobile-menu-button" class="md:hidden text-custom-verde-oliva"> <!-- Icono de menú Marsala --><i
+                    class="fas fa-bars fa-lg"></i>
             </button>
         </nav>
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
-            <a href="galeria.html" class="block py-2 text-gray-700 hover:text-verde transition">Galería</a>
-            <a href="#broches" class="block py-2 text-gray-700 hover:text-verde transition">Tienda</a>
-            <a href="#apps" class="block py-2 text-gray-700 hover:text-verde transition">Proyectos</a>
-            <a href="#sobre-mi" class="block py-2 text-gray-700 hover:text-verde transition">Sobre mí</a>
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 bg-white shadow-inner">
+            <a href="storytelling_main.html"
+                class="block py-2 text-custom-texto-oscuro hover:text-custom-verde-oliva transition">Storytelling</a>
+            <a href="galeria.html"
+                class="block py-2 text-custom-texto-oscuro hover:text-custom-verde-oliva transition">Portafolio
+                Completo</a>
+            <a href="#broches"
+                class="block py-2 text-custom-texto-oscuro hover:text-custom-verde-oliva transition">Tienda</a>
+            <a href="animaciones.html"
+                class="block py-2 text-custom-texto-oscuro hover:text-custom-verde-oliva transition">Proyectos
+                Digitales</a>
+            <a href="miperfil.html" class="block py-2 text-custom-texto-oscuro hover:text-custom-verde-oliva transition">Mi
+                Perfil</a>
             <a href="#contacto"
-                class="block mt-2 bg-rosa text-gray-800 px-4 py-2 rounded-full hover:bg-opacity-80 transition text-center">Contacto</a>
+                class="block mt-4 bg-custom-verde-oliva text-white px-4 py-2 rounded-full hover:bg-custom-acento-hover hover:text-custom-texto-principal transition-colors text-center">Contáctame</a>
         </div>
     </header>
 
     <main>
-    
+
         <!-- Hero Section -->
-    <section id="inicio"
-        class="relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden p-4 sm:p-8">
-        <div id="p5-hero-container"></div>
-            <!-- Contenedor principal para el texto y la imagen -->
-            <div class="relative z-10 w-full max-w-7xl mx-auto">
+        <section id="inicio"
+            class="relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden p-4 sm:p-8">
+            <div class="relative z-10 w-full max-w-5xl mx-auto">
                 <!-- Bloque de texto -->
                 <div class="mb-8 md:mb-12">
-                    <h1 class="text-3xl md:text-5xl text-lila-oscuro">Creando mundos donde el arte y el código se encuentran.</h1>
+                    <!-- TÍTULO EN TEXTO OSCURO (Verde Oliva) -->
+                    <h1 class="text-6xl md:text-8xl text-custom-texto-principal font-playfair font-extrabold">Daneli
+                        Artist
+                    </h1> <br>
+                    <!-- Subtítulo en Marsala -->
+                    <p class="text-base md:text-lg text-custom-verde-oliva max-w-xl mx-auto italic font-light">
+                        Artista de arte IA, código y desarrollo web, creando mundos donde la estética digital y la
+                        lógica se encuentran.
+                    </p>
                 </div>
-            <div class="flex justify-center items-center gap-4 w-full">
-            
-                <!-- Columna Izquierda -->
-                <div class="w-1/4 flex flex-col gap-4">
-                  
-                    <div class="transform transition-transform duration-300 hover:scale-105">
-                        
-                        <img src="img/3eifel.png" alt="Ilustración de Daneli 1"
-                            class="w-full h-full object-cover rounded-lg shadow-xl">
-                    </div>
-                    
-                    <div class="transform transition-transform duration-300 hover:scale-105">
-                        <img src="img/8sadmetro.png" alt="Ilustración de Daneli 2"
-                            class="w-full h-full object-cover rounded-lg shadow-xl">
-                    </div>
-                </div>
-            
-                <!-- Columna Central (Imagen Principal) -->
-                <div class="w-1/2 flex flex-col gap-4">
-                    <div id="p5-fireflies-container-wrapper"
-                        class="rounded-lg shadow-2xl overflow-hidden transform transition-transform duration-300 hover:scale-110">
-                        <img src="img/ilustracionhome.jpg" alt="Ilustración principal de Daneli"
-                            class="w-full h-full object-cover">
-                        <div id="p5-fireflies-container"></div>
-                    </div>
-                    <div class="transform transition-transform duration-300 hover:scale-105">
-                        
-                        <img src="img/2catwhite.png" alt="Ilustración secundaria de Daneli"
-                            class="w-full h-full object-cover rounded-lg shadow-xl">
-                    </div>
-                </div>
-            
-                <!-- Columna Derecha -->
-                <div class="w-1/4 flex flex-col gap-4">
-                
-                    <div class="transform transition-transform duration-300 hover:scale-105">
-                        <img src="img/9beach.png" alt="Ilustración de Daneli 3"
-                            class="w-full h-full object-cover rounded-lg shadow-xl">
-                    </div>
-                   
-                    <div class="transform transition-transform duration-300 hover:scale-105">
-                        <img src="img/1catazul.png" alt="Ilustración de Daneli 4"
-                            class="w-full h-full object-cover rounded-lg shadow-xl">
-                    </div>
-                </div>
-            </div>
-            </div>
-            </section>
+                <!-- Composición de Imágenes -->
+                <div class="flex justify-center items-center gap-6 w-full">
 
-        <!-- Storytellings -->
-        <section id="galeria" class="py-20 bg-rosa/10 fade-in-section">
-            <div class="container mx-auto px-6">
-                <h2 class="text-4xl font-bold text-center mb-12 text-lila-oscuro">Storytellings</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Items de la galería -->
-                    <a href="storytelling1.html" class="gallery-item rounded-lg shadow-lg relative transform scale-90 mx-auto"><img
-                            src="img/ilustracion1.png" alt="Ilustración Digital 1"
-                            class="w-full h-full object-cover">
-                           
-                        <div class="overlay">
-                            <h3 class="text-2xl font-bold">Pieza Original</h3>
-                            <p>Técnica mixta digital</p>
+                    <!-- Columna Izquierda -->
+                    <div class="w-1/4 flex flex-col gap-4">
+                        <div class="transform transition-transform duration-300 hover:scale-105 rounded-lg shadow-lg">
+                            <img src="img/3eifel.png" alt="Ilustración de Daneli 1"
+                                class="w-full h-full object-cover rounded-lg">
                         </div>
-                     
-                        </a>
-                    
-                     <a href="storytelling2.html" class="gallery-item rounded-lg shadow-lg relative transform scale-90 mx-auto"><img
-                            src="img/4hug.png" alt="Fanart"
-                            class="w-full h-full object-cover">
-                        <div class="overlay">
-                            <h3 class="text-2xl font-bold">Fanart</h3>
-                            <p>Procreate</p>
+                        <div class="transform transition-transform duration-300 hover:scale-105 rounded-lg shadow-lg">
+                            <img src="img/8sadmetro.png" alt="Ilustración de Daneli 2"
+                                class="w-full h-full object-cover rounded-lg">
                         </div>
-                        </a>
-                    
-                    <a href="storytelling3.html" class="gallery-item rounded-lg shadow-lg relative transform scale-90 mx-auto"><img
-                            src="img/ilustracion3.png" alt="NFT Artwork"
-                            class="w-full h-full object-cover">
-                        <div class="overlay">
-                            <h3 class="text-2xl font-bold">Colección NFT</h3>
-                            <p>Disponible en Salvor.io</p>
+                    </div>
+
+                    <!-- Columna Central (Imagen Principal) -->
+                    <div class="w-1/3 flex flex-col gap-4">
+                        <div
+                            class="rounded-xl shadow-2xl overflow-hidden transform transition-transform duration-300 hover:scale-[1.03]">
+                            <img src="img/ilustracionhome.jpg" alt="Ilustración principal de Daneli"
+                                class="w-full h-full object-cover">
                         </div>
-                        </a>
-                    
+                        <div class="transform transition-transform duration-300 hover:scale-105 rounded-lg shadow-lg">
+                            <img src="img/2catwhite.png" alt="Ilustración secundaria de Daneli"
+                                class="w-full h-full object-cover rounded-lg">
+                        </div>
+                    </div>
+
+                    <!-- Columna Derecha -->
+                    <div class="w-1/4 flex flex-col gap-4">
+                        <div class="transform transition-transform duration-300 hover:scale-105 rounded-lg shadow-lg">
+                            <img src="img/9beach.png" alt="Ilustración de Daneli 3"
+                                class="w-full h-full object-cover rounded-lg">
+                        </div>
+                        <div class="transform transition-transform duration-300 hover:scale-105 rounded-lg shadow-lg">
+                            <img src="img/1catazul.png" alt="Ilustración de Daneli 4"
+                                class="w-full h-full object-cover rounded-lg">
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Productos -->
-        <section id="broches" class="py-20 bg-fondo-rosa-claro fade-in-section">
-            <div class="container mx-auto px-6">
-                <h2 class="text-4xl font-bold text-center mb-12 text-lila-oscuro">Productos</h2>
+        <div class="w-full flex justify-center">
+            <!-- Línea divisoria Marsala -->
+            <hr class="w-[80%] max-w-5xl border-t border-custom-verde-oliva opacity-40 my-16" />
+        </div>
+
+        <!-- Storytelling/Sección Editorial -->
+        <section id="galeria" class="py-20 fade-in-section">
+            <div class="container mx-auto px-8 lg:px-20">
+
+                <!-- SECCIÓN EDITORIAL: El Storytelling/Sobre mí -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start mb-16 md:mb-20">
+
+                    <!-- Columna 1: Etiqueta "Sobre mi" (md:col-span-2) -->
+                    <div class="md:col-span-2">
+                        <p
+                            class="uppercase tracking-widest text-sm text-custom-verde-oliva font-poppins border-b pb-2 border-custom-verde-oliva/20">
+                            Sobre mí
+                        </p>
+                    </div>
+
+                    <!-- Columna 2: Texto Principal (md:col-span-10) -->
+                    <div class="md:col-span-10">
+                        <h2
+                            class="text-2xl md:text-4xl font-playfair font-light text-custom-texto-principal max-w-4xl leading-snug fade-in-right-h2">
+                            Soy Daneli, artista visual y desarrolladora web apasionada por combinar arte y tecnología.
+                            Mi
+                            trabajo une lo análogo y lo digital: desde ilustraciones hasta experiencias web
+                            interactivas. Cada creación es una forma de contar historias que conectan emoción y diseño,
+                            imaginación y código.
+                        </h2>
+                    </div>
+                </div>
+
+                <!-- Galería 2x2 -->
+                <div class="max-w-4xl mx-auto">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+
+                        <!-- Columna Izquierda -->
+                        <div class="flex flex-col gap-8">
+                            <!-- PIEZA 1 --><a href="storytelling1.html"
+                                class="gallery-item shadow-lg fade-in-section delay-1">
+                                <img src="img/ilustracion1.png" alt="Ilustración Digital 1"
+                                    class="w-full h-full object-cover aspect-square">
+                                <div class="gallery-overlay text-center">
+                                    <h3 class="text-xl font-semibold">Pieza Original</h3>
+                                    <p class="text-sm font-light">Técnica mixta digital</p>
+                                </div>
+                            </a>
+
+                            <!-- PIEZA 3 --><a href="storytelling3.html"
+                                class="gallery-item shadow-lg fade-in-section delay-3">
+                                <img src="img/5lonely.png" alt="NFT Artwork"
+                                    class="w-full h-full object-cover aspect-square">
+                                <div class="gallery-overlay text-center">
+                                    <h3 class="text-xl font-semibold">Colección NFT Destacada</h3>
+                                    <p class="text-sm font-light">Disponible en Salvor.io</p>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Columna Derecha -->
+                        <div class="flex flex-col gap-8">
+                            <!-- PIEZA 2 --><a href="storytelling2.html"
+                                class="gallery-item shadow-lg fade-in-section delay-2">
+                                <img src="img/4hug.png" alt="Fanart" class="w-full h-full object-cover aspect-square">
+                                <div class="gallery-overlay text-center">
+                                    <h3 class="text-xl font-semibold">Fanart</h3>
+                                    <p class="text-sm font-light">Procreate - Exploración de color</p>
+                                </div>
+                            </a>
+
+                            <!-- BLOQUE DE CITA (Ahora con fondo rosa medio) -->
+                            <div
+                                class="aspect-square w-full flex justify-center items-center p-8 bg-custom-rosa-palido/20 rounded-lg fade-in-section delay-4">
+                                <blockquote
+                                    class="text-2xl text-center font-playfair font-light text-custom-texto-principal italic leading-snug">
+                                    “Mi alma se siente en calma cuando hay arte.”
+                                </blockquote>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="text-center mt-16">
+                    <!-- Botón "Ver Portafolio Completo" con estilo marsala --><a href="galeria.html"
+                        class="inline-block btn-historia font-semibold text-base uppercase tracking-wider shadow-lg hover:shadow-xl">
+                        Ver Portafolio Completo <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <div class="w-full flex justify-center">
+            <!-- Línea divisoria marsala -->
+            <hr class="w-[80%] max-w-5xl border-t border-custom-verde-oliva opacity-40 my-16" />
+        </div>
+
+        <!-- Productos (Tienda) -->
+        <section id="broches" class="py-20 fade-in-section">
+            <div class="container mx-auto px-6 lg:px-20">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start mb-16">
+                    <!-- Columna 1: Etiqueta "Tienda" -->
+                    <div class="md:col-span-2 text-left">
+                        <p
+                            class="uppercase tracking-widest text-sm text-custom-verde-oliva font-poppins border-b pb-2 border-custom-verde-oliva/20">
+                            Tienda
+                        </p>
+                    </div>
+                    <!-- Columna 2: Título Principal -->
+                    <div class="md:col-span-10 text-left">
+                        <h2
+                            class="text-3xl md:text-5xl font-playfair font-light text-custom-texto-principal leading-snug fade-in-right-h2 mt-4 max-w-full">
+                            NFTs Disponibles
+                        </h2>
+                    </div>
+                </div>
+
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <!-- Items de la tienda -->
-                    <div class="bg-white p-6 rounded-lg shadow-md text-center"><img
-                            src="img/bailarina1.png" alt="Broche bordado 1"
-                            class="w-full h-64 object-cover rounded-md mb-4">
-                        <h3 class="text-2xl font-bold mb-2">Grace in the Wild</h3>
-                        <p class="text-gray-600 mb-4"></p><a href="http://salvor.io/collections/0xa7a90ca7c3bbc736140b95ad9c63fca451005a23/5" target="_blank" rel="noopener noreferrer"
-                            class="bg-verde text-white px-6 py-2 rounded-full hover-bg-verde transition">Adquirir</a>
+                    <div
+                        class="bg-white p-6 rounded-xl shadow-lg text-center transform hover:scale-[1.02] transition duration-300">
+                        <img src="img/bailarina1.png" alt="Bailarina NFT"
+                            class="w-full h-64 object-cover rounded-lg mb-4 shadow-md">
+                        <h3 class="text-2xl font-poppins font-semibold mb-2 text-custom-texto-oscuro">Grace in the Wild
+                        </h3>
+                        <p class="text-gray-500 mb-4 text-sm">NFT / Edición Limitada</p>
+                        <!-- Botón de adquirir marsala --><a
+                            href="http://salvor.io/collections/0xa7a90ca7c3bbc736140b95ad9c63fca451005a23/5"
+                            target="_blank" rel="noopener noreferrer"
+                            class="bg-custom-verde-oliva text-white px-6 py-2 rounded-full font-medium hover:bg-custom-acento-hover hover:text-custom-texto-principal transition-colors shadow-md">Adquirir</a>
                     </div>
-                    <div class="bg-white p-6 rounded-lg shadow-md text-center"><img
-                            src="img/gatoEspacial.png" alt="Broche bordado 2"
-                            class="w-full h-64 object-cover rounded-md mb-4">
-                        <h3 class="text-2xl font-bold mb-2">Space Cat</h3>
-                        <p class="text-gray-600 mb-4"></p><a href="tienda.html"
-                            class="bg-verde text-white px-6 py-2 rounded-full hover-bg-verde transition">Adquirir</a>
+
+                    <div
+                        class="bg-white p-6 rounded-xl shadow-lg text-center transform hover:scale-[1.02] transition duration-300">
+                        <img src="img/thorns_nft2.PNG" alt="Rosas NFT"
+                            class="w-full h-64 object-cover rounded-lg mb-4 shadow-md">
+                        <h3 class="text-2xl font-poppins font-semibold mb-2 text-custom-texto-oscuro">Thorns & Beauty</h3>
+                        <p class="text-gray-500 mb-4 text-sm">NFT / Edición Limitada</p>
+                        <!-- Botón de adquirir marsala --><a href="https://salvor.io/collections/0x1923cbaf23b9cd05d541cae24d546deecfe0d998/4" target="_blank" rel="noopener noreferrer"
+                            class="bg-custom-verde-oliva text-white px-6 py-2 rounded-full font-medium hover:bg-custom-acento-hover hover:text-custom-texto-principal transition-colors shadow-md">Adquirir</a>
                     </div>
-                    <div class="bg-white p-6 rounded-lg shadow-md text-center"><img
-                            src="img/spaceFlower.png" alt="Broche bordado 3"
-                            class="w-full h-64 object-contain rounded-md mb-4">
-                        <h3 class="text-2xl font-bold mb-2">Space Flower</h3>
-                        <p class="text-gray-600 mb-4"></p><a href="tienda.html"
-                            class="bg-verde text-white px-6 py-2 rounded-full hover-bg-verde transition">Adquirir</a>
+
+                    <div
+                        class="bg-white p-6 rounded-xl shadow-lg text-center transform hover:scale-[1.02] transition duration-300">
+                        <img src="img/Beast_nft.PNG" alt="Beast NFT"
+                            class="w-full h-64 object-contain rounded-lg mb-4 shadow-md">
+                        <h3 class="text-2xl font-poppins font-semibold mb-2 text-custom-texto-oscuro">Moonlit Temptation</h3>
+                        <p class="text-gray-500 mb-4 text-sm">INFT / Edición Limitada</p>
+                        <!-- Botón de adquirir marsala --><a href="https://salvor.io/collections/0x1923cbaf23b9cd05d541cae24d546deecfe0d998/2" target="_blank" rel="noopener noreferrer"
+                            class="bg-custom-verde-oliva text-white px-6 py-2 rounded-full font-medium hover:bg-custom-acento-hover hover:text-custom-texto-principal transition-colors shadow-md">Adquirir</a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Proyectos digitales y Apps -->
-        <section id="apps" class="py-20 bg-rosa/10 fade-in-section">
-            <div class="container mx-auto px-6">
-                <h2 class="text-4xl font-bold text-center mb-12 text-lila-oscuro">Proyectos digitales y Apps</h2>
-                <div class="space-y-12">
-                   
-                  
-                    <!-- Proyecto 1  -->
-                    <div class="md:flex items-center gap-8 flex-row-reverse">
-                        <div class="md:w-1/2 rounded-lg shadow-lg overflow-hidden">
-                            <div id="p5-gradient-project"></div>
-                        </div>
-                        <div class="md:w-1/2 mt-6 md:mt-0">
-                            <h3 class="text-3xl font-bold mb-3">Degradado Dual</h3>
-                            <p class="text-gray-700 mb-4">Un experimento visual con p5.js que genera un degradado
-                                animado en tiempo real. La animación explora la dualidad de la paleta de colores,
-                                moviéndose entre tonos fríos y cálidos para crear una atmósfera cambiante y relajante.
-                            </p>
-                            <span
-                                class="inline-block bg-verde/30 text-gray-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded-full">p5.js</span>
-                            <span
-                                class="inline-block bg-verde/30 text-gray-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded-full">Arte
-                                Generativo</span>
-                        </div>
-                        
-                    </div>
-                    <!-- Proyecto 2 -->
-                    <div class="md:flex items-center gap-8">
-                        <div class="md:w-1/2"><img src="img/App1.png" alt="App Móvil"
-                                class="rounded-lg shadow-lg"></div>
-                        <div class="md:w-1/2 mt-6 md:mt-0">
-                            <h3 class="text-3xl font-bold mb-3">App de Daily notes</h3>
-                            <p class="text-gray-700 mb-4">Una app móvil desarrollada con Java que combina
-                                ilustraciones amigables y una interfaz de sencillo uso. La interfaz fue diseñada para ser
-                                intuitiva y estéticamente agradable.</p><span
-                                class="inline-block bg-rosa/50 text-gray-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded-full">Java</span><span
-                                class="inline-block bg-rosa/50 text-gray-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded-full">Firebase</span>
+        <!-- Sobre mí (Cita/Perfil) -->
+        <section id="sobre-mi" class="py-20 bg-custom-rosa-seccion relative fade-in-section"> <!-- Fondo rosa medio -->
+            <div class="container mx-auto px-6 md:flex items-center gap-12 max-w-5xl">
 
-                                <div class="text-center mt-12">
-                                    <a href="https://github.com/"
-                                        class="text-verde font-bold px-8 py-3 rounded-full hover:bg-opacity-80 transition text-lg">Ver en
-                                        GitHub</a>
-                                </div>
-
-                                
-                        </div>
-                        
-                    </div>
+                <div class="md:w-1/3">
+                    <img src="img/Sobremi.png" alt="Retrato de la artista"
+                        class="transform transition-transform duration-300 hover:scale-105 rounded-xl shadow-2xl mx-auto w-48 h-48 md:w-full md:h-auto object-cover border-4 border-white">
                 </div>
-            </div>
 
-    <!-- Newsletter Section -->
-    <div class="w-full max-w-2xl mx-auto p-4 mt-20 fade-in-section">
-        <div class="text-center mb-8">
-            <h3 class="text-xl sm:text-2xl font-semibold text-gray-600 uppercase tracking-widest mb-4">Newsletter | Arte e
-                IA</h3>
-            <p class="text-base text-gray-500 max-w-lg mx-auto">Regístrate para recibir noticias y actualizaciones sobre
-                creatividad digital.</p>
-        </div>
-        <form id="newsletter-form"
-            class="max-w-xl mx-auto flex flex-col sm:flex-row items-stretch border border-rosa rounded-lg overflow-hidden shadow-md">
-            <input type="email" id="email-newsletter" name="email" placeholder="Escribe tu correo electrónico..." required
-                class="w-full sm:flex-grow px-4 py-3 text-base border-none focus:outline-none focus:ring-0">
-            <button type="submit"
-                class="w-full sm:w-auto sm:px-8 bg-lila-oscuro text-verde uppercase text-sm font-semibold py-3 flex-shrink-0 hover:bg-lila-oscuro/90 transition-colors shadow-none">Suscribirse</button>
-        </form>
-        <div id="success-message" class="text-center mt-4 text-sm text-lila-oscuro font-medium hidden">¡Gracias por
-            suscribirte! Revisa tu bandeja de entrada.</div>
-        <div id="error-message" class="text-center mt-4 text-sm text-red-600 font-medium hidden">Hubo un error. Inténtalo de
-            nuevo.</div>
-    </div>
-   
+                <div class="md:w-2/3 mt-10 md:mt-0 text-center md:text-left">
+                    <h2
+                        class="text-2xl md:text-4xl font-playfair font-light text-white italic leading-snug fade-in-right-h2">
+                        “Daneli transforma la sensibilidad del arte en lenguaje digital, creando experiencias donde la
+                        emoción y el código se encuentran.”
+                    </h2>
+
+                    <p class="text-custom-verde-oliva mt-8 text-xl font-poppins font-medium">
+                        — Daneli • Artista Visual & Desarrolladora Web
+                    </p>
+
                 
-        </section>
-
-        <!-- Sobre mí -->
-        <section id="sobre-mi" class="py-20 bg-fondo-rosa-claro relative fade-in-section">
-    
-            <div class="container mx-auto px-6 md:flex items-center gap-12">
-                <div class="md:w-1/3"><img src="img/Sobremi.png"
-                        alt="Retrato de la artista" class="transform transition-transform duration-300 hover:scale-105 rounded-full shadow-xl mx-auto"></div>
-                <div class="md:w-2/3 mt-8 md:mt-0">
-                    <h2 class="text-4xl font-bold mb-4 text-lila-oscuro">Mi Historia</h2>
-                    <p class="text-gray-700 leading-relaxed mb-4">¡Hola! Soy Daneli, una artista visual y desarrolladora
-                        web con un amor profundo por la narración de historias a través de imágenes y código. Mi viaje
-                        comenzó con un lápiz y un cuaderno, dibujando mundos fantásticos. Con el tiempo, descubrí que la
-                        tecnología podía ser un lienzo tan expresivo como el papel.</p>
-                    <p class="text-gray-700 leading-relaxed">Mi trabajo explora la intersección entre lo análogo y lo
-                        digital. Me encanta crear ilustraciones que evocan emociones y, al mismo tiempo, construir
-                        experiencias web interactivas que invitan a la exploración. Desde broches bordados a mano hasta
-                        aplicaciones móviles, cada proyecto es una oportunidad para fusionar mi sensibilidad artística
-                        con mis habilidades técnicas.</p>
+                    <div class="mt-8 text-center md:text-left">
+                        <a href="miperfil.html"
+                            class="inline-block btn-historia text-base font-semibold uppercase tracking-wider shadow-lg hover:shadow-xl">
+                            LEER MI HISTORIA
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Contacto -->
-        <section id="contacto" class="py-20 bg-rosa/10 fade-in-section">
-            <div class="container mx-auto px-6 text-center">
-                <h2 class="text-4xl font-bold mb-4 text-lila-oscuro">Hablemos</h2>
-                <p class="text-gray-700 max-w-2xl mx-auto mb-8">¿Tienes una idea para un proyecto, una comisión o
-                    simplemente quieres saludar? ¡Me encantaría saber de ti!</p>
-                <form action="" method="POST" class="max-w-xl mx-auto text-left">
-                    <div class="mb-4"><label for="name" class="block text-gray-700 mb-2">Nombre</label><input
-                            type="text" id="name" name="name"
-                            class="w-full px-4 py-2 border border-rosa rounded-lg focus:outline-none focus:ring-2 focus:ring-rosa shadow-sm"
-                            required></div>
-                    <div class="mb-4"><label for="email" class="block text-gray-700 mb-2">Email</label><input
-                            type="email" id="email" name="email"
-                            class="w-full px-4 py-2 border border-rosa rounded-lg focus:outline-none focus:ring-2 focus:ring-rosa shadow-sm"
-                            required></div>
-                    <div class="mb-4"><label for="message" class="block text-gray-700 mb-2 ">Mensaje</label><textarea
-                            id="message" name="message" rows="5"
-                            class="w-full px-4 py-2 border border-rosa rounded-lg focus:outline-none focus:ring-2 focus:ring-rosa shadow-md"
-                            required></textarea></div>
-                    <div class="text-center"><button type="submit"
-                            class="bg-rosa text-gray-800 font-bold px-8 py-3 rounded-full hover:bg-opacity-80 transition text-lg shadow-md">Enviar
-                            Mensaje</button></div>
+
+        <!-- Newsletter Section -->
+        <section id="newsletter"
+            class="relative z-20 fade-in-section w-full max-w-4xl mx-auto px-4 md:px-0 mt-[-4rem] mb-12">
+            <!-- Esta es la tarjeta blanca que flota -->
+            <div class="w-full bg-white rounded-xl shadow-xl p-8 md:p-12">
+                <div class="text-center mb-8">
+                    <h3 class="text-3xl sm:text-4xl font-playfair font-semibold text-custom-texto-principal mb-3">
+                        Newsletter | Arte e IA</h3>
+                    <p class="text-base text-custom-texto-oscuro max-w-lg mx-auto font-light">Regístrate para recibir
+                        noticias sobre creatividad digital y lanzamientos exclusivos.</p>
+                </div>
+
+                <!-- Formulario con borde sutil y foco pistacho -->
+                <form id="newsletter-form"
+                    class="max-w-xl mx-auto flex flex-col sm:flex-row items-stretch rounded-xl overflow-hidden shadow-lg border border-custom-verde-oliva/20 focus-within:ring-4 focus-within:ring-custom-acento-hover/50 transition-all duration-300">
+                    <input type="email" id="email-newsletter" name="email"
+                        placeholder="Escribe tu correo electrónico..." required
+                        class="w-full sm:flex-grow px-4 py-3 text-base text-custom-texto-oscuro placeholder-gray-400 border-none focus:outline-none focus:ring-0">
+                    <!-- Botón marsala con hover pistacho --><button type="submit"
+                        class="w-full sm:w-auto sm:px-8 bg-custom-verde-oliva text-white text-sm font-semibold py-3 flex-shrink-0 hover:bg-custom-acento-hover hover:text-custom-texto-principal transition-colors uppercase tracking-wider">
+                        Suscribirse
+                    </button>
+                </form>
+
+                <div id="success-message" class="text-center mt-4 text-sm text-custom-verde-oliva font-medium hidden">
+                    ¡Gracias por suscribirte! Revisa tu bandeja de entrada.
+                </div>
+                <div id="error-message" class="text-center mt-4 text-sm text-red-600 font-medium hidden">
+                    Hubo un error. Inténtalo de nuevo.
+                </div>
+            </div>
+        </section>
+
+        <!-- Contacto --><!-- Fondo marsala -->
+        <section id="contacto" class="pt-40 pb-20 bg-custom-verde-oliva fade-in-section relative overflow-hidden">
+
+            <!-- ICONOS DE FONDO DECORATIVOS --><i
+                class="fas fa-envelope fa-10x contact-icon-bg absolute top-10 left-10"></i>
+            <i class="fas fa-comment-dots fa-8x contact-icon-bg absolute bottom-10 right-20"
+                style="animation-delay: 10s;"></i>
+            <i class="fas fa-magic fa-6x contact-icon-bg absolute top-1/2 left-1/4" style="animation-delay: 5s;"></i>
+
+
+            <div class="container mx-auto px-6 lg:px-20 relative z-10">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start mb-4 text-left">
+                    <!-- Columna 1: Etiqueta "Contáctame!" -->
+                    <div class="md:col-span-2 text-left">
+                        <p
+                            class="uppercase tracking-widest text-sm text-gray-100 font-poppins border-b pb-2 border-white/30">
+                            Contáctame
+                        </p>
+                    </div>
+                </div>
+
+                <!-- SEGUNDA FILA: TÍTULO CENTRADO SOBRE EL FORMULARIO -->
+                <div class="w-full text-center">
+                    <h2
+                        class="text-3xl md:text-5xl font-playfair font-bold mb-8 text-white fade-in-right-h2 max-w-full">
+                        ¡Trabajemos Juntos!
+                    </h2>
+                </div>
+
+
+                <p class="text-gray-200 max-w-2xl mx-auto mb-6 font-light text-center">
+                    ¿Tienes una idea para un proyecto o una comisión? ¡Me encantaría saber de ti!
+                </p>
+                <!-- Formulario -->
+                <form action="" method="POST" class="max-w-lg mx-auto text-left">
+                    <div class="mb-4">
+                        <label for="name" class="block text-gray-100 mb-2 font-poppins text-sm">Nombre</label>
+                        <input type="text" id="name" name="name"
+                            class="w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-custom-acento-hover focus:ring-opacity-80 shadow-md text-custom-texto-oscuro"
+                            required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="email" class="block text-gray-100 mb-2 font-poppins text-sm">Email</label>
+                        <input type="email" id="email" name="email"
+                            class="w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-custom-acento-hover focus:ring-opacity-80 shadow-md text-custom-texto-oscuro"
+                            required>
+                    </div>
+                    <div class="mb-6">
+                        <label for="message" class="block text-gray-100 mb-2 font-poppins text-sm">Mensaje</label>
+                        <textarea id="message" name="message" rows="5"
+                            class="w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-custom-acento-hover focus:ring-opacity-80 shadow-md text-custom-texto-oscuro"
+                            required></textarea>
+                    </div>
+                    <div class="text-center">
+                        <!-- Botón ENVIAR MENSAJE con estilo transparente/bordeado INVERSO (hover pistacho) --><button
+                            type="submit"
+                            class="btn-contacto-inverso font-bold text-base uppercase tracking-wider shadow-xl hover:bg-custom-acento-hover">
+                            Enviar Mensaje
+                        </button>
+                    </div>
                 </form>
             </div>
         </section>
     </main>
 
+
     <!-- Footer -->
-    <footer class="bg-verde text-white">
+    <footer class="bg-custom-verde-oliva text-white">
         <div class="container mx-auto px-6 py-8 text-center">
             <div class="flex justify-center space-x-6 mb-4">
-                <a href="#" class="hover:text-rosa transition"><i class="fab fa-instagram fa-2x"></i></a>
-                <a href="#"
-                    class="hover:text-rosa transition"><i class="fab fa-twitter fa-2x"></i></a><a href="#"
-                    class="hover:text-rosa transition"><i class="fab fa-etsy fa-2x"></i></a><a href="https://github.com/DaniGonzalez1" target="_blank" rel="noopener noreferrer"
-                    class="hover:text-rosa transition"><i class="fab fa-github fa-2x"></i></a>
+                <!-- Iconos sociales con hover pistacho -->
+                <a href="https://x.com/danelisol?lang=es" class="hover:text-custom-acento-hover transition duration-300 social-icon"><i
+                        class="fab fa-twitter fa-2x"></i></a>
+                <a href="https://www.linkedin.com/in/danae-talia-gonz%C3%A1lez-carvajal-536333215/" class="hover:text-custom-acento-hover transition duration-300 social-icon"><i
+                        class="fab fa-linkedin fa-2x"></i></a>
+                <a href="https://github.com/DaniGonzalez1" target="_blank" rel="noopener noreferrer"
+                    class="hover:text-custom-acento-hover transition duration-300 social-icon"><i
+                        class="fab fa-github fa-2x"></i></a>
             </div>
-            <p>&copy; 2025 Daneli. Creado con amor. Todos los derechos reservados.</p>
+            <p class="text-sm text-gray-400">&copy; 2025 Daneli. Creado con amor. Todos los derechos reservados.</p>
         </div>
     </footer>
 
@@ -492,226 +737,153 @@
             document.getElementById('mobile-menu').classList.toggle('hidden');
         });
 
-        
-        // --- p5.js Sketches (Instance Mode) ---
-        // "instance mode" para tener múltiples sketches en la misma página sin conflictos.
+        // --- Gallery Dropdown Logic (Mantenida) ---
+        const galleryButton = document.querySelector('.relative.group > button');
+        const galleryDropdown = document.querySelector('.relative.group > div');
+        if (galleryButton && galleryDropdown) {
+            galleryButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                galleryDropdown.classList.toggle('hidden');
+            });
+        }
 
-        // Sketch 1: Hero Background
-        const heroSketch = (p) => {
+
+        // -- P5.js Sketch 1: Cursor que Cambia de Color (Global) ---
+        const cursorSketch = (p) => {
+            let currentColor;
+            // Definición de colores base (Verde Oliva y Pistacho)
+            const COLORS = {
+                // Verde Oliva
+                DEEP_BLUE: p.color(78, 106, 94, 150), // #4E6A5E
+                // Pistacho
+                LIGHT_PINK: p.color(212, 217, 148, 150) // #D4D994
+            };
+
             p.setup = function () {
                 let container = document.getElementById('p5-hero-container');
-                p.createCanvas(container.offsetWidth, container.offsetHeight).parent(container);
+                p.createCanvas(window.innerWidth, window.innerHeight).parent(container);
                 p.noStroke();
+                p.angleMode(p.DEGREES);
+                currentColor = COLORS.DEEP_BLUE; // Inicia con el color verde oliva
             };
 
             p.draw = function () {
-                p.background('rgba(255, 245, 247, 0.5)'); // rosa pálido
-                let pink = p.color(250, 212, 225, 150);
-                let lilac = p.color(230, 215, 247, 150);
-
-                p.fill(pink);
-                p.ellipse(p.mouseX, p.mouseY, 30, 30);
-                p.fill(lilac);
-                p.ellipse(p.width - p.mouseX, p.height - p.mouseY, 20, 20);
-
-               
+                p.clear();
+                p.fill(currentColor);
+                p.ellipse(p.mouseX, p.mouseY, 40, 40);
+                checkSectionColor();
             };
 
             p.windowResized = function () {
-                let container = document.getElementById('p5-hero-container');
-                p.resizeCanvas(container.offsetWidth, container.offsetHeight);
-            };
-        };
-        new p5(heroSketch);
-
-    
-
-        // Sketch 3: Animated Gradient Project
-        const gradientSketch = (p) => {
-            let color1, color2, color3;
-
-            p.setup = function () {
-                let container = document.getElementById('p5-gradient-project');
-                p.createCanvas(container.offsetWidth, container.offsetHeight).parent(container);
-                color1 = p.color('#3a4f4c'); // Verde oscuro
-                color2 = p.color('#fad4e1'); // Rosa pastel
-                color3 = p.color('#fff5f7'); // Fondo rosa claro 
+                p.resizeCanvas(window.innerWidth, window.innerHeight);
             };
 
-            p.draw = function () {
-                let amount = p.map(p.sin(p.frameCount * 0.01), -1, 1, 0, 1);
+            // Función principal para determinar el color del cursor
+            function checkSectionColor() {
+                const windowHeight = window.innerHeight;
 
-                for (let y = 0; y < p.height; y++) {
-                    let inter;
-                    let n = p.map(y, 0, p.height, 0, 1);
-                    if (n < amount) {
-                        let n2 = p.map(n, 0, amount, 0, 1);
-                        inter = p.lerpColor(color1, color2, n2);
-                    } else {
-                        let n2 = p.map(n, amount, 1, 0, 1);
-                        inter = p.lerpColor(color2, color3, n2);
-                    }
-                    p.stroke(inter);
-                    p.line(0, y, p.width, y);
-                }
-            };
-
-            p.windowResized = function () {
-                let container = document.getElementById('p5-gradient-project');
-                p.resizeCanvas(container.offsetWidth, container.offsetHeight);
-            };
-        };
-        new p5(gradientSketch);
-
-        // Sketch 4: Fireflies
-            const fireflySketch = (p) => {
-                let fireflies = [];
-                let container;
-
-                p.setup = function () {
-                    container = document.getElementById('p5-fireflies-container');
-                    p.createCanvas(container.offsetWidth, container.offsetHeight).parent(container);
-                    for (let i = 0; i < 20; i++) {
-                        fireflies.push(new Firefly());
-                    }
+                // El cursor será verde oliva en todas las secciones claras
+                // y pistacho en la sección de contacto (marsala)
+                const sectionsMap = {
+                    'inicio': COLORS.DEEP_BLUE,
+                    'galeria': COLORS.DEEP_BLUE,
+                    'broches': COLORS.DEEP_BLUE, // Fondo crema
+                    'sobre-mi': COLORS.DEEP_BLUE, // Fondo rosa medio
+                    'newsletter': COLORS.DEEP_BLUE, // Fondo crema
+                    'contacto': COLORS.LIGHT_PINK, // Fondo marsala, cursor pistacho
                 };
 
-                p.draw = function () {
-                    p.clear(); // Fondo transparente
-                    fireflies.forEach(firefly => {
-                        firefly.update();
-                        firefly.display();
-                    });
-                };
+                let activeColor = COLORS.DEEP_BLUE; // Default
 
-                p.windowResized = function () {
-                    p.resizeCanvas(container.offsetWidth, container.offsetHeight);
-                };
-
-                class Firefly {
-                    constructor() {
-                        this.x = p.random(p.width);
-                        this.y = p.random(p.height);
-                        this.size = p.random(2, 5);
-                        this.vx = p.random(-0.5, 0.5);
-                        this.vy = p.random(-0.5, 0.5);
-                        this.alpha = p.random(100, 255);
-                        this.alphaChange = p.random(-2, 2);
-                    }
-
-                    update() {
-                        this.x += this.vx;
-                        this.y += this.vy;
-                        this.alpha += this.alphaChange;
-
-                        if (this.x < 0 || this.x > p.width) this.vx *= -1;
-                        if (this.y < 0 || this.y > p.height) this.vy *= -1;
-                        if (this.alpha < 100 || this.alpha > 255) this.alphaChange *= -1;
-                    }
-
-                    display() {
-                        p.noStroke();
-                        p.fill(255, 255, 0, this.alpha); // Color amarillo
-                        p.ellipse(this.x, this.y, this.size, this.size);
+                for (const id in sectionsMap) {
+                    const section = document.getElementById(id);
+                    if (section) {
+                        const rect = section.getBoundingClientRect();
+                        if (rect.top <= windowHeight / 2 && rect.bottom >= windowHeight / 2) {
+                            activeColor = sectionsMap[id];
+                            break;
+                        }
                     }
                 }
-            };
-            new p5(fireflySketch);
 
-             
+                // Transición suave entre colores
+                currentColor = p.lerpColor(currentColor, activeColor, 0.2);
+            }
+        };
+        new p5(cursorSketch);
 
-             // --- Gallery Dropdown Logic ---
-                const galleryButton = document.getElementById('gallery-button');
-                const galleryDropdown = document.getElementById('gallery-dropdown');
 
-                galleryButton.addEventListener('click', () => {
-                    galleryDropdown.classList.toggle('hidden');
+        // --- Animación de Scroll para Secciones y Títulos ---
+        const sections = document.querySelectorAll('.fade-in-section');
+        const h2Titles = document.querySelectorAll('.fade-in-right-h2');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        const h2Observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    h2Observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.5
+        });
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        h2Titles.forEach(h2 => {
+            h2Observer.observe(h2);
+        });
+
+        // --- Manejo de Newsletter ---
+        const API_ENDPOINT = ''; // API N8N
+        const form = document.getElementById('newsletter-form');
+        const emailInput = document.getElementById('email-newsletter');
+        const successMessage = document.getElementById('success-message');
+        const errorMessage = document.getElementById('error-message');
+
+        form.addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            successMessage.classList.add('hidden');
+            errorMessage.classList.add('hidden');
+
+            const userEmail = emailInput.value;
+            const requestBody = { "body": { "email": userEmail } };
+
+            try {
+                const response = await fetch(API_ENDPOINT, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(requestBody)
                 });
 
-                // Close dropdown if clicking outside
-                window.addEventListener('click', (e) => {
-                    if (!galleryButton.contains(e.target) && !galleryDropdown.contains(e.target)) {
-                        galleryDropdown.classList.add('hidden');
-                    }
-                });
+                if (response.ok) {
+                    successMessage.classList.remove('hidden');
+                    form.reset();
+                } else {
+                    console.error('Error del servidor:', response.status);
+                    errorMessage.classList.remove('hidden');
+                }
 
-             
+            } catch (error) {
+                console.error('Fallo al conectar con el servidor:', error);
+                errorMessage.classList.remove('hidden');
 
-                  // --- Animación de Scroll para Secciones ---
-                    const sections = document.querySelectorAll('.fade-in-section');
-
-                    const observer = new IntersectionObserver((entries) => {
-                        entries.forEach(entry => {
-                            if (entry.isIntersecting) {
-                                entry.target.classList.add('is-visible');
-                            }
-                        });
-                    }, {
-                        threshold: 0.1 // La animación se activa cuando el 10% de la sección es visible
-                    });
-
-                    sections.forEach(section => {
-                        observer.observe(section);
-                    });
-
-
-                    // Manejo de newlleter
-
-
-                    const API_ENDPOINT = '';
-
-                        const form = document.getElementById('newsletter-form');
-                        const emailInput = document.getElementById('email-newsletter');
-                        const successMessage = document.getElementById('success-message');
-                        const errorMessage = document.getElementById('error-message');
-
-                        form.addEventListener('submit', async function (event) {
-                            // 1. Previene el envío estándar del formulario (evita recarga de página).
-                            event.preventDefault();
-
-                            // Oculta mensajes anteriores
-                            successMessage.classList.add('hidden');
-                            errorMessage.classList.add('hidden');
-
-                            const userEmail = emailInput.value;
-
-                            // 2. Crea el cuerpo JSON con la estructura exacta que espera Brevo
-                            const requestBody = {
-                                "body": {
-                                    "email": userEmail
-                                }
-                            };
-
-                            try {
-                                // 3. Envía la solicitud POST a tu API / webhook
-                                const response = await fetch(API_ENDPOINT, {
-                                    method: 'POST',
-                                    headers: {
-                                        'Content-Type': 'application/json'
-                                       
-                                    },
-                                    body: JSON.stringify(requestBody) // Convierte el objeto JS a una cadena JSON
-                                });
-
-                                // 4. Verifica la respuesta
-                                if (response.ok) {
-                                    // El webhook/API respondió correctamente (código 2xx)
-                                    successMessage.classList.remove('hidden');
-                                    form.reset(); // Opcional: limpia el campo
-                                } else {
-                                    // El webhook/API devolvió un error (ej: 400, 500)
-                                    console.error('Error del servidor:', response.status);
-                                    errorMessage.classList.remove('hidden');
-                                }
-
-                            } catch (error) {
-                                // Fallo de red (ej: URL incorrecta o problemas de conexión)
-                                console.error('Fallo al conectar con el servidor:', error);
-                                errorMessage.classList.remove('hidden');
-                            }
-                        });
-
-
+            }
+        });
 
     </script>
 </body>
