@@ -15,7 +15,7 @@ Este es un portafolio digital hecho 100% por mí. Es una web estática para el f
 
     📱 Diseño Adaptable: Hecho con Tailwind CSS para que se vea bien en cualquier pantalla.
 
-    🚀 Backend Propio ( en construcción): El formulario de contacto funciona con un servidor propio hecho en Node.js, lo que me da control total sobre los datos.
+    🚀 Backend Propio ( en construcción): El formulario de contacto funciona con un servidor propio hecho en Spring Boot.
 
 Tecnologías que usé
 
@@ -31,9 +31,7 @@ Tecnologías que usé
 
     Backend:
 
-        Node.js: Entorno de ejecución para el servidor.
-
-        Express: Framework para construir la API.
+        Spring Boot: Entorno de ejecución para el servidor.
 
         Nodemailer: Para el envío de correos desde el servidor.
 
@@ -44,3 +42,9 @@ Tecnologías que usé
         [Netlify / Vercel ]: Para el hosting del frontend.
 
         [Heroku / Render ]: Para el hosting del backend.
+
+
+
+Sitio web: https://sparkly-pie-9116e5.netlify.app/
+        
+
