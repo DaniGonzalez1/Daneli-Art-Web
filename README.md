@@ -47,4 +47,3 @@ Tecnologías que usé
 
 Sitio web: https://sparkly-pie-9116e5.netlify.app/
         
-
