@@ -19,7 +19,7 @@
             theme: {
                 extend: {
                     colors: {
-                 
+
                         'custom-fondo-claro': '#FBF8F5', // Crema suave 
                         'custom-texto-principal': '#da355e',
                         'custom-verde-oliva': '#4E6A5E', // VERDE CALIPSO
@@ -129,7 +129,7 @@
         }
 
         /* Estilos P5.js */
-    
+
         #p5-hero-container {
             position: fixed;
             top: 0;
@@ -280,7 +280,36 @@
             }
         }
 
-     
+        /* --- NUEVA ANIMACIÓN DE CARGA (FADE-IN) --- */
+        @keyframes fadeInOnLoad {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+                /* Sube ligeramente */
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-on-load {
+            opacity: 0;
+            /* Oculto por defecto hasta que la animación corra */
+            animation: fadeInOnLoad 1s ease-out forwards;
+        }
+
+        /* Retrasos para la animación de carga */
+        .fade-in-delay-1 {
+            animation-delay: 0.2s;
+        }
+
+        .fade-in-delay-2 {
+            animation-delay: 0.4s;
+        }
+
+
         .gallery-item.is-visible {
             opacity: 1 !important;
             transform: translateY(0);
@@ -343,8 +372,8 @@
                     class="bg-custom-verde-oliva text-white px-4 py-2 rounded-full hover:bg-custom-acento-hover hover:text-custom-texto-principal transition-colors shadow-lg text-sm">Contáctame</a>
             </div>
 
-            <button id="mobile-menu-button" class="md:hidden text-custom-verde-oliva"> <!-- Icono de menú Marsala --><i
-                    class="fas fa-bars fa-lg"></i>
+            <button id="mobile-menu-button" class="md:hidden text-custom-verde-oliva">
+                <!-- Icono de menú Marsala --><i class="fas fa-bars fa-lg"></i>
             </button>
         </nav>
         <!-- Mobile Menu -->
@@ -359,7 +388,8 @@
             <a href="animaciones.html"
                 class="block py-2 text-custom-texto-oscuro hover:text-custom-verde-oliva transition">Proyectos
                 Digitales</a>
-            <a href="miperfil.html" class="block py-2 text-custom-texto-oscuro hover:text-custom-verde-oliva transition">Mi
+            <a href="miperfil.html"
+                class="block py-2 text-custom-texto-oscuro hover:text-custom-verde-oliva transition">Mi
                 Perfil</a>
             <a href="#contacto"
                 class="block mt-4 bg-custom-verde-oliva text-white px-4 py-2 rounded-full hover:bg-custom-acento-hover hover:text-custom-texto-principal transition-colors text-center">Contáctame</a>
@@ -373,7 +403,8 @@
             class="relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden p-4 sm:p-8">
             <div class="relative z-10 w-full max-w-5xl mx-auto">
                 <!-- Bloque de texto -->
-                <div class="mb-8 md:mb-12">
+                <!-- CAMBIO: Añadida animación de fade-in al cargar -->
+                <div class="mb-8 md:mb-12 fade-in-on-load fade-in-delay-1">
                     <!-- TÍTULO EN TEXTO OSCURO (Verde Oliva) -->
                     <h1 class="text-6xl md:text-8xl text-custom-texto-principal font-playfair font-extrabold">Daneli
                         Artist
@@ -385,10 +416,24 @@
                     </p>
                 </div>
                 <!-- Composición de Imágenes -->
-                <div class="flex justify-center items-center gap-6 w-full">
+                <!-- 
+                    CAMBIOS:
+                    - 'flex-col': Apila las columnas en mobile (por defecto).
+                    - 'md:flex-row': Las vuelve a poner en fila en desktop.
+                    - 'md:items-start': Alinea al top en desktop (se ve mejor que centradas).
+                -->
+                <!-- CAMBIO: Añadida animación de fade-in al cargar -->
+                <div
+                    class="flex flex-col md:flex-row justify-center items-center md:items-start gap-6 w-full fade-in-on-load fade-in-delay-2">
 
+                    <!-- 
+                        CAMBIOS:
+                        - 'w-5/6': (Antes w-full) Ahora es un poco más pequeño en mobile.
+                        - 'sm:w-3/4': 75% en pantallas 'sm'.
+                        - 'md:w-1/4': Mantiene tu 25% original para desktop.
+                    -->
                     <!-- Columna Izquierda -->
-                    <div class="w-1/4 flex flex-col gap-4">
+                    <div class="w-5/6 sm:w-3/4 md:w-1/4 flex flex-col gap-4">
                         <div class="transform transition-transform duration-300 hover:scale-105 rounded-lg shadow-lg">
                             <img src="img/3eifel.png" alt="Ilustración de Daneli 1"
                                 class="w-full h-full object-cover rounded-lg">
@@ -399,8 +444,14 @@
                         </div>
                     </div>
 
+                    <!-- 
+                        CAMBIOS:
+                        - 'w-5/6': (Antes w-full) Ahora es un poco más pequeño en mobile.
+                        - 'sm:w-3/4': 75% en pantallas 'sm'.
+                        - 'md:w-2/5': Mantiene tu 40% (w-2-5) para desktop.
+                    -->
                     <!-- Columna Central (Imagen Principal) -->
-                    <div class="w-1/3 flex flex-col gap-4">
+                    <div class="w-5/6 sm:w-3/4 md:w-2/5 flex flex-col gap-4">
                         <div
                             class="rounded-xl shadow-2xl overflow-hidden transform transition-transform duration-300 hover:scale-[1.03]">
                             <img src="img/ilustracionhome.jpg" alt="Ilustración principal de Daneli"
@@ -412,10 +463,16 @@
                         </div>
                     </div>
 
+                    <!-- 
+                        CAMBIOS:
+                        - 'w-5/6': (Antes w-full) Ahora es un poco más pequeño en mobile.
+                        - 'sm:w-3/4': 75% en pantallas 'sm'.
+                        - 'md:w-1/4': Mantiene tu 25% original para desktop.
+                    -->
                     <!-- Columna Derecha -->
-                    <div class="w-1/4 flex flex-col gap-4">
+                    <div class="w-5/6 sm:w-3/4 md:w-1/4 flex flex-col gap-4">
                         <div class="transform transition-transform duration-300 hover:scale-105 rounded-lg shadow-lg">
-                            <img src="img/9beach.png" alt="Ilustración de Daneli 3"
+                            <img src="img/9beach.png" alt="Ilustlración de Daneli 3"
                                 class="w-full h-full object-cover rounded-lg">
                         </div>
                         <div class="transform transition-transform duration-300 hover:scale-105 rounded-lg shadow-lg">
@@ -466,37 +523,40 @@
 
                         <!-- Columna Izquierda -->
                         <div class="flex flex-col gap-8">
-                            <!-- PIEZA 1 --><a href="storytelling1.html"
-                                class="gallery-item shadow-lg fade-in-section delay-1">
+                            <!-- PIEZA 1 -->
+                            <!-- CAMBIO: Se cambió la etiqueta <a> por <div> para quitar el enlace -->
+                            <div class="gallery-item shadow-lg fade-in-section delay-1">
                                 <img src="img/ilustracion1.png" alt="Ilustración Digital 1"
                                     class="w-full h-full object-cover aspect-square">
                                 <div class="gallery-overlay text-center">
                                     <h3 class="text-xl font-semibold">Pieza Original</h3>
                                     <p class="text-sm font-light">Técnica mixta digital</p>
                                 </div>
-                            </a>
+                            </div>
 
-                            <!-- PIEZA 3 --><a href="storytelling3.html"
-                                class="gallery-item shadow-lg fade-in-section delay-3">
+                            <!-- PIEZA 3 -->
+                            <!-- CAMBIO: Se cambió la etiqueta <a> por <div> para quitar el enlace -->
+                            <div class="gallery-item shadow-lg fade-in-section delay-3">
                                 <img src="img/5lonely.png" alt="NFT Artwork"
                                     class="w-full h-full object-cover aspect-square">
                                 <div class="gallery-overlay text-center">
                                     <h3 class="text-xl font-semibold">Colección NFT Destacada</h3>
                                     <p class="text-sm font-light">Disponible en Salvor.io</p>
                                 </div>
-                            </a>
+                            </div>
                         </div>
 
                         <!-- Columna Derecha -->
                         <div class="flex flex-col gap-8">
-                            <!-- PIEZA 2 --><a href="storytelling2.html"
-                                class="gallery-item shadow-lg fade-in-section delay-2">
+                            <!-- PIEZA 2 -->
+                            <!-- CAMBIO: Se cambió la etiqueta <a> por <div> para quitar el enlace -->
+                            <div class="gallery-item shadow-lg fade-in-section delay-2">
                                 <img src="img/4hug.png" alt="Fanart" class="w-full h-full object-cover aspect-square">
                                 <div class="gallery-overlay text-center">
                                     <h3 class="text-xl font-semibold">Fanart</h3>
                                     <p class="text-sm font-light">Procreate - Exploración de color</p>
                                 </div>
-                            </a>
+                            </div>
 
                             <!-- BLOQUE DE CITA (Ahora con fondo rosa medio) -->
                             <div
@@ -564,9 +624,12 @@
                         class="bg-white p-6 rounded-xl shadow-lg text-center transform hover:scale-[1.02] transition duration-300">
                         <img src="img/thorns_nft2.PNG" alt="Rosas NFT"
                             class="w-full h-64 object-cover rounded-lg mb-4 shadow-md">
-                        <h3 class="text-2xl font-poppins font-semibold mb-2 text-custom-texto-oscuro">Thorns & Beauty</h3>
+                        <h3 class="text-2xl font-poppins font-semibold mb-2 text-custom-texto-oscuro">Thorns & Beauty
+                        </h3>
                         <p class="text-gray-500 mb-4 text-sm">NFT / Edición Limitada</p>
-                        <!-- Botón de adquirir marsala --><a href="https://salvor.io/collections/0x1923cbaf23b9cd05d541cae24d546deecfe0d998/4" target="_blank" rel="noopener noreferrer"
+                        <!-- Botón de adquirir marsala --><a
+                            href="https://salvor.io/collections/0x1923cbaf23b9cd05d541cae24d546deecfe0d998/4"
+                            target="_blank" rel="noopener noreferrer"
                             class="bg-custom-verde-oliva text-white px-6 py-2 rounded-full font-medium hover:bg-custom-acento-hover hover:text-custom-texto-principal transition-colors shadow-md">Adquirir</a>
                     </div>
 
@@ -574,9 +637,12 @@
                         class="bg-white p-6 rounded-xl shadow-lg text-center transform hover:scale-[1.02] transition duration-300">
                         <img src="img/Beast_nft.PNG" alt="Beast NFT"
                             class="w-full h-64 object-contain rounded-lg mb-4 shadow-md">
-                        <h3 class="text-2xl font-poppins font-semibold mb-2 text-custom-texto-oscuro">Moonlit Temptation</h3>
+                        <h3 class="text-2xl font-poppins font-semibold mb-2 text-custom-texto-oscuro">Moonlit Temptation
+                        </h3>
                         <p class="text-gray-500 mb-4 text-sm">INFT / Edición Limitada</p>
-                        <!-- Botón de adquirir marsala --><a href="https://salvor.io/collections/0x1923cbaf23b9cd05d541cae24d546deecfe0d998/2" target="_blank" rel="noopener noreferrer"
+                        <!-- Botón de adquirir marsala --><a
+                            href="https://salvor.io/collections/0x1923cbaf23b9cd05d541cae24d546deecfe0d998/2"
+                            target="_blank" rel="noopener noreferrer"
                             class="bg-custom-verde-oliva text-white px-6 py-2 rounded-full font-medium hover:bg-custom-acento-hover hover:text-custom-texto-principal transition-colors shadow-md">Adquirir</a>
                     </div>
                 </div>
@@ -584,7 +650,8 @@
         </section>
 
         <!-- Sobre mí (Cita/Perfil) -->
-        <section id="sobre-mi" class="py-20 bg-custom-rosa-seccion relative fade-in-section"> <!-- Fondo rosa medio -->
+        <section id="sobre-mi" class="py-20 bg-custom-rosa-seccion relative fade-in-section">
+            <!-- Fondo rosa medio -->
             <div class="container mx-auto px-6 md:flex items-center gap-12 max-w-5xl">
 
                 <div class="md:w-1/3">
@@ -603,7 +670,7 @@
                         — Daneli • Artista Visual & Desarrolladora Web
                     </p>
 
-                
+
                     <div class="mt-8 text-center md:text-left">
                         <a href="miperfil.html"
                             class="inline-block btn-historia text-base font-semibold uppercase tracking-wider shadow-lg hover:shadow-xl">
@@ -719,9 +786,11 @@
         <div class="container mx-auto px-6 py-8 text-center">
             <div class="flex justify-center space-x-6 mb-4">
                 <!-- Iconos sociales con hover pistacho -->
-                <a href="https://x.com/danelisol?lang=es" class="hover:text-custom-acento-hover transition duration-300 social-icon"><i
+                <a href="https://x.com/danelisol?lang=es"
+                    class="hover:text-custom-acento-hover transition duration-300 social-icon"><i
                         class="fab fa-twitter fa-2x"></i></a>
-                <a href="https://www.linkedin.com/in/danae-talia-gonz%C3%A1lez-carvajal-536333215/" class="hover:text-custom-acento-hover transition duration-300 social-icon"><i
+                <a href="https://www.linkedin.com/in/danae-talia-gonz%C3%A1lez-carvajal-536333215/"
+                    class="hover:text-custom-acento-hover transition duration-300 social-icon"><i
                         class="fab fa-linkedin fa-2x"></i></a>
                 <a href="https://github.com/DaniGonzalez1" target="_blank" rel="noopener noreferrer"
                     class="hover:text-custom-acento-hover transition duration-300 social-icon"><i
