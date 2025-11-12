@@ -386,7 +386,16 @@
                 currentColor = p.lerpColor(currentColor, activeColor, 0.2);
             }
         };
-        new p5(cursorSketch);
+      // --- CAMBIO: Condición para iniciar p5.js ---
+        // Detectar si es un dispositivo táctil O si la pantalla es pequeña (móvil)
+        // Los cursores personalizados no tienen sentido en dispositivos táctiles.
+        const isMobileDevice = ('ontouchstart' in window) || (window.innerWidth <= 768);
+
+        if (!isMobileDevice) {
+            // Solo creamos el cursor de p5 si NO es un dispositivo móvil/táctil
+            new p5(cursorSketch);
+        }
+
 
 
         // --- Animación de Scroll para Secciones y Títulos ---
