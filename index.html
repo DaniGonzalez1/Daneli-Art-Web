@@ -843,7 +843,7 @@
             const requestBody = { "body": { "email": userEmail } };
 
             try {
-                const response = await fetch(API_ENDPOINT, {
+                const response = await fetch(N8N_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(requestBody)
