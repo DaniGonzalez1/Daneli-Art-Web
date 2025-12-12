@@ -1,0 +1,6 @@
+# Configuración para el despliegue en Netlify
+[build]
+  # Directorio que contiene los archivos a desplegar (donde está tu index.html)
+  publish = "."
+  # Directorio donde Netlify buscará las funciones serverless
+  functions = "netlify/functions"

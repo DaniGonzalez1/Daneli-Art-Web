@@ -38,8 +38,6 @@
         }
     </script>
 
-    <!-- p5.js (Usado para el cursor dinámico) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
@@ -48,20 +46,21 @@
         /* Definición de variables CSS para uso directo en el código */
         :root {
             /* Colores de la imagen */
+
             --fondo-rosa-claro: #FBF8F5;
-            /* Crema */
+        
             --rojo-sol: #da355e;
-            /* Texto Verde Oliva -> AHORA MARSALA MÁS VIBRANTE */
+         
             --azul-profundo: #4E6A5E;
-            /* Marsala -> AHORA VERDE CALIPSO */
+      
             --azul-claro: #CB7885;
-            /* Rosa Medio */
+         
             --turquesa: #D4D994;
-            /* Verde Pistacho (Hovers) */
+          
             --texto-oscuro: #4E6A5E;
-            /* Texto Verde Oliva -> AHORA VERDE CALIPSO */
+       
             --rosa-pastel: #CB7885;
-            /* Rosa Medio */
+          
         }
 
         /* Tipografía Base */
@@ -128,18 +127,6 @@
             /* Texto Verde Oliva */
         }
 
-        /* Estilos P5.js */
-
-        #p5-hero-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 9999;
-            pointer-events: none;
-            /* Crucial para hacer click en los botones y enlaces */
-        }
 
         /* Estilos de Galería  */
         .gallery-item {
@@ -334,8 +321,6 @@
 </head>
 
 <body class="antialiased">
-    <!-- MOVIMIENTO DEL CURSOR GLOBAL -->
-    <div id="p5-hero-container"></div>
 
     <!-- Header -->
     <header class="bg-custom-fondo-claro/95 backdrop-blur-md sticky top-0 z-50 shadow-md">
@@ -417,21 +402,16 @@
                 </div>
                 <!-- Composición de Imágenes -->
                 <!-- 
-                    CAMBIOS:
+                   
                     - 'flex-col': Apila las columnas en mobile (por defecto).
                     - 'md:flex-row': Las vuelve a poner en fila en desktop.
                     - 'md:items-start': Alinea al top en desktop (se ve mejor que centradas).
                 -->
-                <!-- CAMBIO: Añadida animación de fade-in al cargar -->
+              
                 <div
                     class="flex flex-col md:flex-row justify-center items-center md:items-start gap-6 w-full fade-in-on-load fade-in-delay-2">
 
-                    <!-- 
-                        CAMBIOS:
-                        - 'w-5/6': (Antes w-full) Ahora es un poco más pequeño en mobile.
-                        - 'sm:w-3/4': 75% en pantallas 'sm'.
-                        - 'md:w-1/4': Mantiene tu 25% original para desktop.
-                    -->
+                
                     <!-- Columna Izquierda -->
                     <div class="w-5/6 sm:w-3/4 md:w-1/4 flex flex-col gap-4">
                         <div class="transform transition-transform duration-300 hover:scale-105 rounded-lg shadow-lg">
@@ -444,12 +424,6 @@
                         </div>
                     </div>
 
-                    <!-- 
-                        CAMBIOS:
-                        - 'w-5/6': (Antes w-full) Ahora es un poco más pequeño en mobile.
-                        - 'sm:w-3/4': 75% en pantallas 'sm'.
-                        - 'md:w-2/5': Mantiene tu 40% (w-2-5) para desktop.
-                    -->
                     <!-- Columna Central (Imagen Principal) -->
                     <div class="w-5/6 sm:w-3/4 md:w-2/5 flex flex-col gap-4">
                         <div
@@ -463,12 +437,7 @@
                         </div>
                     </div>
 
-                    <!-- 
-                        CAMBIOS:
-                        - 'w-5/6': (Antes w-full) Ahora es un poco más pequeño en mobile.
-                        - 'sm:w-3/4': 75% en pantallas 'sm'.
-                        - 'md:w-1/4': Mantiene tu 25% original para desktop.
-                    -->
+                
                     <!-- Columna Derecha -->
                     <div class="w-5/6 sm:w-3/4 md:w-1/4 flex flex-col gap-4">
                         <div class="transform transition-transform duration-300 hover:scale-105 rounded-lg shadow-lg">
@@ -716,6 +685,7 @@
         </section>
 
         <!-- Contacto --><!-- Fondo marsala -->
+
         <section id="contacto" class="pt-40 pb-20 bg-custom-verde-oliva fade-in-section relative overflow-hidden">
 
             <!-- ICONOS DE FONDO DECORATIVOS --><i
@@ -749,6 +719,7 @@
                     ¿Tienes una idea para un proyecto o una comisión? ¡Me encantaría saber de ti!
                 </p>
                 <!-- Formulario -->
+
                 <form id="contact-form" class="max-w-lg mx-auto text-left">
                     <div class="mb-4">
                         <label for="name" class="block text-gray-100 mb-2 font-poppins text-sm">Nombre</label>
@@ -764,9 +735,9 @@
                     </div>
                     <div class="mb-6">
                         <label for="message" class="block text-gray-100 mb-2 font-poppins text-sm">Mensaje</label>
-                        <textarea id="message" name="message" rows="5"
+                        <textarea id="message" name="message" rows="5" maxlength="1000"
                             class="w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-custom-acento-hover focus:ring-opacity-80 shadow-md text-custom-texto-oscuro"
-                            required></textarea>
+                            placeholder="Escribe tu mensaje aquí (máximo 1000 caracteres)..." required></textarea>
                     </div>
                     <div class="text-center">
                         <!-- Botón ENVIAR MENSAJE con estilo transparente/bordeado INVERSO (hover pistacho) --><button
@@ -819,78 +790,7 @@
         }
 
 
-        // -- P5.js Sketch 1: Cursor que Cambia de Color (Global) ---
-        const cursorSketch = (p) => {
-            let currentColor;
-            // Definición de colores base (Verde Oliva y Pistacho)
-            const COLORS = {
-                // Verde Oliva
-                DEEP_BLUE: p.color(78, 106, 94, 150), // #4E6A5E
-                // Pistacho
-                LIGHT_PINK: p.color(212, 217, 148, 150) // #D4D994
-            };
-
-            p.setup = function () {
-                let container = document.getElementById('p5-hero-container');
-                p.createCanvas(window.innerWidth, window.innerHeight).parent(container);
-                p.noStroke();
-                p.angleMode(p.DEGREES);
-                currentColor = COLORS.DEEP_BLUE; // Inicia con el color verde oliva
-            };
-
-            p.draw = function () {
-                p.clear();
-                p.fill(currentColor);
-                p.ellipse(p.mouseX, p.mouseY, 40, 40);
-                checkSectionColor();
-            };
-
-            p.windowResized = function () {
-                p.resizeCanvas(window.innerWidth, window.innerHeight);
-            };
-
-            // Función principal para determinar el color del cursor
-            function checkSectionColor() {
-                const windowHeight = window.innerHeight;
-
-                // El cursor será verde oliva en todas las secciones claras
-                // y pistacho en la sección de contacto (marsala)
-                const sectionsMap = {
-                    'inicio': COLORS.DEEP_BLUE,
-                    'galeria': COLORS.DEEP_BLUE,
-                    'broches': COLORS.DEEP_BLUE, // Fondo crema
-                    'sobre-mi': COLORS.DEEP_BLUE, // Fondo rosa medio
-                    'newsletter': COLORS.DEEP_BLUE, // Fondo crema
-                    'contacto': COLORS.LIGHT_PINK, // Fondo marsala, cursor pistacho
-                };
-
-                let activeColor = COLORS.DEEP_BLUE; // Default
-
-                for (const id in sectionsMap) {
-                    const section = document.getElementById(id);
-                    if (section) {
-                        const rect = section.getBoundingClientRect();
-                        if (rect.top <= windowHeight / 2 && rect.bottom >= windowHeight / 2) {
-                            activeColor = sectionsMap[id];
-                            break;
-                        }
-                    }
-                }
-
-                // Transición suave entre colores
-                currentColor = p.lerpColor(currentColor, activeColor, 0.2);
-            }
-        };
-       // --- CAMBIO: Condición para iniciar p5.js ---
-        // Detectar si es un dispositivo táctil O si la pantalla es pequeña (móvil)
-        // Los cursores personalizados no tienen sentido en dispositivos táctiles.
-        const isMobileDevice = ('ontouchstart' in window) || (window.innerWidth <= 768);
-
-        if (!isMobileDevice) {
-            // Solo creamos el cursor de p5 si NO es un dispositivo móvil/táctil
-            new p5(cursorSketch);
-        }
-
+       
 
         // --- Animación de Scroll para Secciones y Títulos ---
         const sections = document.querySelectorAll('.fade-in-section');
@@ -927,7 +827,7 @@
         });
 
         // --- Manejo de Newsletter ---
-        const API_ENDPOINT = ''; // API N8N
+        const N8N_URL =  "/.netlify/functions/secure-proxy"; // API N8N
         const form = document.getElementById('newsletter-form');
         const emailInput = document.getElementById('email-newsletter');
         const successMessage = document.getElementById('success-message');
