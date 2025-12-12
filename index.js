@@ -1,8 +1,21 @@
-// index.js - Configuración con Puerto 587 para máxima compatibilidad
+// index.js - Solución definitiva para Timeouts en Render (IPv4)
 
 const express = require('express');
 const nodemailer = require('nodemailer');
 const cors = require('cors');
+// 1. Importamos la librería de sistema DNS
+const dns = require('dns'); 
+
+// 2. PARCHE MÁGICO: Obligamos a Node.js a usar IPv4
+// Esto evita que Render intente usar IPv6 y se quede colgado
+try {
+    if (dns.setDefaultResultOrder) {
+        dns.setDefaultResultOrder('ipv4first');
+    }
+} catch (e) {
+    console.log('Versión de Node antigua, omitiendo configuración DNS');
+}
+
 require('dotenv').config();
 
 const app = express();
@@ -10,18 +23,16 @@ const app = express();
 app.use(express.json());
 app.use(cors()); 
 
-// --- CAMBIO: PUERTO 587 (STARTTLS) ---
-// Si el puerto 465 da timeout, el 587 es la alternativa estándar.
+// 3. Volvemos a la configuración "service: gmail"
+// Ahora que forzamos IPv4, esta es la forma más segura y compatible
 const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 587,
-    secure: false, // OJO: Debe ser false para el puerto 587
+    service: 'gmail',
     auth: {
         user: process.env.EMAIL_USER, 
         pass: process.env.EMAIL_PASS  
     },
     tls: {
-        rejectUnauthorized: false
+        rejectUnauthorized: false // Sigue ayudando con los certificados
     }
 });
 
@@ -31,7 +42,8 @@ app.get('/', (req, res) => {
 
 app.post('/send-email', async (req, res) => {
     const { nombre, email, mensaje } = req.body;
-    console.log(`Intentando enviar correo de: ${nombre}...`);
+    console.log(`\n📨 Recibiendo solicitud de: ${nombre}`);
+    console.log(`   Email: ${email}`);
 
     const mailOptions = {
         from: process.env.EMAIL_USER,
@@ -46,11 +58,12 @@ app.post('/send-email', async (req, res) => {
     };
 
     try {
+        console.log('🚀 Intentando conectar con Gmail...');
         await transporter.sendMail(mailOptions);
         console.log('✅ ¡Correo enviado con éxito!');
         res.status(200).json({ status: 'success', message: 'Correo enviado' });
     } catch (error) {
-        console.error('❌ Error enviando correo:', error);
+        console.error('❌ Error fatal enviando correo:', error);
         res.status(500).json({ status: 'error', message: 'Error al enviar correo', error: error.message });
     }
 });
@@ -58,4 +71,5 @@ app.post('/send-email', async (req, res) => {
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`\n🚀 Servidor listo en el puerto ${PORT}`);
+    console.log('   Modo IPv4 Forzado activado\n');
 });
