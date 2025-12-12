@@ -1,53 +1,55 @@
-// index.js - Solución definitiva para Timeouts en Render (IPv4)
+// index.js - Configuración con IPv4 forzado a nivel de socket
 
 const express = require('express');
 const nodemailer = require('nodemailer');
 const cors = require('cors');
-// 1. Importamos la librería de sistema DNS
-const dns = require('dns'); 
-
-// 2. PARCHE MÁGICO: Obligamos a Node.js a usar IPv4
-// Esto evita que Render intente usar IPv6 y se quede colgado
-try {
-    if (dns.setDefaultResultOrder) {
-        dns.setDefaultResultOrder('ipv4first');
-    }
-} catch (e) {
-    console.log('Versión de Node antigua, omitiendo configuración DNS');
-}
-
 require('dotenv').config();
 
 const app = express();
-
 app.use(express.json());
-app.use(cors()); 
+app.use(cors());
 
-// 3. Volvemos a la configuración "service: gmail"
-// Ahora que forzamos IPv4, esta es la forma más segura y compatible
+// CONFIGURACIÓN TRANSPORTE
 const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true, // Usamos SSL
     auth: {
-        user: process.env.EMAIL_USER, 
-        pass: process.env.EMAIL_PASS  
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
     },
+    // --- AQUÍ ESTÁ EL TRUCO ---
+    // family: 4 obliga a usar IPv4 y prohíbe IPv6.
+    // Esto evita que Render intente conectar por la vía que suele fallar.
+    family: 4, 
     tls: {
-        rejectUnauthorized: false // Sigue ayudando con los certificados
+        rejectUnauthorized: false
+    },
+    // Tiempos de espera para no colgar el servidor
+    connectionTimeout: 10000, 
+    greetingTimeout: 5000
+});
+
+// Verificación al iniciar
+transporter.verify((error, success) => {
+    if (error) {
+        console.error('🔴 Error de conexión al iniciar:', error);
+    } else {
+        console.log('🟢 Conexión con Gmail establecida (Modo IPv4)');
     }
 });
 
 app.get('/', (req, res) => {
-    res.send('Servidor de Email funcionando correctamente 🚀');
+    res.send('Servidor funcionando (IPv4 Force Mode) 🚀');
 });
 
 app.post('/send-email', async (req, res) => {
     const { nombre, email, mensaje } = req.body;
-    console.log(`\n📨 Recibiendo solicitud de: ${nombre}`);
-    console.log(`   Email: ${email}`);
+    console.log(`\n📨 Mensaje de: ${nombre} (${email})`);
 
     const mailOptions = {
         from: process.env.EMAIL_USER,
-        to: process.env.EMAIL_USER, 
+        to: process.env.EMAIL_USER,
         subject: `✨ Nuevo mensaje de: ${nombre}`,
         html: `
             <h3>Nuevo mensaje desde tu Portafolio</h3>
@@ -58,18 +60,16 @@ app.post('/send-email', async (req, res) => {
     };
 
     try {
-        console.log('🚀 Intentando conectar con Gmail...');
         await transporter.sendMail(mailOptions);
-        console.log('✅ ¡Correo enviado con éxito!');
+        console.log('✅ Enviado correctamente');
         res.status(200).json({ status: 'success', message: 'Correo enviado' });
     } catch (error) {
-        console.error('❌ Error fatal enviando correo:', error);
+        console.error('❌ Error al enviar:', error);
         res.status(500).json({ status: 'error', message: 'Error al enviar correo', error: error.message });
     }
 });
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`\n🚀 Servidor listo en el puerto ${PORT}`);
-    console.log('   Modo IPv4 Forzado activado\n');
+    console.log(`\n🚀 Servidor listo en puerto ${PORT}`);
 });
