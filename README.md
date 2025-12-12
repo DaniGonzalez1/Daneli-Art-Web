@@ -9,13 +9,11 @@ Este es un portafolio digital hecho 100% por mí. Es una web estática para el f
 
     🎨 Animaciones con p5.js: La web reacciona a tus movimientos.
 
-    🖼️ Galería con "Storytelling": Te cuento el proceso creativo detrás de cada obra.
-
-    🛒 Tienda de NFTs: Un portal simple que te lleva a mis colecciones en marketplaces seguros.
+    🖼️ Galería y "Storytelling": Te cuento el proceso creativo detrás de cada obra.
 
     📱 Diseño Adaptable: Hecho con Tailwind CSS para que se vea bien en cualquier pantalla.
 
-    🚀 Backend Propio ( en construcción): El formulario de contacto funciona con un servidor propio hecho en Spring Boot.
+    🚀 Backend Propio: El formulario de contacto funciona con un servidor propio hecho en Express/ Node js.
 
 Tecnologías que usé
 
@@ -31,7 +29,7 @@ Tecnologías que usé
 
     Backend:
 
-        Spring Boot: Entorno de ejecución para el servidor.
+        Express/ Node js: Entorno de ejecución para el servidor.
 
         Nodemailer: Para el envío de correos desde el servidor.
 
@@ -39,9 +37,9 @@ Tecnologías que usé
 
         GitHub: Para guardar el código.
 
-        [Netlify / Vercel ]: Para el hosting del frontend.
+        [Netlify]: Para el hosting del frontend.
 
-        [Heroku / Render ]: Para el hosting del backend.
+        [Render]: Para el hosting del backend.
 
 
 
