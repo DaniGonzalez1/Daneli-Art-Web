@@ -1,4 +1,4 @@
-// index.js - Configuración específica para evitar Timeouts en Render
+// index.js - Configuración con Puerto 587 para máxima compatibilidad
 
 const express = require('express');
 const nodemailer = require('nodemailer');
@@ -10,18 +10,18 @@ const app = express();
 app.use(express.json());
 app.use(cors()); 
 
-// --- CAMBIO IMPORTANTE: CONFIGURACIÓN SEGURA ---
-// Usamos el puerto 465 (SSL) explícitamente para evitar bloqueos en la nube
+// --- CAMBIO: PUERTO 587 (STARTTLS) ---
+// Si el puerto 465 da timeout, el 587 es la alternativa estándar.
 const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com', // Servidor de Gmail
-    port: 465,              // Puerto seguro SSL
-    secure: true,           // true para el puerto 465
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false, // OJO: Debe ser false para el puerto 587
     auth: {
         user: process.env.EMAIL_USER, 
         pass: process.env.EMAIL_PASS  
     },
     tls: {
-        rejectUnauthorized: false // Ayuda a evitar errores de certificados
+        rejectUnauthorized: false
     }
 });
 
