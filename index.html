@@ -749,7 +749,7 @@
                     ¿Tienes una idea para un proyecto o una comisión? ¡Me encantaría saber de ti!
                 </p>
                 <!-- Formulario -->
-                <form action="" method="POST" class="max-w-lg mx-auto text-left">
+                <form id="contact-form" class="max-w-lg mx-auto text-left">
                     <div class="mb-4">
                         <label for="name" class="block text-gray-100 mb-2 font-poppins text-sm">Nombre</label>
                         <input type="text" id="name" name="name"
@@ -963,6 +963,56 @@
 
             }
         });
+
+        // --- Lógica del Formulario de Contacto (Backend Node.js) ---
+            const contactForm = document.getElementById('contact-form');
+
+            if (contactForm) {
+                contactForm.addEventListener('submit', async function (e) {
+                    e.preventDefault(); // Evita que la página se recargue
+
+                    // 1. Capturamos los datos de los inputs
+                    const formData = {
+                        nombre: document.getElementById('name').value,
+                        email: document.getElementById('email').value,
+                        mensaje: document.getElementById('message').value
+                    };
+
+                    // Cambiamos el texto del botón para dar feedback visual
+                    const submitBtn = contactForm.querySelector('button[type="submit"]');
+                    const originalBtnText = submitBtn.innerText;
+                    submitBtn.innerText = "Enviando...";
+                    submitBtn.disabled = true;
+
+                    try {
+                        // 2. Enviamos los datos al backend (Asegúrate de que tu backend corra en el puerto 3000)
+                        const response = await fetch('http://localhost:3000/send-email', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(formData)
+                        });
+
+                        const result = await response.json();
+
+                        if (result.status === 'success') {
+                            alert("¡Mensaje enviado con éxito! Me pondré en contacto contigo pronto.");
+                            contactForm.reset(); // Limpia el formulario
+                        } else {
+                            alert("Hubo un error al enviar el mensaje. Por favor intenta de nuevo.");
+                        }
+
+                    } catch (error) {
+                        console.error('Error:', error);
+                        alert("No se pudo conectar con el servidor. Asegúrate de que el backend esté encendido.");
+                    } finally {
+                        // Restauramos el botón
+                        submitBtn.innerText = originalBtnText;
+                        submitBtn.disabled = false;
+                    }
+                });
+            }
 
     </script>
 </body>

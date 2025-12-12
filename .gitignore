@@ -1,0 +1,17 @@
+--- SEGURIDAD (CRÍTICO) ---
+
+Ignorar el archivo con claves secretas
+
+.env
+
+--- LIMPIEZA ---
+
+
+node_modules/
+
+--- SISTEMA ---
+
+Archivos basura de Mac/Windows
+
+.DS_Store
+Thumbs.db
