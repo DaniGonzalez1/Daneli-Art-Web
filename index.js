@@ -1,71 +1,56 @@
-// index.js - Configuración con IPv4 forzado a nivel de socket
+// index.js - Backend que conecta tu web con n8n
+// Este código recibe el formulario y se lo pasa a n8n para que envíe el correo.
 
 const express = require('express');
-const nodemailer = require('nodemailer');
 const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(cors()); 
 
-// CONFIGURACIÓN TRANSPORTE
-const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 465,
-    secure: true, // Usamos SSL
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
-    },
-    // --- AQUÍ ESTÁ EL TRUCO ---
-    // family: 4 obliga a usar IPv4 y prohíbe IPv6.
-    // Esto evita que Render intente conectar por la vía que suele fallar.
-    family: 4, 
-    tls: {
-        rejectUnauthorized: false
-    },
-    // Tiempos de espera para no colgar el servidor
-    connectionTimeout: 10000, 
-    greetingTimeout: 5000
-});
-
-// Verificación al iniciar
-transporter.verify((error, success) => {
-    if (error) {
-        console.error('🔴 Error de conexión al iniciar:', error);
-    } else {
-        console.log('🟢 Conexión con Gmail establecida (Modo IPv4)');
-    }
-});
+//  URL DE N8N 
+const N8N_URL = process.env.N8N_API_KEY;
 
 app.get('/', (req, res) => {
-    res.send('Servidor funcionando (IPv4 Force Mode) 🚀');
+    res.send('Backend Daneli (Conectado a n8n) 🚀');
 });
 
 app.post('/send-email', async (req, res) => {
     const { nombre, email, mensaje } = req.body;
-    console.log(`\n📨 Mensaje de: ${nombre} (${email})`);
+    console.log(`\n📨 Recibiendo mensaje de: ${nombre}`);
 
-    const mailOptions = {
-        from: process.env.EMAIL_USER,
-        to: process.env.EMAIL_USER,
-        subject: `✨ Nuevo mensaje de: ${nombre}`,
-        html: `
-            <h3>Nuevo mensaje desde tu Portafolio</h3>
-            <p><strong>Nombre:</strong> ${nombre}</p>
-            <p><strong>Email:</strong> ${email}</p>
-            <p><strong>Mensaje:</strong> ${mensaje}</p>
-        `
-    };
+    // Validamos que n8n esté configurado
+    if (!N8N_URL) {
+        console.error('❌ Error: Falta la URL de n8n en el archivo .env');
+        return res.status(500).json({ status: 'error', message: 'Error de configuración en el servidor' });
+    }
 
     try {
-        await transporter.sendMail(mailOptions);
-        console.log('✅ Enviado correctamente');
-        res.status(200).json({ status: 'success', message: 'Correo enviado' });
+        // En lugar de enviar el correo nosotros, le pedimos a n8n que lo haga
+        // Esto es mucho más rápido y no da errores de Timeout en Render.
+        const response = await fetch(N8N_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                nombre: nombre,
+                email: email,
+                mensaje: mensaje,
+                fecha: new Date().toLocaleString()
+            })
+        });
+
+        if (response.ok) {
+            console.log('✅ Datos enviados a n8n correctamente');
+            res.status(200).json({ status: 'success', message: 'Mensaje procesado' });
+        } else {
+            console.error('⚠️ n8n respondió con error:', response.status);
+            res.status(500).json({ status: 'error', message: 'Error al procesar mensaje' });
+        }
+
     } catch (error) {
-        console.error('❌ Error al enviar:', error);
-        res.status(500).json({ status: 'error', message: 'Error al enviar correo', error: error.message });
+        console.error('❌ Error de conexión con n8n:', error);
+        res.status(500).json({ status: 'error', message: 'Error de conexión', error: error.message });
     }
 });
 
