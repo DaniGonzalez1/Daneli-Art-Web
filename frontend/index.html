@@ -700,39 +700,49 @@
         sections.forEach(section => observer.observe(section));
         h2Titles.forEach(h2 => h2Observer.observe(h2));
 
-        // --- Newsletter Logic (Sin cambios de lógica) ---
-        const N8N_URL = "/.netlify/functions/secure-proxy";
-        const form = document.getElementById('newsletter-form');
-        const emailInput = document.getElementById('email-newsletter');
-        const successMessage = document.getElementById('success-message');
-        const errorMessage = document.getElementById('error-message');
+        // --- Newsletter Logic ---
+       const newsletterForm = document.getElementById('newsletter-form');
 
-        form.addEventListener('submit', async function (event) {
-            event.preventDefault();
-            successMessage.classList.add('hidden');
-            errorMessage.classList.add('hidden');
+        if (newsletterForm) {
+            const emailInput = document.getElementById('email-newsletter');
+            const successMessage = document.getElementById('success-message');
+            const errorMessage = document.getElementById('error-message');
 
-            const userEmail = emailInput.value;
-            const requestBody = { "body": { "email": userEmail } };
+            newsletterForm.addEventListener('submit', async function (event) {
+                event.preventDefault();
 
-            try {
-                const response = await fetch(N8N_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(requestBody)
-                });
-                if (response.ok) {
-                    successMessage.classList.remove('hidden');
-                    form.reset();
-                } else {
+                // Ocultamos mensajes previos
+                successMessage.classList.add('hidden');
+                errorMessage.classList.add('hidden');
+
+                const userEmail = emailInput.value;
+                const requestBody = { email: userEmail }; // JSON simple { email: "..." }
+
+                try {
+                    // Enviamos a la ruta /newsletter del backend
+                    const response = await fetch(`${BACKEND_URL}/newsletter`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(requestBody)
+                    });
+
+                    if (response.ok) {
+                        successMessage.classList.remove('hidden');
+                        newsletterForm.reset();
+                    } else {
+                        errorMessage.innerText = "Error al suscribirse. Intenta de nuevo.";
+                        errorMessage.classList.remove('hidden');
+                    }
+                } catch (error) {
+                    console.error('❌ Error newsletter:', error);
+                    errorMessage.innerText = "Error de conexión.";
                     errorMessage.classList.remove('hidden');
                 }
-            } catch (error) {
-                errorMessage.classList.remove('hidden');
-            }
-        });
+            });
+        }
 
-        // --- Contact Form Logic (Sin cambios de lógica) ---
+
+        // --- Contact Form Logic ---
         const contactForm = document.getElementById('contact-form');
         if (contactForm) {
             contactForm.addEventListener('submit', async function (e) {
