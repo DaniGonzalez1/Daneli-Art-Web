@@ -1,26 +1,73 @@
-// index.js - Backend con Zona Horaria y Newsletter
+// index.js - Backend Seguro (CORS + Anti-Spam) con Zona Horaria y Newsletter
 
 const express = require('express');
 const cors = require('cors');
+const rateLimit = require('express-rate-limit'); // Nueva librería de seguridad
 require('dotenv').config();
 
 const app = express();
 
-// Middleware
+// ==========================================
+// 1. SEGURIDAD: CONFIGURACIÓN DE CORS
+// ==========================================
+// Lista de sitios permitidos (Tu Netlify y tu Localhost)
+const allowedOrigins = [
+    'https://daneli-art.netlify.app', // Tu frontend en producción
+    'http://localhost:3000',          // Tu backend local
+    'http://127.0.0.1:5500',          // Live Server de VS Code
+    'http://localhost:5500'           // Live Server alternativo
+];
+
+app.use(cors({
+    origin: function (origin, callback) {
+        // !origin permite peticiones sin origen (como desde Postman local o server-to-server)
+        // Si quieres bloquear Postman en prod, quita "|| !origin"
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            console.log("🚫 Bloqueado por CORS:", origin);
+            callback(new Error('Acceso bloqueado por seguridad (CORS)'));
+        }
+    }
+}));
+
 app.use(express.json());
-app.use(cors()); 
+
+// ==========================================
+// 2. SEGURIDAD: LIMITADOR DE VELOCIDAD (Anti-Spam)
+// ==========================================
+// Regla: Máximo 10 peticiones cada 15 minutos por IP
+const spamLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutos
+    max: 10, // Límite de 10 intentos
+    message: { 
+        status: 'error', 
+        message: 'Has enviado demasiadas solicitudes. Por favor espera 15 minutos.' 
+    },
+    standardHeaders: true, // Devuelve info en los headers `RateLimit-*`
+    legacyHeaders: false,
+});
+
+// Aplicamos el candado anti-spam a las rutas de envío
+app.use('/send-email', spamLimiter);
+app.use('/newsletter', spamLimiter);
+
+
+// ==========================================
+// LÓGICA DEL SERVIDOR
+// ==========================================
 
 // 1. URL para Formulario de Contacto
 const N8N_CONTACTO_URL = process.env.N8N_API_KEY;
 
-// 2. NUEVA URL para Newsletter (Asegúrate de agregarla en tu .env y en Render)
+// 2. URL para Newsletter
 const N8N_NEWSLETTER_URL = process.env.N8N_NEWSLETTER_URL;
 
 app.get('/', (req, res) => {
-    res.send('Backend Daneli funcionando (Contacto + Newsletter) 🚀');
+    res.send('Backend Daneli Seguro 🔒 funcionando (Contacto + Newsletter) 🚀');
 });
 
-// --- RUTA 1: Formulario de Contacto (Existente) ---
+// --- RUTA 1: Formulario de Contacto ---
 app.post('/send-email', async (req, res) => {
     const { nombre, email, mensaje } = req.body;
     
@@ -58,9 +105,8 @@ app.post('/send-email', async (req, res) => {
     }
 });
 
-// --- RUTA 2: Suscripción a Newsletter (NUEVA) ---
+// --- RUTA 2: Suscripción a Newsletter ---
 app.post('/newsletter', async (req, res) => {
-    // Generalmente para newsletter solo pedimos email, pero puedes pedir nombre si quieres
     const { email } = req.body;
     
     console.log(`\n📰 Nueva suscripción a Newsletter: ${email}`);
@@ -107,5 +153,5 @@ app.post('/newsletter', async (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`\n🚀 Servidor listo en puerto ${PORT}`);
+    console.log(`\n🚀 Servidor seguro listo en puerto ${PORT}`);
 });
