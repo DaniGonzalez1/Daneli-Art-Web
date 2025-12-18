@@ -4,150 +4,188 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daneli - Artista & Desarrolladora</title>
 
-    <!-- Carga de Tailwind CSS con JIT para personalización -->
+    <!-- SEO BÁSICO -->
+    <title>Daneli - Artista Visual & Desarrolladora Web | Arte Digital & IA</title>
+    <meta name="description"
+        content="Portafolio oficial de Daneli. Fusión de arte digital, inteligencia artificial y desarrollo web. Explora colecciones NFT, ilustraciones y proyectos interactivos.">
+    <meta name="keywords"
+        content="Daneli Artist, Arte Digital, IA Generativa, Desarrollo Web, NFT, Diseño UI/UX, Ilustración, Frontend Developer">
+    <meta name="author" content="Daneli">
+    <meta name="robots" content="index, follow">
+
+    <!-- URL CANÓNICA -->
+    <link rel="canonical" href="https://daneli-art-web.onrender.com/">
+
+    <!-- OPEN GRAPH -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://daneli-art-web.onrender.com/">
+    <meta property="og:title" content="Daneli - Artista Visual & Desarrolladora Web">
+    <meta property="og:description"
+        content="Donde la estética digital y la lógica se encuentran. Descubre mi portafolio de arte y código.">
+    <meta property="og:image" content="img/ilustracionhome.jpg">
+    <meta property="og:image:alt" content="Ilustración digital principal de Daneli">
+
+    <!-- TWITTER CARDS -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Daneli - Artista Visual & Desarrolladora Web">
+    <meta name="twitter:description"
+        content="Donde la estética digital y la lógica se encuentran. Descubre mi portafolio.">
+    <meta name="twitter:image" content="img/ilustracionhome.jpg">
+
+    <!-- FAVICON -->
+    <link rel="icon" href="img/logo-principal-arte-digital.png" type="image/png">
+
+    <!-- Carga de Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+
     <!-- Carga de Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:wght@300;400;600&family=Playwrite+IT+Moderna:wght@400&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:wght@300;400;500;600&display=swap"
         rel="stylesheet">
 
     <script>
-        // Definición de la NUEVA PALETA DE COLORES (Marsala, Rosa, Pistacho, Oliva)
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-
-                        'custom-fondo-claro': '#FBF8F5', // Crema suave 
-                        'custom-texto-principal': '#da355e',
-                        'custom-verde-oliva': '#4E6A5E', // VERDE CALIPSO
-                        'custom-rosa-palido': '#CB7885', // Rosa Medio (Acento)
-                        'custom-acento-hover': '#D4D994', // Verde Pistacho (Hovers)
-                        'custom-rosa-seccion': '#CB7885', // Rosa Medio (Fondo de sección)
-                        'custom-texto-oscuro': '#4E6A5E', // Verde Oliva 
+                        'brand-bg': '#FFFCF9',
+                        'brand-accent': '#8F1D32',
+                        'brand-dark': '#0F0F0F',
+                        'brand-white': '#FFFFFF',
+                        'brand-muted': '#594A4E',
                     },
                     fontFamily: {
-                        'playfair': ['Playfair Display', 'serif'],
-                        'poppins': ['Poppins', 'sans-serif'],
-                        'playwrite': ['Playwrite IT Moderna', 'cursive'],
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Poppins', 'sans-serif'],
                     },
+                    fontSize: {
+                        'size-1': ['3rem', { lineHeight: '1.1' }],
+                        'size-2': ['1.5rem', { lineHeight: '1.3' }],
+                        'size-3': ['0.95rem', { lineHeight: '1.7' }],
+                        'size-4': ['0.75rem', { letterSpacing: '0.1em', textTransform: 'uppercase' }]
+                    },
+                    borderRadius: {
+                        'none': '0px',
+                    }
                 }
             }
         }
     </script>
 
-
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
     <style>
-        /* Definición de variables CSS para uso directo en el código */
         :root {
-            /* Colores de la imagen */
-
-            --fondo-rosa-claro: #FBF8F5;
-        
-            --rojo-sol: #da355e;
-         
-            --azul-profundo: #4E6A5E;
-      
-            --azul-claro: #CB7885;
-         
-            --turquesa: #D4D994;
-          
-            --texto-oscuro: #4E6A5E;
-       
-            --rosa-pastel: #CB7885;
-          
+            --fondo-web: #FFFCF9;
+            --acento: #8F1D32;
+            --negro: #0F0F0F;
+            --blanco: #FFFFFF;
+            --texto-suave: #594A4E;
         }
 
-        /* Tipografía Base */
         body {
-            background-color: var(--fondo-rosa-claro);
-            color: var(--texto-oscuro);
+            background-color: var(--fondo-web);
+            color: var(--texto-suave);
             scroll-snap-type: y mandatory;
         }
 
-        /* Aplica Scroll Snap a todas las secciones principales */
         main>section {
             scroll-snap-align: start;
         }
 
         h1,
-        h2 {
-            font-family: 'Playfair Display', 'serif';
+        h2,
+        h3 {
+            color: var(--negro);
         }
 
-        h3,
-        h4,
-        h5,
-        h6 {
-            font-family: 'Poppins', 'sans-serif';
+        /* Utilidades de animación */
+        .fade-in-section {
+            opacity: 0 !important;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
 
-
-
-        /* Clases Tailwind usando las variables CSS (necesario para la sombra y bordes no directos) */
-        .bg-custom-azul-profundo {
-            background-color: var(--azul-profundo);
-            /* Marsala */
+        .fade-in-section.is-visible {
+            opacity: 1 !important;
+            transform: translateY(0);
         }
 
-        .text-custom-turquesa {
-            color: var(--turquesa);
-            /* Pistacho */
+        .fade-in-right-h2 {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: opacity 1.2s ease-out, transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
-        .text-custom-azul-profundo {
-            color: var(--azul-profundo);
-            /* Marsala */
+        .fade-in-right-h2.is-visible {
+            opacity: 1;
+            transform: translateX(0);
         }
 
-        .text-custom-rojo-sol {
-            color: var(--rojo-sol);
-            /* Texto Verde Oliva */
+        /* Botones */
+        .btn-base {
+            transition: all 0.3s ease;
+            outline: none;
         }
 
-        .bg-custom-azul-claro {
-            background-color: var(--azul-claro);
-            /* Rosa Medio */
+        .btn-base:focus-visible {
+            box-shadow: 0 0 0 3px rgba(143, 29, 50, 0.5);
         }
 
-        .bg-custom-rojo-suave {
-            background-color: var(--rosa-pastel);
-            /* Rosa Medio */
+        .btn-historia {
+            border: 1px solid var(--negro);
+            color: var(--negro);
+            background-color: transparent;
+            padding: 0.75rem 2rem;
+            border-radius: 0px;
         }
 
-        .hover-bg-turquesa:hover {
-            background-color: var(--turquesa);
-            /* Pistacho */
-            color: var(--texto-oscuro);
-            /* Texto Verde Oliva */
+        .btn-historia:hover {
+            background-color: var(--acento);
+            border-color: var(--acento);
+            color: var(--blanco);
         }
 
+        .btn-contacto-inverso {
+            border: 1px solid var(--blanco);
+            color: var(--blanco);
+            background-color: transparent;
+            padding: 0.75rem 2rem;
+            border-radius: 0px;
+        }
 
-        /* Estilos de Galería  */
+        .btn-contacto-inverso:hover {
+            background-color: var(--fondo-web);
+            color: var(--acento);
+            border-color: var(--fondo-web);
+        }
+
+        .btn-contacto-inverso:focus-visible {
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
+        }
+
+        /* Galería */
         .gallery-item {
             position: relative;
             overflow: hidden;
-            border-radius: 0.75rem;
+            border-radius: 0px;
             transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         .gallery-item:hover {
-            box-shadow: 0 8px 20px -5px oklch(35% 0.1 20 / 0.4);
-            /* Sombra Marsala */
             transform: translateY(-4px);
+            box-shadow: 0 10px 30px -10px rgba(143, 29, 50, 0.15);
         }
 
         .gallery-item img {
-            transition: transform 0.4s ease;
+            transition: transform 0.5s ease;
         }
 
         .gallery-item:hover img {
-            transform: scale(1.05);
+            transform: scale(1.03);
         }
 
         .gallery-overlay {
@@ -155,8 +193,7 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(to top, oklch(35% 0.1 20 / 0.8) 0%, oklch(35% 0.1 20 / 0) 100%);
-            /* Gradiente Marsala */
+            background: rgba(15, 15, 15, 0.95);
             color: white;
             padding: 1.5rem 1rem;
             opacity: 0;
@@ -169,88 +206,10 @@
             transform: translateY(0);
         }
 
-
-        /* Animación de scroll general (Secciones) */
-        .fade-in-section {
-            opacity: 0 !important;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-
-        .fade-in-section.is-visible {
-            opacity: 1 !important;
-            transform: translateY(0);
-        }
-
-        /* ---------------------------------------------------------------------- */
-        /* ANIMACIONES PARA TÍTULOS (H2) */
-        .fade-in-right-h2 {
-            opacity: 0;
-            transform: translateX(-40px);
-            transition: opacity 1.2s ease-out, transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
-        }
-
-        .fade-in-right-h2.is-visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        /* ---------------------------------------------------------------------- */
-
-        /* Estilo para el botón transparente con borde  */
-        .btn-historia {
-            border: 2px solid var(--azul-profundo);
-            /* Marsala */
-            color: var(--azul-profundo);
-            /* Marsala */
-            background-color: transparent;
-            padding: 0.75rem 2rem;
-            border-radius: 9999px;
-            transition: all 0.3s ease;
-            box-shadow: none;
-        }
-
-        /* Estado Hover (fondo marsala) */
-        .btn-historia:hover {
-            background-color: var(--azul-profundo);
-            /* Marsala */
-            color: white;
-            box-shadow: 0 4px 10px var(--azul-profundo);
-        }
-
-        /* Estilo Invertido para fondo oscuro (Contacto) */
-        .btn-contacto-inverso {
-            border: 2px solid white;
-            color: white;
-            background-color: transparent;
-            padding: 0.75rem 2rem;
-            border-radius: 9999px;
-            transition: all 0.3s ease;
-            box-shadow: none;
-        }
-
-        /* Estado Hover para fondo oscuro (Contacto) */
-        .btn-contacto-inverso:hover {
-            background-color: var(--turquesa);
-            /* Pistacho */
-            color: var(--texto-oscuro);
-            /* Texto Verde Oliva */
-            border-color: var(--turquesa);
-            /* Pistacho */
-            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.3);
-        }
-
-        /* --- Micro-Interacciones en Íconos Sociales --- */
-        .social-icon:hover {
-            transform: translateY(-3px);
-            color: var(--turquesa);
-            /* Pistacho */
-        }
-
-        /* Estilo para los iconos de fondo en la sección Contacto */
+        /* Animaciones flotantes */
         .contact-icon-bg {
             position: absolute;
-            color: rgba(255, 255, 255, 0.07);
+            color: rgba(255, 255, 255, 0.05);
             animation: slowFloat 20s infinite ease-in-out;
             pointer-events: none;
         }
@@ -267,12 +226,10 @@
             }
         }
 
-        /* --- NUEVA ANIMACIÓN DE CARGA (FADE-IN) --- */
         @keyframes fadeInOnLoad {
             from {
                 opacity: 0;
                 transform: translateY(15px);
-                /* Sube ligeramente */
             }
 
             to {
@@ -283,11 +240,9 @@
 
         .fade-in-on-load {
             opacity: 0;
-            /* Oculto por defecto hasta que la animación corra */
             animation: fadeInOnLoad 1s ease-out forwards;
         }
 
-        /* Retrasos para la animación de carga */
         .fade-in-delay-1 {
             animation-delay: 0.2s;
         }
@@ -295,89 +250,68 @@
         .fade-in-delay-2 {
             animation-delay: 0.4s;
         }
-
-
-        .gallery-item.is-visible {
-            opacity: 1 !important;
-            transform: translateY(0);
-        }
-
-        .delay-1 {
-            transition-delay: 0.2s;
-        }
-
-        .delay-2 {
-            transition-delay: 0.4s;
-        }
-
-        .delay-3 {
-            transition-delay: 0.6s;
-        }
-
-        .delay-4 {
-            transition-delay: 0.8s;
-        }
     </style>
 </head>
 
-<body class="antialiased">
+<body class="antialiased bg-brand-bg text-brand-muted font-sans selection:bg-brand-accent selection:text-white">
 
     <!-- Header -->
-    <header class="bg-custom-fondo-claro/95 backdrop-blur-md sticky top-0 z-50 shadow-md">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#inicio">
-                <!-- TÍTULO EN TEXTO OSCURO (Verde Oliva) -->
-                <h1 class="text-3xl font-playfair italic text-custom-texto-principal tracking-wide">Daneli Artist</h1>
+    <header class="bg-brand-bg/95 backdrop-blur-md z-50 border-b border-brand-muted/10">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center" aria-label="Navegación principal">
+            <!-- LOGO -->
+            <a href="#inicio" class="focus:outline-none focus:ring-2 focus:ring-brand-accent rounded-sm"
+                aria-label="Ir al inicio - Daneli Artist">
+                <img src="img/logo-principal-arte-digital.png"
+                    alt="Logotipo Daneli Artist - Arte Digital y Desarrollo Web" class="h-36 w-auto object-contain">
             </a>
 
-            <div class="hidden md:flex space-x-8 items-center font-poppins text-sm font-light">
-                <a href="#inicio" class="text-gray-700 hover:text-custom-verde-oliva transition">Inicio</a>
+            <!-- MENÚ ESCRITORIO ACTUALIZADO -->
+            <div class="hidden md:flex space-x-8 items-center text-size-4 font-semibold tracking-wider">
+                <a href="#inicio"
+                    class="text-brand-dark hover:text-brand-accent transition focus:outline-none focus:text-brand-accent">INICIO</a>
 
-                <!-- Menú Desplegable de Galería  -->
-                <div class="relative group">
-                    <button
-                        class="text-gray-700 hover:text-custom-verde-oliva transition flex items-center focus:outline-none">
-                        Galería
-                        <i class="fas fa-caret-down ml-1 text-xs"></i>
-                    </button>
-                    <div
-                        class="absolute z-10 hidden group-hover:block bg-white shadow-xl rounded-lg mt-2 w-40 overflow-hidden transition-all duration-300">
-                        <a href="storytelling_main.html"
-                            class="block px-4 py-2 text-sm text-custom-texto-oscuro hover:bg-gray-100">Storytelling</a>
-                        <a href="galeria.html"
-                            class="block px-4 py-2 text-sm text-custom-texto-oscuro hover:bg-gray-100">Portafolio
-                            Completo</a>
-                    </div>
-                </div>
-                <a href="#broches" class="text-gray-700 hover:text-custom-verde-oliva transition">Tienda</a>
-                <a href="animaciones.html" class="text-gray-700 hover:text-custom-verde-oliva transition">Proyectos
-                    Digitales</a>
-                <a href="miperfil.html" class="text-gray-700 hover:text-custom-verde-oliva transition">Mi Perfil</a>
-                <!-- Botón de contacto, hover Pistacho --><a href="#contacto"
-                    class="bg-custom-verde-oliva text-white px-4 py-2 rounded-full hover:bg-custom-acento-hover hover:text-custom-texto-principal transition-colors shadow-lg text-sm">Contáctame</a>
+                <!-- Enlaces Directos Separados -->
+                <a href="galeria.html"
+                    class="text-brand-dark hover:text-brand-accent transition focus:outline-none focus:text-brand-accent">GALERÍA</a>
+
+                <a href="storytelling_main.html"
+                    class="text-brand-dark hover:text-brand-accent transition focus:outline-none focus:text-brand-accent">STORYTELLING</a>
+
+                <a href="#tienda"
+                    class="text-brand-dark hover:text-brand-accent transition focus:outline-none focus:text-brand-accent">TIENDA</a>
+                <a href="animaciones.html"
+                    class="text-brand-dark hover:text-brand-accent transition focus:outline-none focus:text-brand-accent">PROYECTOS</a>
+                <a href="miperfil.html"
+                    class="text-brand-dark hover:text-brand-accent transition focus:outline-none focus:text-brand-accent">PERFIL</a>
+                <!-- Botón de contacto -->
+                <a href="#contacto"
+                    class="bg-brand-accent text-brand-white px-6 py-2 hover:bg-brand-dark transition-colors duration-300 text-size-4 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-accent"
+                    aria-label="Ir a sección de contacto">
+                    CONTACTO
+                </a>
             </div>
 
-            <button id="mobile-menu-button" class="md:hidden text-custom-verde-oliva">
-                <!-- Icono de menú Marsala --><i class="fas fa-bars fa-lg"></i>
+            <button id="mobile-menu-button"
+                class="md:hidden text-brand-accent focus:outline-none focus:ring-2 focus:ring-brand-accent rounded"
+                aria-label="Abrir menú de navegación móvil">
+                <i class="fas fa-bars fa-lg" aria-hidden="true"></i>
             </button>
         </nav>
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 bg-white shadow-inner">
-            <a href="storytelling_main.html"
-                class="block py-2 text-custom-texto-oscuro hover:text-custom-verde-oliva transition">Storytelling</a>
+
+        <!-- Mobile Menu Actualizado -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-6 bg-brand-bg border-b border-brand-muted/10">
             <a href="galeria.html"
-                class="block py-2 text-custom-texto-oscuro hover:text-custom-verde-oliva transition">Portafolio
-                Completo</a>
-            <a href="#broches"
-                class="block py-2 text-custom-texto-oscuro hover:text-custom-verde-oliva transition">Tienda</a>
+                class="block py-3 text-size-4 text-brand-dark hover:text-brand-accent border-b border-brand-muted/5">GALERÍA</a>
+            <a href="storytelling_main.html"
+                class="block py-3 text-size-4 text-brand-dark hover:text-brand-accent border-b border-brand-muted/5">STORYTELLING</a>
+            <a href="#tienda"
+                class="block py-3 text-size-4 text-brand-dark hover:text-brand-accent border-b border-brand-muted/5">TIENDA</a>
             <a href="animaciones.html"
-                class="block py-2 text-custom-texto-oscuro hover:text-custom-verde-oliva transition">Proyectos
-                Digitales</a>
+                class="block py-3 text-size-4 text-brand-dark hover:text-brand-accent border-b border-brand-muted/5">PROYECTOS</a>
             <a href="miperfil.html"
-                class="block py-2 text-custom-texto-oscuro hover:text-custom-verde-oliva transition">Mi
-                Perfil</a>
+                class="block py-3 text-size-4 text-brand-dark hover:text-brand-accent border-b border-brand-muted/5">PERFIL</a>
             <a href="#contacto"
-                class="block mt-4 bg-custom-verde-oliva text-white px-4 py-2 rounded-full hover:bg-custom-acento-hover hover:text-custom-texto-principal transition-colors text-center">Contáctame</a>
+                class="block mt-6 bg-brand-accent text-brand-white px-4 py-3 text-center text-size-4 hover:bg-brand-dark transition-colors">CONTACTAR</a>
         </div>
     </header>
 
@@ -385,298 +319,264 @@
 
         <!-- Hero Section -->
         <section id="inicio"
-            class="relative min-h-screen flex flex-col items-center justify-center text-center overflow-hidden p-4 sm:p-8">
-            <div class="relative z-10 w-full max-w-5xl mx-auto">
-                <!-- Bloque de texto -->
-                <!-- CAMBIO: Añadida animación de fade-in al cargar -->
-                <div class="mb-8 md:mb-12 fade-in-on-load fade-in-delay-1">
-                    <!-- TÍTULO EN TEXTO OSCURO (Verde Oliva) -->
-                    <h1 class="text-6xl md:text-8xl text-custom-texto-principal font-playfair font-extrabold">Daneli
-                        Artist
-                    </h1> <br>
-                    <!-- Subtítulo en Marsala -->
-                    <p class="text-base md:text-lg text-custom-verde-oliva max-w-xl mx-auto italic font-light">
+            class="relative flex flex-col items-center justify-start text-center overflow-hidden px-4 sm:px-8 pt-32 pb-10">
+            <div class="relative z-10 w-full max-w-7xl mx-auto">
+
+                <div class="mb-16 fade-in-on-load fade-in-delay-1">
+                    <h1
+                        class="text-3xl md:text-5xl lg:text-6xl text-brand-accent font-serif font-medium mb-4 leading-tight">
+                        Daneli Artist
+                    </h1>
+                    <div class="w-12 h-px mx-auto mb-6"></div>
+                    <p class="text-size-3 text-brand-muted max-w-xl mx-auto font-light leading-relaxed">
                         Artista de arte IA, código y desarrollo web, creando mundos donde la estética digital y la
                         lógica se encuentran.
                     </p>
                 </div>
-                <!-- Composición de Imágenes -->
-                <!-- 
-                   
-                    - 'flex-col': Apila las columnas en mobile (por defecto).
-                    - 'md:flex-row': Las vuelve a poner en fila en desktop.
-                    - 'md:items-start': Alinea al top en desktop (se ve mejor que centradas).
-                -->
-              
+
+                <!-- 3 Columnas Editoriales - 2 Filas -->
                 <div
-                    class="flex flex-col md:flex-row justify-center items-center md:items-start gap-6 w-full fade-in-on-load fade-in-delay-2">
+                    class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 w-full fade-in-on-load fade-in-delay-2 text-left items-start">
 
-                
+                    <!-- COLUMNA 1 -->
+                    <div class="flex flex-col gap-12">
+                        <div class="group">
+                            <div class="w-full overflow-hidden mb-3 aspect-[16/9]">
+                                <img src="img/dulce-amanecer-arte-digital.png" alt="Obra de arte digital Dulce Amanecer"
+                                    class="w-full h-full object-cover hover:scale-105 transition duration-700 ease-in-out">
+                            </div>
+                            <h3
+                                class="font-serif text-xl italic text-brand-dark group-hover:text-brand-accent transition-colors">
+                                Dulce Amanecer</h3>
+                        </div>
+
+                        <div class="group">
+                            <div class="w-full overflow-hidden mb-3 aspect-[16/9]">
+                                <img src="img/alegria-animal.png" alt="Obra Calma Felina Digital"
+                                    class="w-full h-full object-cover hover:scale-105 transition duration-700 ease-in-out">
+                            </div>
+                            <h3
+                                class="font-serif text-xl italic text-brand-dark group-hover:text-brand-accent transition-colors">
+                                Calma Felina</h3>
+                        </div>
+                    </div>
+
+                    <!-- COLUMNA 2 -->
+                    <div class="flex flex-col gap-12">
+                        <div class="group">
+                            <div class="w-full overflow-hidden mb-3 aspect-[16/9]">
+                                <img src="img/campos-de-amor-arte-digital.png" alt="Obra digital campos de amor"
+                                    class="w-full h-full object-cover hover:scale-105 transition duration-700 ease-in-out">
+                            </div>
+                            <h3
+                                class="font-serif text-xl italic text-brand-dark group-hover:text-brand-accent transition-colors">
+                                Caminata de Amor</h3>
+                        </div>
+
+                        <div class="group">
+                            <div class="w-full overflow-hidden mb-3 aspect-[16/9]">
+                                <img src="img/tocar-pasto-arte-digital.png" alt="Ilustración Melancolía Urbana"
+                                    class="w-full h-full object-cover hover:scale-105 transition duration-700 ease-in-out">
+                            </div>
+                            <h3
+                                class="font-serif text-xl italic text-brand-dark group-hover:text-brand-accent transition-colors">
+                                Tocar Pasto</h3>
+                        </div>
+                    </div>
+
+                    <!-- COLUMNA 3 -->
+                    <div class="flex flex-col gap-12">
+                        <div class="group">
+                            <div class="w-full overflow-hidden mb-3 aspect-[16/9]">
+                                <img src="img/huevos-naturales-arte-digital.png" alt="Obra conceptual Calma Costera"
+                                    class="w-full h-full object-cover hover:scale-105 transition duration-700 ease-in-out">
+                            </div>
+                            <h3
+                                class="font-serif text-xl italic text-brand-dark group-hover:text-brand-accent transition-colors">
+                                Comer y Rezar</h3>
+                        </div>
+
+                        <div class="group">
+                            <div class="w-full overflow-hidden mb-3 aspect-[16/9]">
+                                <img src="img/desayunar-arte-digital.png" alt="Obra digital Guardián Blanco"
+                                    class="w-full h-full object-cover hover:scale-105 transition duration-700 ease-in-out">
+                            </div>
+                            <h3
+                                class="font-serif text-xl italic text-brand-dark group-hover:text-brand-accent transition-colors">
+                                Rutina de Amor</h3>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- HR Full Width -->
+        <div class="w-full">
+            <hr class="w-full border-t border-brand-muted/10 my-16" />
+        </div>
+
+        <!-- Storytelling / Sobre mí -->
+        <section id="galeria" class="py-16 fade-in-section">
+            <div class="container mx-auto px-6 lg:px-20">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+
                     <!-- Columna Izquierda -->
-                    <div class="w-5/6 sm:w-3/4 md:w-1/4 flex flex-col gap-4">
-                        <div class="transform transition-transform duration-300 hover:scale-105 rounded-lg shadow-lg">
-                            <img src="img/3eifel.png" alt="Ilustración de Daneli 1"
-                                class="w-full h-full object-cover rounded-lg">
-                        </div>
-                        <div class="transform transition-transform duration-300 hover:scale-105 rounded-lg shadow-lg">
-                            <img src="img/8sadmetro.png" alt="Ilustración de Daneli 2"
-                                class="w-full h-full object-cover rounded-lg">
-                        </div>
-                    </div>
+                    <div class="flex flex-col items-start gap-6">
+                        <h2 class="text-3xl md:text-4xl font-serif text-brand-accent leading-tight">
+                            Sobre Mí
+                        </h2>
 
-                    <!-- Columna Central (Imagen Principal) -->
-                    <div class="w-5/6 sm:w-3/4 md:w-2/5 flex flex-col gap-4">
-                        <div
-                            class="rounded-xl shadow-2xl overflow-hidden transform transition-transform duration-300 hover:scale-[1.03]">
-                            <img src="img/ilustracionhome.jpg" alt="Ilustración principal de Daneli"
-                                class="w-full h-full object-cover">
-                        </div>
-                        <div class="transform transition-transform duration-300 hover:scale-105 rounded-lg shadow-lg">
-                            <img src="img/2catwhite.png" alt="Ilustración secundaria de Daneli"
-                                class="w-full h-full object-cover rounded-lg">
-                        </div>
-                    </div>
-
-                
-                    <!-- Columna Derecha -->
-                    <div class="w-5/6 sm:w-3/4 md:w-1/4 flex flex-col gap-4">
-                        <div class="transform transition-transform duration-300 hover:scale-105 rounded-lg shadow-lg">
-                            <img src="img/9beach.png" alt="Ilustlración de Daneli 3"
-                                class="w-full h-full object-cover rounded-lg">
-                        </div>
-                        <div class="transform transition-transform duration-300 hover:scale-105 rounded-lg shadow-lg">
-                            <img src="img/1catazul.png" alt="Ilustración de Daneli 4"
-                                class="w-full h-full object-cover rounded-lg">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <div class="w-full flex justify-center">
-            <!-- Línea divisoria Marsala -->
-            <hr class="w-[80%] max-w-8xl border-t border-custom-verde-oliva opacity-40 my-16" />
-        </div>
-
-        <!-- Storytelling/Sección Editorial -->
-        <section id="galeria" class="py-20 fade-in-section">
-            <div class="container mx-auto px-8 lg:px-20">
-
-                <!-- SECCIÓN EDITORIAL: El Storytelling/Sobre mí -->
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start mb-16 md:mb-20">
-
-                    <!-- Columna 1: Etiqueta "Sobre mi" (md:col-span-2) -->
-                    <div class="md:col-span-2">
-                        <p
-                            class="uppercase tracking-widest text-sm text-custom-verde-oliva font-poppins border-b pb-2 border-custom-verde-oliva/20">
-                            Sobre mí
-                        </p>
-                    </div>
-
-                    <!-- Columna 2: Texto Principal (md:col-span-10) -->
-                    <div class="md:col-span-10">
-                        <h1
-                            class="text-xl md:text-3xl font-playfair font-light text-custom-verde-oliva max-w-4xl leading-snug fade-in-right-h2">
+                        <p class="text-xl md:text-2xl font-serif text-brand-dark fade-in-right-h2 leading-tight">
                             Soy Daneli, artista visual y desarrolladora web apasionada por combinar arte y tecnología.
-                            Mi
-                            trabajo une lo análogo y lo digital: desde ilustraciones hasta experiencias web
-                            interactivas. Cada creación es una forma de contar historias que conectan emoción y diseño,
-                            imaginación y código.
-                        </h1>
+                            Mi trabajo une lo análogo y lo digital: desde ilustraciones hasta experiencias web
+                            interactivas.
+                        </p>
+                        <a href="galeria.html"
+                            class="inline-block btn-base btn-historia text-size-4 font-bold tracking-widest uppercase mt-4">
+                            Ver Portafolio <i class="fas fa-arrow-right ml-2" aria-hidden="true"></i>
+                        </a>
                     </div>
-                </div>
 
-                <!-- Galería 2x2 -->
-                <div class="max-w-4xl mx-auto">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
-
-                        <!-- Columna Izquierda -->
-                        <div class="flex flex-col gap-8">
-                            <!-- PIEZA 1 -->
-                            <!-- CAMBIO: Se cambió la etiqueta <a> por <div> para quitar el enlace -->
-                            <div class="gallery-item shadow-lg fade-in-section delay-1">
-                                <img src="img/ilustracion1.png" alt="Ilustración Digital 1"
-                                    class="w-full h-full object-cover aspect-square">
-                                <div class="gallery-overlay text-center">
-                                    <h3 class="text-xl font-semibold">Pieza Original</h3>
-                                    <p class="text-sm font-light">Técnica mixta digital</p>
-                                </div>
-                            </div>
-
-                            <!-- PIEZA 3 -->
-                            <!-- CAMBIO: Se cambió la etiqueta <a> por <div> para quitar el enlace -->
-                            <div class="gallery-item shadow-lg fade-in-section delay-3">
-                                <img src="img/5lonely.png" alt="NFT Artwork"
-                                    class="w-full h-full object-cover aspect-square">
-                                <div class="gallery-overlay text-center">
-                                    <h3 class="text-xl font-semibold">Colección NFT Destacada</h3>
-                                    <p class="text-sm font-light">Disponible en Salvor.io</p>
-                                </div>
-                            </div>
+                    <!-- Columna Derecha -->
+                    <div class="w-full h-full flex justify-center md:justify-end">
+                        <div
+                            class="gallery-item shadow-lg hover:shadow-xl transition-all duration-500 w-full max-w-md bg-brand-white p-3 border border-brand-muted/10">
+                            <img src="img/retrato-sobre-mi-arte-digital.png" alt="Retrato artístico de Daneli"
+                                class="w-full h-auto object-cover aspect-[4/5] md:aspect-square">
                         </div>
-
-                        <!-- Columna Derecha -->
-                        <div class="flex flex-col gap-8">
-                            <!-- PIEZA 2 -->
-                            <!-- CAMBIO: Se cambió la etiqueta <a> por <div> para quitar el enlace -->
-                            <div class="gallery-item shadow-lg fade-in-section delay-2">
-                                <img src="img/4hug.png" alt="Fanart" class="w-full h-full object-cover aspect-square">
-                                <div class="gallery-overlay text-center">
-                                    <h3 class="text-xl font-semibold">Fanart</h3>
-                                    <p class="text-sm font-light">Procreate - Exploración de color</p>
-                                </div>
-                            </div>
-
-                            <!-- BLOQUE DE CITA (Ahora con fondo rosa medio) -->
-                            <div
-                                class="aspect-square w-full flex justify-center items-center p-8 bg-custom-rosa-palido/20 rounded-lg fade-in-section delay-4">
-                                <blockquote
-                                    class="text-2xl text-center font-playfair font-light text-custom-texto-principal italic leading-snug">
-                                    “Mi alma se siente en calma cuando hay arte.”
-                                </blockquote>
-                            </div>
-                        </div>
-
                     </div>
-                </div>
 
-                <div class="text-center mt-16">
-                    <!-- Botón "Ver Portafolio Completo" con estilo marsala --><a href="galeria.html"
-                        class="inline-block btn-historia font-semibold text-base uppercase tracking-wider shadow-lg hover:shadow-xl">
-                        Ver Portafolio Completo <i class="fas fa-arrow-right ml-2 text-sm"></i>
-                    </a>
                 </div>
             </div>
         </section>
 
-        <div class="w-full flex justify-center">
-            <!-- Línea divisoria marsala -->
-            <hr class="w-[80%] max-w-8xl border-t border-custom-verde-oliva opacity-40 my-16" />
+        <!-- HR Full Width -->
+        <div class="w-full">
+            <hr class="w-full border-t border-brand-muted/10 my-16" />
         </div>
 
-        <!-- Productos (Tienda) -->
-        <section id="broches" class="py-20 fade-in-section">
+        <!-- Tienda (NFTs) -->
+        <section id="tienda" class="py-20 fade-in-section bg-brand-bg">
             <div class="container mx-auto px-6 lg:px-20">
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start mb-16">
-                    <!-- Columna 1: Etiqueta "Tienda" -->
-                    <div class="md:col-span-2 text-left">
-                        <p
-                            class="uppercase tracking-widest text-sm text-custom-verde-oliva font-poppins border-b pb-2 border-custom-verde-oliva/20">
+                    <div class="md:col-span-3 text-left">
+                        <h2 class="text-3xl md:text-4xl font-serif text-brand-accent leading-tight">
                             Tienda
-                        </p>
-                    </div>
-                    <!-- Columna 2: Título Principal -->
-                    <div class="md:col-span-10 text-left">
-                        <h2
-                            class="text-3xl md:text-5xl font-playfair font-light text-custom-texto-principal leading-snug fade-in-right-h2 mt-4 max-w-full">
-                            NFTs Disponibles
                         </h2>
+                    </div>
+                    <div class="md:col-span-9 text-left flex items-center">
+                        <p class="text-xl md:text-2xl font-serif text-brand-dark fade-in-right-h2 mt-2">
+                            Colección Digital & NFTs
+                        </p>
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <!-- Items de la tienda -->
+                    <!-- Producto 1 -->
                     <div
-                        class="bg-white p-6 rounded-xl shadow-lg text-center transform hover:scale-[1.02] transition duration-300">
-                        <img src="img/bailarina1.png" alt="Bailarina NFT"
-                            class="w-full h-64 object-cover rounded-lg mb-4 shadow-md">
-                        <h3 class="text-2xl font-poppins font-semibold mb-2 text-custom-texto-oscuro">Grace in the Wild
-                        </h3>
-                        <p class="text-gray-500 mb-4 text-sm">NFT / Edición Limitada</p>
-                        <!-- Botón de adquirir marsala --><a
-                            href="http://salvor.io/collections/0xa7a90ca7c3bbc736140b95ad9c63fca451005a23/5"
+                        class="bg-brand-white p-6 shadow-sm border border-brand-muted/10 hover:border-brand-accent/40 transition duration-300 group">
+                        <div class="overflow-hidden mb-6">
+                            <img src="img/reconectando-naturaleza-coleccion.png"
+                                alt="NFT Reconectando con la Naturaleza"
+                                class="w-full h-48 object-cover transform group-hover:scale-105 transition duration-500">
+                        </div>
+                        <h3 class="text-size-2 font-serif text-brand-dark mb-2">Reconectando con la Naturaleza</h3>
+                        <p class="text-size-3 text-brand-muted mb-6 font-light">Colección NFT</p>
+                        <a href="http://salvor.io/collections/0xa7a90ca7c3bbc736140b95ad9c63fca451005a23/5"
                             target="_blank" rel="noopener noreferrer"
-                            class="bg-custom-verde-oliva text-white px-6 py-2 rounded-full font-medium hover:bg-custom-acento-hover hover:text-custom-texto-principal transition-colors shadow-md">Adquirir</a>
+                            class="block w-full text-center bg-brand-dark text-white py-3 text-size-4 hover:bg-brand-accent transition-colors btn-base focus:ring-2 focus:ring-offset-2 focus:ring-brand-accent">
+                            ADQUIRIR
+                        </a>
                     </div>
 
+                    <!-- Producto 2 -->
                     <div
-                        class="bg-white p-6 rounded-xl shadow-lg text-center transform hover:scale-[1.02] transition duration-300">
-                        <img src="img/thorns_nft2.PNG" alt="Rosas NFT"
-                            class="w-full h-64 object-cover rounded-lg mb-4 shadow-md">
-                        <h3 class="text-2xl font-poppins font-semibold mb-2 text-custom-texto-oscuro">Thorns & Beauty
-                        </h3>
-                        <p class="text-gray-500 mb-4 text-sm">NFT / Edición Limitada</p>
-                        <!-- Botón de adquirir marsala --><a
-                            href="https://salvor.io/collections/0x1923cbaf23b9cd05d541cae24d546deecfe0d998/4"
+                        class="bg-brand-white p-6 shadow-sm border border-brand-muted/10 hover:border-brand-accent/40 transition duration-300 group">
+                        <div class="overflow-hidden mb-6">
+                            <img src="img/arcane-visions-coleccion.png" alt="NFT Visiones Arcanas"
+                                class="w-full h-48 object-cover transform group-hover:scale-105 transition duration-500">
+                        </div>
+                        <h3 class="text-size-2 font-serif text-brand-dark mb-2">Visiones Arcanas</h3>
+                        <p class="text-size-3 text-brand-muted mb-6 font-light">Colección NFT</p>
+                        <a href="https://salvor.io/collections/0x1923cbaf23b9cd05d541cae24d546deecfe0d998/4"
                             target="_blank" rel="noopener noreferrer"
-                            class="bg-custom-verde-oliva text-white px-6 py-2 rounded-full font-medium hover:bg-custom-acento-hover hover:text-custom-texto-principal transition-colors shadow-md">Adquirir</a>
+                            class="block w-full text-center bg-brand-dark text-white py-3 text-size-4 hover:bg-brand-accent transition-colors btn-base focus:ring-2 focus:ring-offset-2 focus:ring-brand-accent">
+                            ADQUIRIR
+                        </a>
                     </div>
 
+                    <!-- Producto 3 -->
                     <div
-                        class="bg-white p-6 rounded-xl shadow-lg text-center transform hover:scale-[1.02] transition duration-300">
-                        <img src="img/Beast_nft.PNG" alt="Beast NFT"
-                            class="w-full h-64 object-contain rounded-lg mb-4 shadow-md">
-                        <h3 class="text-2xl font-poppins font-semibold mb-2 text-custom-texto-oscuro">Moonlit Temptation
-                        </h3>
-                        <p class="text-gray-500 mb-4 text-sm">INFT / Edición Limitada</p>
-                        <!-- Botón de adquirir marsala --><a
-                            href="https://salvor.io/collections/0x1923cbaf23b9cd05d541cae24d546deecfe0d998/2"
+                        class="bg-brand-white p-6 shadow-sm border border-brand-muted/10 hover:border-brand-accent/40 transition duration-300 group">
+                        <div class="overflow-hidden mb-6">
+                            <img src="img/celestial-nightmares-coleccion.png" alt="NFT Pesadillas Celestiales"
+                                class="w-full h-48 object-cover transform group-hover:scale-105 transition duration-500">
+                        </div>
+                        <h3 class="text-size-2 font-serif text-brand-dark mb-2">Pesadillas Celestiales</h3>
+                        <p class="text-size-3 text-brand-muted mb-6 font-light">Colección NFT</p>
+                        <a href="https://salvor.io/collections/0x1923cbaf23b9cd05d541cae24d546deecfe0d998/2"
                             target="_blank" rel="noopener noreferrer"
-                            class="bg-custom-verde-oliva text-white px-6 py-2 rounded-full font-medium hover:bg-custom-acento-hover hover:text-custom-texto-principal transition-colors shadow-md">Adquirir</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Sobre mí (Cita/Perfil) -->
-        <section id="sobre-mi" class="py-20 bg-custom-rosa-seccion relative fade-in-section">
-            <!-- Fondo rosa medio -->
-            <div class="container mx-auto px-6 md:flex items-center gap-12 max-w-5xl">
-
-                <div class="md:w-1/3">
-                    <img src="img/Sobremi.png" alt="Retrato de la artista"
-                        class="transform transition-transform duration-300 hover:scale-105 rounded-xl shadow-2xl mx-auto w-48 h-48 md:w-full md:h-auto object-cover border-4 border-white">
-                </div>
-
-                <div class="md:w-2/3 mt-10 md:mt-0 text-center md:text-left">
-                    <h2
-                        class="text-2xl md:text-4xl font-playfair font-light text-white italic leading-snug fade-in-right-h2">
-                        “Daneli transforma la sensibilidad del arte en lenguaje digital, creando experiencias donde la
-                        emoción y el código se encuentran.”
-                    </h2>
-
-                    <p class="text-custom-verde-oliva mt-8 text-xl font-poppins font-medium">
-                        — Daneli • Artista Visual & Desarrolladora Web
-                    </p>
-
-
-                    <div class="mt-8 text-center md:text-left">
-                        <a href="miperfil.html"
-                            class="inline-block btn-historia text-base font-semibold uppercase tracking-wider shadow-lg hover:shadow-xl">
-                            LEER MI HISTORIA
+                            class="block w-full text-center bg-brand-dark text-white py-3 text-size-4 hover:bg-brand-accent transition-colors btn-base focus:ring-2 focus:ring-offset-2 focus:ring-brand-accent">
+                            ADQUIRIR
                         </a>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- Sección Perfil (Compacta y Alineada) -->
+        <section id="sobre-mi" class="py-12 bg-brand-white relative fade-in-section border-y border-brand-muted/10">
+            <div class="container mx-auto px-6 lg:px-20">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
 
-        <!-- Newsletter Section -->
+                    <div class="w-full flex justify-start">
+                        <div class="w-full max-w-sm">
+                            <img src="img/mural-obras-arte-digital.png" alt="Mural de obras digitales de Daneli"
+                                class="w-full h-auto object-cover shadow-xl transition duration-500 border border-brand-muted/20 p-2 bg-brand-bg">
+                        </div>
+                    </div>
+
+                    <div class="text-center md:text-left">
+                        <h2
+                            class="text-2xl md:text-3xl font-serif italic text-brand-accent leading-relaxed fade-in-right-h2 mb-6">
+                            “Daneli transforma la sensibilidad del arte en lenguaje digital, creando experiencias donde
+                            la emoción y el código se encuentran.”
+                        </h2>
+
+                        <a href="miperfil.html"
+                            class="inline-block btn-base btn-historia text-xs font-bold tracking-widest uppercase">
+                            Leer mi historia
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter (Accesibilidad en Formulario) -->
         <section id="newsletter"
-            class="relative z-20 fade-in-section w-full max-w-4xl mx-auto px-4 md:px-0 mt-[-4rem] mb-12">
-            <!-- Esta es la tarjeta blanca que flota -->
-            <div class="w-full bg-white rounded-xl shadow-xl p-8 md:p-12">
-                <div class="text-center mb-8">
-                    <h3 class="text-3xl sm:text-4xl font-playfair font-semibold text-custom-texto-principal mb-3">
-                        Newsletter | Arte e IA</h3>
-                    <p class="text-base text-custom-texto-oscuro max-w-lg mx-auto font-light">Regístrate para recibir
-                        noticias sobre creatividad digital y lanzamientos exclusivos.</p>
+            class="relative z-20 fade-in-section w-full max-w-4xl mx-auto px-4 md:px-0 mt-20 mb-20">
+            <div class="w-full bg-brand-bg border border-brand-accent/10 p-10 md:p-16 text-center shadow-sm">
+                <div class="mb-10">
+                    <h3 class="text-size-2 font-serif text-brand-dark mb-4">Newsletter | Arte e IA</h3>
+                    <p class="text-size-3 text-brand-muted max-w-lg mx-auto font-light">
+                        Regístrate para recibir noticias sobre creatividad digital y lanzamientos.
+                    </p>
                 </div>
 
-                <!-- Formulario con borde sutil y foco pistacho -->
-                <form id="newsletter-form"
-                    class="max-w-xl mx-auto flex flex-col sm:flex-row items-stretch rounded-xl overflow-hidden shadow-lg border border-custom-verde-oliva/20 focus-within:ring-4 focus-within:ring-custom-acento-hover/50 transition-all duration-300">
-                    <input type="email" id="email-newsletter" name="email"
-                        placeholder="Escribe tu correo electrónico..." required
-                        class="w-full sm:flex-grow px-4 py-3 text-base text-custom-texto-oscuro placeholder-gray-400 border-none focus:outline-none focus:ring-0">
-                    <!-- Botón marsala con hover pistacho --><button type="submit"
-                        class="w-full sm:w-auto sm:px-8 bg-custom-verde-oliva text-white text-sm font-semibold py-3 flex-shrink-0 hover:bg-custom-acento-hover hover:text-custom-texto-principal transition-colors uppercase tracking-wider">
-                        Suscribirse
+                <form id="newsletter-form" class="max-w-xl mx-auto flex flex-col sm:flex-row border border-brand-dark">
+                    <input type="email" id="email-newsletter" name="email" placeholder="TU CORREO ELECTRÓNICO" required
+                        class="w-full sm:flex-grow px-6 py-4 text-size-3 bg-white text-brand-dark placeholder-brand-muted/50 border-none focus:outline-none focus:ring-2 focus:ring-inset focus:ring-brand-accent rounded-none transition-shadow"
+                        aria-label="Ingresa tu correo electrónico para suscribirte">
+
+                    <button type="submit"
+                        class="w-full sm:w-auto px-10 bg-brand-dark text-white text-size-4 font-bold py-4 hover:bg-brand-accent transition-colors rounded-none btn-base focus:ring-2 focus:ring-inset focus:ring-brand-white">
+                        SUSCRIBIRSE
                     </button>
                 </form>
 
-                <div id="success-message" class="text-center mt-4 text-sm text-custom-verde-oliva font-medium hidden">
-                    ¡Gracias por suscribirte! Revisa tu bandeja de entrada.
+                <div id="success-message" class="text-center mt-4 text-sm text-brand-accent font-medium hidden">
+                    ¡Gracias por suscribirte!
                 </div>
                 <div id="error-message" class="text-center mt-4 text-sm text-red-600 font-medium hidden">
                     Hubo un error. Inténtalo de nuevo.
@@ -684,92 +584,88 @@
             </div>
         </section>
 
-        <!-- Contacto --><!-- Fondo marsala -->
-
-        <section id="contacto" class="pt-40 pb-20 bg-custom-verde-oliva fade-in-section relative overflow-hidden">
-
-            <!-- ICONOS DE FONDO DECORATIVOS --><i
-                class="fas fa-envelope fa-10x contact-icon-bg absolute top-10 left-10"></i>
-            <i class="fas fa-comment-dots fa-8x contact-icon-bg absolute bottom-10 right-20"
-                style="animation-delay: 10s;"></i>
-            <i class="fas fa-magic fa-6x contact-icon-bg absolute top-1/2 left-1/4" style="animation-delay: 5s;"></i>
-
+        <!-- Contacto -->
+        <section id="contacto"
+            class="pt-32 pb-24 bg-brand-accent text-brand-bg fade-in-section relative overflow-hidden">
+            <i class="fas fa-envelope fa-10x contact-icon-bg absolute top-10 left-10 opacity-10" aria-hidden="true"></i>
+            <i class="fas fa-comment-dots fa-8x contact-icon-bg absolute bottom-10 right-20 opacity-10"
+                style="animation-delay: 10s;" aria-hidden="true"></i>
 
             <div class="container mx-auto px-6 lg:px-20 relative z-10">
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start mb-4 text-left">
-                    <!-- Columna 1: Etiqueta "Contáctame!" -->
-                    <div class="md:col-span-2 text-left">
-                        <p
-                            class="uppercase tracking-widest text-sm text-gray-100 font-poppins border-b pb-2 border-white/30">
-                            Contáctame
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+
+                    <div class="text-left">
+                        <h2 class="text-4xl md:text-5xl font-serif text-white leading-tight mb-4 tracking-tight">
+                            Contacto
+                        </h2>
+                        <p class="text-xl md:text-3xl font-serif italic text-white/80 leading-tight mb-6">
+                            ¡Trabajemos Juntos!
+                        </p>
+                        <p class="text-brand-bg/70 max-w-md font-light text-size-3">
+                            ¿Tienes una idea para un proyecto o una comisión? Me encantaría saber de ti. Escribe aquí
+                            tus dudas o propuestas.
                         </p>
                     </div>
+
+                    <div class="w-full flex justify-end">
+                        <form id="contact-form"
+                            class="w-full max-w-md bg-white/5 backdrop-blur-sm p-8 border border-white/10 shadow-2xl space-y-6">
+                            <div>
+                                <label for="name"
+                                    class="block text-brand-bg text-xs tracking-[0.2em] mb-2 uppercase font-semibold">Nombre</label>
+                                <input type="text" id="name" name="name"
+                                    class="w-full px-0 py-2 bg-transparent border-b border-white/30 text-white focus:outline-none focus:border-brand-bg focus:border-b-2 transition-all placeholder-white/40"
+                                    placeholder="Tu nombre" required>
+                            </div>
+                            <div>
+                                <label for="email"
+                                    class="block text-brand-bg text-xs tracking-[0.2em] mb-2 uppercase font-semibold">Email</label>
+                                <input type="email" id="email" name="email"
+                                    class="w-full px-0 py-2 bg-transparent border-b border-white/30 text-white focus:outline-none focus:border-brand-bg focus:border-b-2 transition-all placeholder-white/40"
+                                    placeholder="tucorreo@ejemplo.com" required>
+                            </div>
+                            <div>
+                                <label for="message"
+                                    class="block text-brand-bg text-xs tracking-[0.2em] mb-2 uppercase font-semibold">Mensaje</label>
+                                <textarea id="message" name="message" rows="3"
+                                    class="w-full px-0 py-2 bg-transparent border-b border-white/30 text-white focus:outline-none focus:border-brand-bg focus:border-b-2 transition-all placeholder-white/40 resize-none"
+                                    placeholder="Escribe tu mensaje..." required></textarea>
+                            </div>
+                            <div class="text-right pt-4">
+                                <button type="submit"
+                                    class="btn-base btn-contacto-inverso text-xs font-bold uppercase tracking-[0.2em] py-3 px-8 hover:bg-brand-bg hover:text-brand-accent transition-all duration-300">
+                                    Enviar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-
-                <!-- SEGUNDA FILA: TÍTULO CENTRADO SOBRE EL FORMULARIO -->
-                <div class="w-full text-center">
-                    <h2
-                        class="text-3xl md:text-5xl font-playfair font-bold mb-8 text-white fade-in-right-h2 max-w-full">
-                        ¡Trabajemos Juntos!
-                    </h2>
-                </div>
-
-
-                <p class="text-gray-200 max-w-2xl mx-auto mb-6 font-light text-center">
-                    ¿Tienes una idea para un proyecto o una comisión? ¡Me encantaría saber de ti!
-                </p>
-                <!-- Formulario -->
-
-                <form id="contact-form" class="max-w-lg mx-auto text-left">
-                    <div class="mb-4">
-                        <label for="name" class="block text-gray-100 mb-2 font-poppins text-sm">Nombre</label>
-                        <input type="text" id="name" name="name"
-                            class="w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-custom-acento-hover focus:ring-opacity-80 shadow-md text-custom-texto-oscuro"
-                            required>
-                    </div>
-                    <div class="mb-4">
-                        <label for="email" class="block text-gray-100 mb-2 font-poppins text-sm">Email</label>
-                        <input type="email" id="email" name="email"
-                            class="w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-custom-acento-hover focus:ring-opacity-80 shadow-md text-custom-texto-oscuro"
-                            required>
-                    </div>
-                    <div class="mb-6">
-                        <label for="message" class="block text-gray-100 mb-2 font-poppins text-sm">Mensaje</label>
-                        <textarea id="message" name="message" rows="5" maxlength="1000"
-                            class="w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-custom-acento-hover focus:ring-opacity-80 shadow-md text-custom-texto-oscuro"
-                            placeholder="Escribe tu mensaje aquí (máximo 1000 caracteres)..." required></textarea>
-                    </div>
-                    <div class="text-center">
-                        <!-- Botón ENVIAR MENSAJE con estilo transparente/bordeado INVERSO (hover pistacho) --><button
-                            type="submit"
-                            class="btn-contacto-inverso font-bold text-base uppercase tracking-wider shadow-xl hover:bg-custom-acento-hover">
-                            Enviar Mensaje
-                        </button>
-                    </div>
-                </form>
             </div>
         </section>
-        
     </main>
 
     <!-- Footer -->
-    <footer class="bg-custom-verde-oliva text-white">
-        <div class="container mx-auto px-6 py-8 text-center">
-
-            <hr class="w-[80%] max-w-8xl border-t border-white opacity-30 mt-0 mx-auto mb-8" />
-            <div class="flex justify-center space-x-6 mb-4">
-                <!-- Iconos sociales con hover pistacho -->
+    <footer class="bg-brand-dark text-white py-12 border-t border-white/5">
+        <div class="container mx-auto px-6 text-center">
+            <div class="flex justify-center space-x-8 mb-8">
                 <a href="https://x.com/danelisol?lang=es"
-                    class="hover:text-custom-acento-hover transition duration-300 social-icon"><i
-                        class="fab fa-twitter fa-2x"></i></a>
+                    class="hover:text-brand-accent transition duration-300 transform hover:-translate-y-1 focus:outline-none focus:text-brand-accent"
+                    aria-label="Sígueme en Twitter">
+                    <i class="fab fa-twitter fa-lg" aria-hidden="true"></i>
+                </a>
                 <a href="https://www.linkedin.com/in/danae-talia-gonz%C3%A1lez-carvajal-536333215/"
-                    class="hover:text-custom-acento-hover transition duration-300 social-icon"><i
-                        class="fab fa-linkedin fa-2x"></i></a>
-                <a href="https://github.com/DaniGonzalez1" target="_blank" rel="noopener noreferrer"
-                    class="hover:text-custom-acento-hover transition duration-300 social-icon"><i
-                        class="fab fa-github fa-2x"></i></a>
+                    class="hover:text-brand-accent transition duration-300 transform hover:-translate-y-1 focus:outline-none focus:text-brand-accent"
+                    aria-label="Conéctate en LinkedIn">
+                    <i class="fab fa-linkedin fa-lg" aria-hidden="true"></i>
+                </a>
+                <a href="https://github.com/DaniGonzalez1" target="_blank"
+                    class="hover:text-brand-accent transition duration-300 transform hover:-translate-y-1 focus:outline-none focus:text-brand-accent"
+                    aria-label="Ver proyectos en GitHub">
+                    <i class="fab fa-github fa-lg" aria-hidden="true"></i>
+                </a>
             </div>
-            <p class="text-sm text-gray-400">&copy; 2025 Daneli. Creado con amor. Todos los derechos reservados.</p>
+            <p class="text-size-4 text-brand-muted tracking-wider">&copy; 2025 Daneli. Todos los derechos reservados.
+            </p>
         </div>
     </footer>
 
@@ -779,20 +675,7 @@
             document.getElementById('mobile-menu').classList.toggle('hidden');
         });
 
-        // --- Gallery Dropdown Logic (Mantenida) ---
-        const galleryButton = document.querySelector('.relative.group > button');
-        const galleryDropdown = document.querySelector('.relative.group > div');
-        if (galleryButton && galleryDropdown) {
-            galleryButton.addEventListener('click', (e) => {
-                e.preventDefault();
-                galleryDropdown.classList.toggle('hidden');
-            });
-        }
-
-
-       
-
-        // --- Animación de Scroll para Secciones y Títulos ---
+        // --- Intersection Observers ---
         const sections = document.querySelectorAll('.fade-in-section');
         const h2Titles = document.querySelectorAll('.fade-in-right-h2');
 
@@ -803,9 +686,7 @@
                     observer.unobserve(entry.target);
                 }
             });
-        }, {
-            threshold: 0.1
-        });
+        }, { threshold: 0.1 });
 
         const h2Observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -814,20 +695,13 @@
                     h2Observer.unobserve(entry.target);
                 }
             });
-        }, {
-            threshold: 0.5
-        });
+        }, { threshold: 0.5 });
 
-        sections.forEach(section => {
-            observer.observe(section);
-        });
+        sections.forEach(section => observer.observe(section));
+        h2Titles.forEach(h2 => h2Observer.observe(h2));
 
-        h2Titles.forEach(h2 => {
-            h2Observer.observe(h2);
-        });
-
-        // --- Manejo de Newsletter ---
-        const N8N_URL =  "/.netlify/functions/secure-proxy"; // API N8N
+        // --- Newsletter Logic (Sin cambios de lógica) ---
+        const N8N_URL = "/.netlify/functions/secure-proxy";
         const form = document.getElementById('newsletter-form');
         const emailInput = document.getElementById('email-newsletter');
         const successMessage = document.getElementById('success-message');
@@ -835,7 +709,6 @@
 
         form.addEventListener('submit', async function (event) {
             event.preventDefault();
-
             successMessage.classList.add('hidden');
             errorMessage.classList.add('hidden');
 
@@ -848,72 +721,53 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(requestBody)
                 });
-
                 if (response.ok) {
                     successMessage.classList.remove('hidden');
                     form.reset();
                 } else {
-                    console.error('Error del servidor:', response.status);
                     errorMessage.classList.remove('hidden');
                 }
-
             } catch (error) {
-                console.error('Fallo al conectar con el servidor:', error);
                 errorMessage.classList.remove('hidden');
-
             }
         });
 
-        // --- Lógica del Formulario de Contacto (Backend Node.js) ---
-            const contactForm = document.getElementById('contact-form');
+        // --- Contact Form Logic (Sin cambios de lógica) ---
+        const contactForm = document.getElementById('contact-form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', async function (e) {
+                e.preventDefault();
+                const formData = {
+                    nombre: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    mensaje: document.getElementById('message').value
+                };
+                const submitBtn = contactForm.querySelector('button[type="submit"]');
+                const originalBtnText = submitBtn.innerText;
+                submitBtn.innerText = "Enviando...";
+                submitBtn.disabled = true;
 
-            if (contactForm) {
-                contactForm.addEventListener('submit', async function (e) {
-                    e.preventDefault(); // Evita que la página se recargue
-
-                    // 1. Capturamos los datos de los inputs
-                    const formData = {
-                        nombre: document.getElementById('name').value,
-                        email: document.getElementById('email').value,
-                        mensaje: document.getElementById('message').value
-                    };
-
-                    // Cambiamos el texto del botón para dar feedback visual
-                    const submitBtn = contactForm.querySelector('button[type="submit"]');
-                    const originalBtnText = submitBtn.innerText;
-                    submitBtn.innerText = "Enviando...";
-                    submitBtn.disabled = true;
-
-                    try {
-                        // 2. Enviamos los datos al backend 
-                        const response = await fetch('https://daneli-art-web.onrender.com/send-email', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify(formData)
-                        });
-
-                        const result = await response.json();
-
-                        if (result.status === 'success') {
-                            alert("¡Mensaje enviado con éxito! Me pondré en contacto contigo pronto.");
-                            contactForm.reset(); // Limpia el formulario
-                        } else {
-                            alert("Hubo un error al enviar el mensaje. Por favor intenta de nuevo.");
-                        }
-
-                    } catch (error) {
-                        console.error('Error:', error);
-                        alert("No se pudo conectar con el servidor. Asegúrate de que el backend esté encendido.");
-                    } finally {
-                        // Restauramos el botón
-                        submitBtn.innerText = originalBtnText;
-                        submitBtn.disabled = false;
+                try {
+                    const response = await fetch('https://daneli-art-web.onrender.com/send-email', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(formData)
+                    });
+                    const result = await response.json();
+                    if (result.status === 'success') {
+                        alert("¡Mensaje enviado con éxito!");
+                        contactForm.reset();
+                    } else {
+                        alert("Hubo un error al enviar el mensaje.");
                     }
-                });
-            }
-
+                } catch (error) {
+                    alert("No se pudo conectar con el servidor.");
+                } finally {
+                    submitBtn.innerText = originalBtnText;
+                    submitBtn.disabled = false;
+                }
+            });
+        }
     </script>
 </body>
 

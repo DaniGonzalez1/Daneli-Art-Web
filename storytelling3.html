@@ -4,481 +4,259 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Título de la página actualizado -->
-    <title>Storytelling: El Silencio del Hogar - Daneli Artist</title>
-
-    <!-- Carga de Tailwind CSS con JIT para personalización -->
+    <title>El Silencio del Hogar - Daneli Artist</title>
+    <!-- Carga de Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Carga de Google Fonts (Playfair Display, Poppins, Playwrite IT Moderna) -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:wght@300;400;600&family=Playwrite+IT+Moderna:wght@400&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:wght@300;400;500;600&display=swap"
         rel="stylesheet">
 
     <script>
-        // Definición de la NUEVA PALETA DE COLORES (Marsala, Rosa, Pistacho, Oliva)
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        // Paleta inspirada en la imagen
-                        'custom-fondo-claro': '#FBF8F5', // Crema suave (Mantenido)
-                        'custom-texto-principal': '#da355e', // AHORA MARSALA MÁS VIBRANTE
-                        'custom-verde-oliva': '#4E6A5E', // Marsala (Color principal de acción/fondo oscuro) -> AHORA VERDE CALIPSO
-                        'custom-rosa-palido': '#CB7885', // Rosa Medio (Acento)
-                        'custom-acento-hover': '#D4D994', // Verde Pistacho (Hovers)
-                        'custom-rosa-seccion': '#CB7885', // Rosa Medio (Fondo de sección)
-                        'custom-texto-oscuro': '#4E6A5E', // Verde Oliva (Texto) -> AHORA VERDE CALIPSO
+                        'brand-bg': '#FFFCF9',
+                        'brand-accent': '#8F1D32',
+                        'brand-dark': '#0F0F0F',
+                        'brand-white': '#FFFFFF',
+                        'brand-muted': '#594A4E',
                     },
                     fontFamily: {
-                        'playfair': ['Playfair Display', 'serif'],
-                        'poppins': ['Poppins', 'sans-serif'],
-                        'playwrite': ['Playwrite IT Moderna', 'cursive'],
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Poppins', 'sans-serif'],
                     },
+                    fontSize: {
+                        'size-1': ['3rem', { lineHeight: '1.1' }],
+                        'size-2': ['1.5rem', { lineHeight: '1.3' }],
+                        'size-3': ['0.95rem', { lineHeight: '1.7' }],
+                        'size-4': ['0.75rem', { letterSpacing: '0.1em', textTransform: 'uppercase' }]
+                    },
+                    borderRadius: { 'none': '0px' }
                 }
             }
         }
     </script>
-
-    <!-- p5.js (Usado para el cursor dinámico) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
     <style>
-        /* Definición de variables CSS para uso directo en el código */
         :root {
-            /* Colores de la imagen */
-            --fondo-rosa-claro: #FBF8F5;
-            /* Crema */
-            --rojo-sol: #da355e;
-            /* Texto Verde Oliva -> AHORA MARSALA MÁS VIBRANTE */
-            --azul-profundo: #4E6A5E;
-            /* Marsala -> AHORA VERDE CALIPSO */
-            --azul-claro: #CB7885;
-            /* Rosa Medio */
-            --turquesa: #D4D994;
-            /* Verde Pistacho (Hovers) */
-            --texto-oscuro: #4E6A5E;
-            /* Texto Verde Oliva -> AHORA VERDE CALIPSO */
-            --rosa-pastel: #CB7885;
-            /* Rosa Medio */
+            --fondo-web: #FFFCF9;
+            --acento: #8F1D32;
+            --negro: #0F0F0F;
+            --blanco: #FFFFFF;
+            --texto-suave: #594A4E;
         }
 
-        /* Tipografía Base */
         body {
-            background-color: var(--fondo-rosa-claro);
-            color: var(--texto-oscuro);
+            background-color: var(--fondo-web);
+            color: var(--texto-suave);
         }
 
         h1,
-        h2 {
-            font-family: 'Playfair Display', 'serif';
+        h2,
+        h3 {
+            color: var(--negro);
         }
 
-        h3,
-        h4,
-        h5,
-        h6 {
-            font-family: 'Poppins', 'sans-serif';
-        }
-
-        /* Estilos P5.js */
-        #p5-hero-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 9999;
-            pointer-events: none;
-        }
-
-        /* Animación de scroll general (Secciones) */
-        .fade-in-section {
-            opacity: 0 !important;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-
-        .fade-in-section.is-visible {
-            opacity: 1 !important;
-            transform: translateY(0);
-        }
-
-        /* --- Micro-Interacciones en Íconos Sociales --- */
-        .social-icon:hover {
-            transform: translateY(-3px);
-            color: var(--turquesa);
-            /* Pistacho */
-        }
-
-        /* --- ESTILOS PARA EL ARTÍCULO (Heredado de 'Mi Historia') --- */
-        .article-content {
-            font-family: 'Poppins', sans-serif;
-            color: var(--texto-oscuro);
-            font-size: 1.125rem;
-            /* 18px */
-            line-height: 1.8;
-            /* Espaciado de línea generoso */
-            font-weight: 300;
-            /* Light */
-        }
-
-        .article-content p {
-            margin-bottom: 1.5rem;
-            /* Espacio entre párrafos */
-            text-align: left;
-            /* Alineamos el texto a la izquierda para mejor lectura */
-        }
-
-        .article-content h3 {
-            font-family: 'Playfair Display', serif;
+        .btn-base {
+            transition: all 0.3s ease;
+            outline: none;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
             font-weight: 600;
-            font-size: 1.75rem;
-            /* 28px */
-            color: var(--custom-texto-principal);
-            /* Color Marsala */
-            margin-top: 2.5rem;
-            margin-bottom: 1rem;
+            display: inline-block;
         }
 
-        /* --- ESTILOS PARA NAVEGACIÓN SECUNDARIA (Otras Historias) --- */
+        .btn-base:focus-visible {
+            box-shadow: 0 0 0 3px rgba(143, 29, 50, 0.5);
+        }
+
+        .btn-primary {
+            background-color: var(--acento);
+            color: var(--blanco);
+            border: 1px solid var(--acento);
+            padding: 0.75rem 2rem;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--negro);
+            border-color: var(--negro);
+            transform: translateY(-2px);
+        }
+
+        /* Estilos Cards Navegación */
         .story-nav-item {
             position: relative;
             overflow: hidden;
-            border-radius: 0.75rem;
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border: 1px solid var(--brand-muted);
+            transition: all 0.3s ease;
         }
 
         .story-nav-item:hover {
-            box-shadow: 0 8px 20px -5px oklch(35% 0.1 20 / 0.4);
-            /* Sombra Marsala */
             transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
 
-        .story-nav-item img {
-            transition: transform 0.4s ease;
-        }
-
-        .story-nav-item:hover img {
-            transform: scale(1.05);
-        }
-
-        .story-nav-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, oklch(35% 0.1 20 / 0.9) 0%, oklch(35% 0.1 20 / 0) 100%);
-            /* Gradiente Marsala */
-            color: white;
-            padding: 1.5rem 1rem;
-            text-align: center;
+        .story-nav-item.active {
+            border-color: var(--acento);
+            border-width: 2px;
         }
     </style>
 </head>
 
-<body class="antialiased">
-    <!-- MOVIMIENTO DEL CURSOR GLOBAL -->
-    <div id="p5-hero-container"></div>
+<body class="antialiased bg-brand-bg text-brand-muted font-sans">
 
-    <!-- Header (Heredado y actualizado) -->
-    <header class="bg-custom-fondo-claro/95 backdrop-blur-md sticky top-0 z-50 shadow-md">
+    <!-- Header Unificado -->
+    <header class="bg-brand-bg/95 backdrop-blur-md z-50 border-b border-brand-muted/10">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <!-- Logo apunta a index.html -->
-            <a href="index.html">
-                <h1 class="text-3xl font-playfair italic text-custom-texto-principal tracking-wide">Daneli Artist</h1>
+            <a href="index.html" class="focus:outline-none focus:ring-2 focus:ring-brand-accent rounded-sm">
+                <!-- LOGO AGRANDADO: de h-10 a h-24 -->
+                <img src="img/logo-principal-arte-digital.png" alt="Daneli Artist Logo"
+                    class="h-24 w-auto object-contain">
             </a>
-
-            <div class="hidden md:flex space-x-8 items-center font-poppins text-sm font-light">
-                <a href="index.html#inicio" class="text-gray-700 hover:text-custom-verde-oliva transition">Inicio</a>
-
-                <!-- ESTE ES EL LINK ACTIVO (Galería) -->
-                <div class="relative group">
-                    <button class="text-custom-verde-oliva font-medium transition flex items-center focus:outline-none">
-                        Galería
-                        <i class="fas fa-caret-down ml-1 text-xs"></i>
-                    </button>
-                    <div
-                        class="absolute z-10 hidden group-hover:block bg-white shadow-xl rounded-lg mt-2 w-40 overflow-hidden transition-all duration-300">
-                        <a href="storytelling_main.html"
-                            class="block px-4 py-2 text-sm text-custom-texto-oscuro hover:bg-gray-100">Storytelling</a>
-                        <a href="galeria.html"
-                            class="block px-4 py-2 text-sm text-custom-texto-oscuro hover:bg-gray-100">Portafolio
-                            Completo</a>
-                    </div>
-                </div>
-                <a href="index.html#broches" class="text-gray-700 hover:text-custom-verde-oliva transition">Tienda</a>
-                <a href="animaciones.html" class="text-gray-700 hover:text-custom-verde-oliva transition">Proyectos
-                    Digitales</a>
-                <a href="index.html#sobre-mi" class="text-gray-700 hover:text-custom-verde-oliva transition">Mi
-                    Perfil</a>
-
-                <a href="index.html#contacto"
-                    class="bg-custom-verde-oliva text-white px-4 py-2 rounded-full hover:bg-custom-acento-hover hover:text-custom-texto-principal transition-colors shadow-lg text-sm">Contáctame</a>
+            <div class="hidden md:flex space-x-8 items-center text-size-4 font-semibold tracking-wider">
+                <a href="index.html" class="text-brand-dark hover:text-brand-accent transition">INICIO</a>
+                <a href="galeria.html" class="text-brand-dark hover:text-brand-accent transition">GALERÍA</a>
+                <a href="storytelling_main.html" class="text-brand-accent font-bold transition">STORYTELLING</a>
+                <a href="index.html#tienda" class="text-brand-dark hover:text-brand-accent transition">TIENDA</a>
+                <a href="animaciones.html" class="text-brand-dark hover:text-brand-accent transition">PROYECTOS</a>
+                <a href="miperfil.html" class="text-brand-dark hover:text-brand-accent transition">PERFIL</a>
+                <a href="index.html#contacto" class="btn-base btn-primary">CONTACTO</a>
             </div>
-
-            <button id="mobile-menu-button" class="md:hidden text-custom-verde-oliva"> <i class="fas fa-bars fa-lg"></i>
-            </button>
+            <button id="mobile-menu-button" class="md:hidden text-brand-accent"><i
+                    class="fas fa-bars fa-lg"></i></button>
         </nav>
-        <!-- Mobile Menu (Actualizado) -->
-        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 bg-white shadow-inner">
-            <a href="storytelling_main.html"
-                class="block py-2 text-custom-verde-oliva font-medium transition">Storytelling</a>
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-6 bg-brand-bg border-b border-brand-muted/10">
+            <a href="index.html"
+                class="block py-3 text-size-4 text-brand-dark hover:text-brand-accent border-b border-brand-muted/5">INICIO</a>
             <a href="galeria.html"
-                class="block py-2 text-custom-texto-oscuro hover:text-custom-verde-oliva transition">Portafolio
-                Completo</a>
-            <a href="index.html#broches"
-                class="block py-2 text-custom-texto-oscuro hover:text-custom-verde-oliva transition">Tienda</a>
+                class="block py-3 text-size-4 text-brand-dark hover:text-brand-accent border-b border-brand-muted/5">GALERÍA</a>
+            <a href="storytelling_main.html"
+                class="block py-3 text-size-4 text-brand-accent font-bold border-b border-brand-muted/5">STORYTELLING</a>
+            <a href="index.html#tienda"
+                class="block py-3 text-size-4 text-brand-dark hover:text-brand-accent border-b border-brand-muted/5">TIENDA</a>
             <a href="animaciones.html"
-                class="block py-2 text-custom-texto-oscuro hover:text-custom-verde-oliva transition">Proyectos
-                Digitales</a>
-            <a href="index.html#sobre-mi"
-                class="block py-2 text-custom-texto-oscuro hover:text-custom-verde-oliva transition">Mi
-                Perfil</a>
+                class="block py-3 text-size-4 text-brand-dark hover:text-brand-accent border-b border-brand-muted/5">PROYECTOS</a>
+            <a href="miperfil.html"
+                class="block py-3 text-size-4 text-brand-dark hover:text-brand-accent border-b border-brand-muted/5">PERFIL</a>
             <a href="index.html#contacto"
-                class="block mt-4 bg-custom-verde-oliva text-white px-4 py-2 rounded-full hover:bg-custom-acento-hover hover:text-custom-texto-principal transition-colors text-center">Contáctame</a>
+                class="block mt-6 bg-brand-accent text-brand-white px-4 py-3 text-center text-size-4 hover:bg-brand-dark">CONTACTAR</a>
         </div>
     </header>
 
-    <!-- ===== INICIO DEL CONTENIDO DE "STORYTELLING 3" ===== -->
     <main class="container mx-auto px-6 lg:px-20 py-20">
 
-        <!-- Hero de la Historia -->
-        <section id="storyt3"
-            class="relative flex items-center justify-center text-center overflow-hidden py-16 fade-in-section">
-            <div class="flex flex-col items-center">
-                <!-- Bloque de texto (Estilos actualizados) -->
-                <div class="mb-12">
-                    <h1 class="text-5xl md:text-7xl font-playfair font-light text-custom-texto-principal">El Silencio
-                        del Hogar</h1> <br>
-                    <p class="text-xl text-custom-texto-oscuro font-light italic"> "Una familia unida por la luz de la
-                        pantalla, perdida en sus mundos."</p>
-                </div>
-                <img src="img/5lonely.png" alt="Ilustración de una familia viendo la televisión en silencio"
-                    class="mx-auto rounded-xl shadow-xl max-w-3xl w-full">
+        <!-- Hero Story -->
+        <section class="text-center mb-20">
+            <div class="mb-10">
+                <h1 class="text-size-1 font-serif text-brand-dark mb-4">El Silencio del Hogar</h1>
+                <p class="text-size-2 font-serif text-brand-accent italic">"Una familia unida por la luz de la pantalla,
+                    perdida en sus mundos."</p>
             </div>
+            <!-- IMAGEN BORROSA (blur-sm) y AGRANDADA (max-w-5xl) -->
+            <img src="img/familia-disfuncional-arte-storytelling.png" alt="El Silencio del Hogar"
+                class="mx-auto rounded-none shadow-lg max-w-3xl w-full border border-brand-muted/10 p-2 bg-brand-white blur-sm transition duration-1000 hover:blur-none">
         </section>
 
-        <!-- Proceso Creativo -->
-        <section id="proceso-creativo" class="py-16 sm:py-24">
-            <!-- Contenedor principal, centra el contenido del blog -->
-            <div class="max-w-3xl mx-auto px-4 space-y-16 article-content">
+        <!-- Proceso -->
+        <div class="max-w-4xl mx-auto space-y-24">
+            <!-- Paso 1 -->
+            <article class="text-center">
+                <!-- IMAGEN AJUSTADA (w-3/5 mx-auto) -->
+                <img src="img/moodboard-silencio-del-hogar.jpg" alt="Moodboard"
+                    class="w-full md:w-3/5 mx-auto mb-8 rounded-none shadow-sm">
+                <h3 class="text-size-2 font-serif text-brand-dark mb-4">1. Moodboard</h3>
+                <p class="text-size-3 text-brand-muted leading-relaxed max-w-2xl mx-auto">
+                    Inspirado en el realismo de los 70/80 y la obra de Edward Hopper. La luz azulada del televisor como
+                    único foco.
+                </p>
+            </article>
 
-                <!-- Moodboard -->
-                <article class="flex flex-col items-center text-center fade-in-section">
-                    <img src="https://placehold.co/600x400/4E6A5E/FBF8F5?text=Moodboard+Familia"
-                        alt="Moodboard del proyecto" class="rounded-lg shadow-xl w-full mb-4">
-                    <h3 class="text-center">1. Moodboard</h3>
-                    <p class="mt-2 text-base leading-relaxed">
-                        Inspirado en el realismo de los 70/80 y la obra de Edward Hopper. La idea de la luz azulada del
-                        televisor como el único foco de luz y calor en la habitación.
-                    </p>
-                </article>
+            <!-- Paso 2 -->
+            <article class="text-center">
+                <!-- IMAGEN AJUSTADA (w-3/5 mx-auto) -->
+                <img src="img/paleta-silencio-hogar.png" alt="Paleta"
+                    class="w-full md:w-3/5 mx-auto mb-8 rounded-none shadow-sm">
+                <h3 class="text-size-2 font-serif text-brand-dark mb-4">2. Paleta de Colores</h3>
+                <p class="text-size-3 text-brand-muted leading-relaxed max-w-2xl mx-auto">
+                    Colores oscuros, sombríos, casi melancólicos. El contraste entre la habitación y el brillo frío de
+                    la pantalla.
+                </p>
+            </article>
 
-                <!-- Paleta de Colores -->
-                <article class="flex flex-col items-center text-center fade-in-section">
-                    <img src="https://placehold.co/600x400/CB7885/FBF8F5?text=Paleta+de+Colores" alt="Paleta de colores"
-                        class="rounded-lg shadow-xl w-full mb-4">
-                    <h3 class="text-center">2. Paleta de Colores</h3>
-                    <p class="mt-2 text-base leading-relaxed">
-                        Colores oscuros, sombríos, casi melancólicos. El rosa y el verde oliva de la habitación
-                        contrastan con el brillo agudo y frío de la pantalla.
-                    </p>
-                </article>
+            <!-- Paso 4 -->
+            <article class="text-center">
+                <!-- IMAGEN FINAL (w-3/4 mx-auto) -->
+                <img src="img/familia-disfuncional-arte-storytelling.png" alt="Final"
+                    class="w-full md:w-3/4 mx-auto mb-8 rounded-none shadow-xl border border-brand-muted/10">
+                <h3 class="text-size-2 font-serif text-brand-dark mb-4">3. Obra Final</h3>
+                <p class="text-size-3 text-brand-muted leading-relaxed max-w-2xl mx-auto">
+                    Una reflexión sobre la soledad moderna y la conexión digital. Juntos pero solos, hipnotizados por
+                    una narrativa externa.
+                </p>
+            </article>
+        </div>
 
-                <!-- Boceto -->
-                <article class="flex flex-col items-center text-center fade-in-section">
-                    <img src="https://placehold.co/600x400/D4D994/4E6A5E?text=Boceto+Inicial" alt="Boceto inicial"
-                        class="rounded-lg shadow-xl w-full mb-4">
-                    <h3 class="text-center">3. Boceto</h3>
-                    <p class="mt-2 text-base leading-relaxed">
-                        Me enfoqué en la postura. Cuerpos juntos en el mismo sofá, pero mentalmente separados. Las
-                        miradas no se cruzan; todas se dirigen a la luz.
-                    </p>
-                </article>
+        <div class="w-full flex justify-center">
+            <hr class="w-full border-t border-brand-muted/10 my-20" />
+        </div>
 
-                <!-- Obra Final -->
-                <article class="flex flex-col items-center text-center fade-in-section">
-                    <img src="img/5lonely.png" alt="Obra final" class="rounded-lg shadow-xl w-full mb-4">
-                    <h3 class="text-center">4. Obra Final</h3>
-                    <p class="mt-2 text-base leading-relaxed">
-                        Una reflexión sobre la soledad moderna y la conexión (o desconexión) digital en el hogar. Juntos
-                        pero solos, hipnotizados por una narrativa externa.
-                    </p>
-                </article>
-
-            </div>
-        </section>
-
-        <!-- ===== INICIO SOLUCIÓN UX: NAVEGACIÓN SECUNDARIA ===== -->
-        <section class="py-24 fade-in-section">
-            <!-- HR Separador -->
-            <div class="w-full flex justify-center">
-                <hr class="w-full border-t border-custom-verde-oliva opacity-20 my-16" />
-            </div>
-
-            <h2 class="text-3xl md:text-5xl font-playfair font-light text-custom-texto-principal text-center mb-16">
-                Otras Historias
-            </h2>
-
+        <!-- Navegación Stories -->
+        <section>
+            <h2 class="text-size-2 font-serif text-brand-dark text-center mb-12">Otras Historias</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 
-                <!-- Historia 1: Link -->
-                <a href="storytelling_main.html" class="story-nav-item shadow-lg">
-                    <img src="img/ilustracion1.png" alt="Ilustración Digital 1"
-                        class="w-full h-full object-cover aspect-square">
-                    <div class="story-nav-overlay">
-                        <h3 class="text-xl font-semibold">Espiral Interior</h3>
-                        <p class="text-sm font-light">Técnica mixta digital</p>
-                    </div>
+                <a href="storytelling_main.html" class="story-nav-item p-4 bg-brand-white group hover:bg-brand-bg">
+                    <img src="img/espirales-arte-storytelling.png"
+                        class="w-full h-64 object-cover mb-4 group-hover:opacity-90 transition">
+                    <h3 class="text-lg font-serif text-brand-dark group-hover:text-brand-accent">Espiral Interior</h3>
+                    <p class="text-size-4 text-brand-muted">Técnica mixta</p>
                 </a>
 
-                <!-- Historia 2: Link -->
-                <a href="storytelling2.html" class="story-nav-item shadow-lg">
-                    <img src="img/4hug.png" alt="Fanart" class="w-full h-full object-cover aspect-square">
-                    <div class="story-nav-overlay">
-                        <h3 class="text-xl font-semibold">Abrazo a la Melancolía</h3>
-                        <p class="text-sm font-light">Procreate - Exploración de color</p>
-                    </div>
+                <a href="storytelling2.html" class="story-nav-item p-4 bg-brand-white group hover:bg-brand-bg">
+                    <img src="img/abrazo-melancolia-arte-storytelling.png"
+                        class="w-full h-64 object-cover mb-4 group-hover:opacity-90 transition">
+                    <h3 class="text-lg font-serif text-brand-dark group-hover:text-brand-accent">Abrazo a la Melancolía
+                    </h3>
+                    <p class="text-size-4 text-brand-muted">Procreate</p>
                 </a>
 
-                <!-- Historia 3: ACTIVA -->
-                <div class="story-nav-item shadow-lg border-4 border-custom-texto-principal rounded-xl">
-                    <img src="img/5lonely.png" alt="NFT Artwork" class="w-full h-full object-cover aspect-square">
-                    <div class="story-nav-overlay">
-                        <h3 class="text-xl font-semibold">El Silencio del Hogar</h3>
-                        <p class="text-sm font-light">(Viendo actualmente)</p>
-                    </div>
+                <div class="story-nav-item active p-4 bg-brand-white border-brand-accent border-2">
+                    <img src="img/familia-disfuncional-arte-storytelling.png" class="w-full h-64 object-cover mb-4">
+                    <h3 class="text-lg font-serif text-brand-accent">El Silencio del Hogar</h3>
+                    <p class="text-size-4 text-brand-muted">(Viendo actualmente)</p>
                 </div>
-
             </div>
         </section>
-        <!-- ===== FIN SOLUCIÓN UX ===== -->
 
     </main>
-    <!-- ===== FIN DEL CONTENIDO DE "STORYTELLING 3" ===== -->
 
-
-   
-
-    <!-- Footer (Heredado) -->
-    <footer class="bg-custom-verde-oliva text-white">
-        <div class="container mx-auto px-6 py-8 text-center">
-            <div class="flex justify-center space-x-6 mb-4">
-            <!-- Iconos sociales con hover pistacho -->
-            <a href="https://x.com/danelisol?lang=es" class="hover:text-custom-acento-hover transition duration-300 social-icon"><i
-                    class="fab fa-twitter fa-2x"></i></a>
-            <a href="https://www.linkedin.com/in/danae-talia-gonz%C3%A1lez-carvajal-536333215/"
-                class="hover:text-custom-acento-hover transition duration-300 social-icon"><i class="fab fa-linkedin fa-2x"></i></a>
-            <a href="https://github.com/DaniGonzalez1" target="_blank" rel="noopener noreferrer"
-                class="hover:text-custom-acento-hover transition duration-300 social-icon"><i class="fab fa-github fa-2x"></i></a>
+    <!-- Footer corregido -->
+    <footer class="bg-brand-dark text-white py-12 border-t border-white/5">
+        <div class="container mx-auto px-6 text-center">
+            <div class="flex justify-center space-x-8 mb-8">
+                <!-- Se agregó text-white y hover para asegurar visibilidad -->
+                <a href="https://x.com/danelisol?lang=es"
+                    class="text-white hover:text-brand-accent transition transform hover:-translate-y-1"><i
+                        class="fab fa-twitter fa-lg"></i></a>
+                <a href="https://www.linkedin.com/in/danae-talia-gonz%C3%A1lez-carvajal-536333215/"
+                    class="text-white hover:text-brand-accent transition transform hover:-translate-y-1"><i
+                        class="fab fa-linkedin fa-lg"></i></a>
+                <a href="https://github.com/DaniGonzalez1" target="_blank"
+                    class="text-white hover:text-brand-accent transition transform hover:-translate-y-1"><i
+                        class="fab fa-github fa-lg"></i></a>
             </div>
-            <p class="text-sm text-gray-400">&copy; 2025 Daneli. Creado con amor. Todos los derechos reservados.</p>
+            <p class="text-size-4 text-brand-muted tracking-wider">&copy; 2025 Daneli. Todos los derechos reservados.
+            </p>
         </div>
     </footer>
 
     <script>
-        // --- Mobile Menu Toggle ---
         document.getElementById('mobile-menu-button').addEventListener('click', () => {
             document.getElementById('mobile-menu').classList.toggle('hidden');
         });
-
-        // --- Gallery Dropdown Logic ---
-        const galleryButton = document.querySelector('.relative.group > button');
-        const galleryDropdown = document.querySelector('.relative.group > div');
-        if (galleryButton && galleryDropdown) {
-            galleryButton.addEventListener('click', (e) => {
-                e.preventDefault();
-                galleryDropdown.classList.toggle('hidden');
-            });
-        }
-
-        // -- P5.js Sketch 1: Cursor que Cambia de Color (Global) ---
-        const cursorSketch = (p) => {
-            let currentColor;
-            const COLORS = {
-                DEEP_BLUE: p.color(78, 106, 94, 150), // #4E6A5E (Verde Oliva)
-                LIGHT_PINK: p.color(212, 217, 148, 150) // #D4D994 (Pistacho)
-            };
-            let footer;
-
-            p.setup = function () {
-                let container = document.getElementById('p5-hero-container');
-                p.createCanvas(window.innerWidth, window.innerHeight).parent(container);
-                p.noStroke();
-                p.angleMode(p.DEGREES);
-                currentColor = COLORS.DEEP_BLUE;
-                footer = document.querySelector('footer');
-            };
-
-            p.draw = function () {
-                p.clear();
-                p.fill(currentColor);
-                p.ellipse(p.mouseX, p.mouseY, 40, 40);
-                checkSectionColor();
-            };
-
-            p.windowResized = function () {
-                p.resizeCanvas(window.innerWidth, window.innerHeight);
-            };
-
-            // Función simplificada: solo cambia de color en el footer
-            function checkSectionColor() {
-                let activeColor = COLORS.DEEP_BLUE; // Default
-
-                if (footer) {
-                    const rect = footer.getBoundingClientRect();
-                    // Si el mouse (p.mouseY) está MÁS ABAJO que el inicio del footer (rect.top)
-                    if (p.mouseY > (rect.top + window.scrollY)) {
-                        activeColor = COLORS.LIGHT_PINK; // Cambia a Pistacho
-                    }
-                }
-                currentColor = p.lerpColor(currentColor, activeColor, 0.2);
-            }
-        };
-          // --- CAMBIO: Condición para iniciar p5.js ---
-            // Detectar si es un dispositivo táctil O si la pantalla es pequeña (móvil)
-            // Los cursores personalizados no tienen sentido en dispositivos táctiles.
-            const isMobileDevice = ('ontouchstart' in window) || (window.innerWidth <= 768);
-
-            if (!isMobileDevice) {
-                // Solo creamos el cursor de p5 si NO es un dispositivo móvil/táctil
-                new p5(cursorSketch);
-            }
-
-
-        // --- Animación de Scroll para Secciones y Títulos ---
-        const sections = document.querySelectorAll('.fade-in-section');
-        const h2Titles = document.querySelectorAll('.fade-in-right-h2');
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
-
-        const h2Observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    h2Observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.5 });
-
-        sections.forEach(section => {
-            observer.observe(section);
-        });
-
-        h2Titles.forEach(h2 => {
-            h2Observer.observe(h2);
-        });
-
     </script>
 </body>
 
