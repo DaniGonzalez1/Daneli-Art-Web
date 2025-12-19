@@ -10,10 +10,10 @@ const app = express();
 // ==========================================
 // 1. SEGURIDAD: CONFIGURACIÓN DE CORS
 // ==========================================
-// Lista de sitios permitidos (Tu Netlify y tu Localhost)
+// Lista de sitios permitidos 
 const allowedOrigins = [
-    'https://daneli-art.netlify.app', // Tu frontend en producción
-    'http://localhost:3000',          // Tu backend local
+    'https://daneli-art.netlify.app', // frontend en producción
+    'http://localhost:3000',          // backend local
     'http://127.0.0.1:5500',          // Live Server de VS Code
     'http://localhost:5500'           // Live Server alternativo
 ];
@@ -21,7 +21,7 @@ const allowedOrigins = [
 app.use(cors({
     origin: function (origin, callback) {
         // !origin permite peticiones sin origen (como desde Postman local o server-to-server)
-        // Si quieres bloquear Postman en prod, quita "|| !origin"
+        
         if (!origin || allowedOrigins.includes(origin)) {
             callback(null, true);
         } else {
@@ -126,7 +126,7 @@ app.post('/newsletter', async (req, res) => {
             hour: '2-digit', minute: '2-digit', day: 'numeric', month: 'numeric', year: 'numeric'
         });
 
-        // Enviamos el email a tu flujo de n8n del Newsletter
+        // Enviamos el email al flujo de n8n del Newsletter
         const response = await fetch(N8N_NEWSLETTER_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
