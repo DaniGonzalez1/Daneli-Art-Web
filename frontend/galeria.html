@@ -27,8 +27,8 @@
                         sans: ['Poppins', 'sans-serif'],
                     },
                     fontSize: {
-                        'size-1': ['3rem', { lineHeight: '1.1' }],
-                        'size-2': ['1.5rem', { lineHeight: '1.3' }],
+                        'size-1': ['2.5rem', { lineHeight: '1.2' }],
+                        'size-2': ['2rem', { lineHeight: '1.3' }],
                         'size-3': ['0.95rem', { lineHeight: '1.7' }],
                         'size-4': ['0.75rem', { letterSpacing: '0.1em', textTransform: 'uppercase' }]
                     },
@@ -60,41 +60,34 @@
             color: var(--negro);
         }
 
-        /* Botones */
-        .btn-base {
-            transition: all 0.3s ease;
-            outline: none;
-            font-size: 0.75rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            font-weight: 600;
-            display: inline-block;
-        }
-
-        .btn-base:focus-visible {
-            box-shadow: 0 0 0 3px rgba(143, 29, 50, 0.5);
-        }
-
-        .btn-primary {
-            background-color: var(--acento);
-            color: var(--blanco);
-            border: 1px solid var(--acento);
-            padding: 0.75rem 2rem;
-        }
-
-        .btn-primary:hover {
-            background-color: var(--negro);
-            border-color: var(--negro);
-            transform: translateY(-2px);
-        }
-
         /* Galería Items */
         .gallery-item {
             position: relative;
             overflow: hidden;
             border-radius: 0px;
             cursor: pointer;
-            transition: all 0.4s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Animación para el filtrado */
+        .gallery-item.hidden-item {
+            display: none;
+        }
+
+        .gallery-item.animate-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .gallery-item:hover {
@@ -165,141 +158,291 @@
     </style>
 </head>
 
-<body class="antialiased bg-brand-bg text-brand-muted font-sans">
+<body class="antialiased bg-brand-bg text-brand-muted font-sans flex flex-col min-h-screen">
 
-    <!-- Header -->
-    <header class="bg-brand-bg/95 backdrop-blur-md sticky top-0 z-50 border-b border-brand-muted/10">
+    <!-- Header Actualizado -->
+    <header class="fixed w-full top-0 bg-brand-bg z-50 border-b border-brand-muted/10 transition-all duration-300"
+        id="navbar">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="index.html" class="focus:outline-none focus:ring-2 focus:ring-brand-accent rounded-sm">
-                <!-- LOGO AGRANDADO: de h-10 a h-24 para mayor presencia -->
-                <img src="img/logo-principal-arte-digital.png" alt="Daneli Artist Logo"
-                    class="h-24 w-auto object-contain">
+            <a href="index.html"
+                class="focus:outline-none focus:ring-2 focus:ring-brand-accent rounded-sm flex items-center gap-2 group">
+                <!-- LOGO TIPOGRÁFICO -->
+                <div
+                    class="h-12 w-12 bg-brand-dark text-white flex items-center justify-center font-serif text-2xl group-hover:bg-brand-accent transition-colors duration-300">
+                    D</div>
+                <span class="font-serif text-xl font-bold text-brand-dark tracking-wide">DANELI</span>
             </a>
+
             <div class="hidden md:flex space-x-8 items-center text-size-4 font-semibold tracking-wider">
-                <a href="index.html" class="text-brand-dark hover:text-brand-accent transition">INICIO</a>
-                <a href="galeria.html" class="text-brand-accent font-bold transition">GALERÍA</a>
+                <a href="index.html" class="text-brand-dark hover:text-brand-accent transition relative group">
+                    INICIO
+                    <span
+                        class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-accent transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="galeria.html" class="text-brand-accent font-bold transition relative group">
+                    GALERÍA
+                    <span class="absolute -bottom-1 left-0 w-full h-0.5 bg-brand-accent"></span>
+                </a>
                 <a href="storytelling_main.html"
-                    class="text-brand-dark hover:text-brand-accent transition">STORYTELLING</a>
-                <a href="index.html#tienda" class="text-brand-dark hover:text-brand-accent transition">TIENDA</a>
-                <a href="animaciones.html" class="text-brand-dark hover:text-brand-accent transition">PROYECTOS</a>
-                <a href="miperfil.html" class="text-brand-dark hover:text-brand-accent transition">PERFIL</a>
-                <a href="index.html#contacto" class="btn-base btn-primary">CONTACTO</a>
+                    class="text-brand-dark hover:text-brand-accent transition relative group">
+                    STORYTELLING
+                    <span
+                        class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-accent transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="index.html#tienda" class="text-brand-dark hover:text-brand-accent transition relative group">
+                    TIENDA
+                    <span
+                        class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-accent transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="animaciones.html" class="text-brand-dark hover:text-brand-accent transition relative group">
+                    PROYECTOS
+                    <span
+                        class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-accent transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="miperfil.html" class="text-brand-dark hover:text-brand-accent transition relative group">
+                    PERFIL
+                    <span
+                        class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-accent transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <!-- Botón Contacto Ajustado -->
+                <a href="index.html#contacto"
+                    class="bg-brand-accent text-white px-8 py-3 hover:bg-brand-dark transition-colors duration-300 text-xs font-bold tracking-widest uppercase border border-brand-accent hover:border-brand-dark">
+                    CONTACTO
+                </a>
             </div>
-            <button id="mobile-menu-button" class="md:hidden text-brand-accent"><i
-                    class="fas fa-bars fa-lg"></i></button>
+
+            <button id="mobile-menu-button" class="md:hidden text-brand-dark hover:text-brand-accent transition p-2">
+                <i class="fas fa-bars fa-lg"></i>
+            </button>
         </nav>
 
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden px-6 pb-6 bg-brand-bg border-b border-brand-muted/10">
-            <a href="index.html"
-                class="block py-3 text-size-4 text-brand-dark hover:text-brand-accent border-b border-brand-muted/5">INICIO</a>
-            <a href="galeria.html"
-                class="block py-3 text-size-4 text-brand-accent font-bold border-b border-brand-muted/5">GALERÍA</a>
-            <a href="storytelling_main.html"
-                class="block py-3 text-size-4 text-brand-dark hover:text-brand-accent border-b border-brand-muted/5">STORYTELLING</a>
-            <a href="index.html#tienda"
-                class="block py-3 text-size-4 text-brand-dark hover:text-brand-accent border-b border-brand-muted/5">TIENDA</a>
-            <a href="animaciones.html"
-                class="block py-3 text-size-4 text-brand-dark hover:text-brand-accent border-b border-brand-muted/5">PROYECTOS</a>
-            <a href="miperfil.html"
-                class="block py-3 text-size-4 text-brand-dark hover:text-brand-accent border-b border-brand-muted/5">PERFIL</a>
-            <a href="index.html#contacto"
-                class="block mt-6 bg-brand-accent text-white px-4 py-3 text-center text-size-4 hover:bg-brand-dark">CONTACTAR</a>
+        <div id="mobile-menu"
+            class="hidden md:hidden bg-brand-bg border-t border-brand-muted/10 absolute w-full shadow-lg">
+            <div class="flex flex-col px-6 py-4">
+                <a href="index.html"
+                    class="py-3 text-size-4 text-brand-dark hover:text-brand-accent border-b border-brand-muted/5">INICIO</a>
+                <a href="galeria.html"
+                    class="py-3 text-size-4 text-brand-accent font-bold border-b border-brand-muted/5">GALERÍA</a>
+                <a href="storytelling_main.html"
+                    class="py-3 text-size-4 text-brand-dark hover:text-brand-accent border-b border-brand-muted/5">STORYTELLING</a>
+                <a href="index.html#tienda"
+                    class="py-3 text-size-4 text-brand-dark hover:text-brand-accent border-b border-brand-muted/5">TIENDA</a>
+                <a href="animaciones.html"
+                    class="py-3 text-size-4 text-brand-dark hover:text-brand-accent border-b border-brand-muted/5">PROYECTOS</a>
+                <a href="miperfil.html"
+                    class="py-3 text-size-4 text-brand-dark hover:text-brand-accent border-b border-brand-muted/5">PERFIL</a>
+                <a href="index.html#contacto"
+                    class="mt-4 bg-brand-accent text-white px-4 py-3 text-center text-size-4 hover:bg-brand-dark transition-colors uppercase font-bold tracking-widest">Contactar</a>
+            </div>
         </div>
     </header>
 
-    <main class="container mx-auto px-6 lg:px-20 py-20">
+    <main class="container mx-auto px-6 lg:px-20 py-20 mt-16 flex-grow">
         <!-- Título Página -->
-        <div class="py-12 text-left mb-16">
+        <div class="py-12 text-left mb-8">
             <p class="text-size-4 text-brand-accent mb-4">PORTAFOLIO VISUAL</p>
             <h1 class="text-size-1 font-serif text-brand-dark max-w-4xl leading-tight">
                 Galería de Arte Digital
             </h1>
         </div>
 
-        <!-- Grid de Galería (3x3) -->
-        <section class="py-12">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Filtros de Galería -->
+        <div class="flex flex-wrap gap-4 mb-12 justify-start" id="gallery-filters">
+            <button
+                class="filter-btn active bg-brand-accent text-white border-brand-accent px-6 py-2 text-xs font-bold tracking-widest uppercase border transition-all duration-300"
+                data-filter="all">
+                Todos
+            </button>
+            <button
+                class="filter-btn bg-transparent text-brand-dark border-brand-muted/30 hover:border-brand-accent hover:text-brand-accent px-6 py-2 text-xs font-bold tracking-widest uppercase border transition-all duration-300"
+                data-filter="editorial">
+                Editorial
+            </button>
+            <button
+                class="filter-btn bg-transparent text-brand-dark border-brand-muted/30 hover:border-brand-accent hover:text-brand-accent px-6 py-2 text-xs font-bold tracking-widest uppercase border transition-all duration-300"
+                data-filter="ilustracion">
+                Ilustraciones
+            </button>
+        </div>
 
-                <!-- Imagen 1 -->
-                <div class="gallery-item aspect-square">
-                    <img src="img/wicked-arte-digital.png" alt="Wicked">
+        <!-- Grid de Galería (18 Imágenes) -->
+        <section class="py-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="gallery-grid">
+
+                <!-- === ILUSTRACIONES (9 Items) === -->
+
+                <!-- Item 1 -->
+                <div class="gallery-item aspect-square" data-category="ilustracion">
+                    <img src="img/espiritu-navideño-ilustracion.png" alt="Espiritu Navideño">
                     <div class="gallery-overlay">
-                        <h3 class="font-serif text-xl mb-1">Aflicción</h3>
-                        <p class="text-size-4">Arte Digital</p>
+                        <h3 class="font-serif text-xl mb-1">Espíritu Navideño</h3>
+                        <p class="text-size-4">Ilustración</p>
                     </div>
                 </div>
 
-                <!-- Imagen 2 -->
-                <div class="gallery-item aspect-square">
-                    <img src="img/playa-y-amor-arte-digital.png" alt="Playa y Amor">
+                <!-- Item 2 -->
+                <div class="gallery-item aspect-square" data-category="ilustracion">
+                    <img src="img/navidad-urbana.png" alt="Melancolía">
                     <div class="gallery-overlay">
-                        <h3 class="font-serif text-xl mb-1">Playa y Amor</h3>
-                        <p class="text-size-4">Escenario / Concept</p>
+                        <h3 class="font-serif text-xl mb-1">Navidad Urbana</h3>
+                        <p class="text-size-4">Ilustración</p>
                     </div>
                 </div>
 
-                <!-- Imagen 3 -->
-                <div class="gallery-item aspect-square">
-                    <img src="img/melancolia-en-metro-arte-digital.png" alt="Melancolía en Metro">
+                <!-- Item 3 -->
+                <div class="gallery-item aspect-square" data-category="ilustracion">
+                    <img src="img/rutina-festiva-ilustracion.png" alt="Rutina Festiva">
                     <div class="gallery-overlay">
-                        <h3 class="font-serif text-xl mb-1">Melancolía en Metro</h3>
-                        <p class="text-size-4">Ilustración Urbana</p>
+                        <h3 class="font-serif text-xl mb-1">Rutina Festiva</h3>
+                        <p class="text-size-4">Ilustración</p>
                     </div>
                 </div>
 
-                <!-- Imagen 4 -->
-                <div class="gallery-item aspect-square">
-                    <img src="img/caricias-al-alma-arte-digital.png" alt="Caricias al Alma">
+                <!-- Item 4 -->
+                <div class="gallery-item aspect-square" data-category="ilustracion">
+                    <img src="img/restos-de-navidad-ilustracion.png" alt="Restos de navidad">
                     <div class="gallery-overlay">
-                        <h3 class="font-serif text-xl mb-1">Caricias al Alma</h3>
-                        <p class="text-size-4">Retrato Emotivo</p>
+                        <h3 class="font-serif text-xl mb-1">Restos de navidad</h3>
+                        <p class="text-size-4">Ilustración</p>
                     </div>
                 </div>
 
-                <!-- Imagen 5 -->
-                <div class="gallery-item aspect-square">
-                    <img src="img/desayuno-arte-digital.png" alt="Desayuno">
-                    <div class="gallery-overlay">
-                        <h3 class="font-serif text-xl mb-1">Desayuno</h3>
-                        <p class="text-size-4">Bodegón Digital</p>
-                    </div>
-                </div>
-
-                <!-- Imagen 6 -->
-                <div class="gallery-item aspect-square">
-                    <!-- Nota: Corregí el nombre a 'amor-propio' para evitar errores de espacios en URLs -->
-                    <img src="img/amor-propio-arte-digital.png" alt="Amor Propio">
-                    <div class="gallery-overlay">
-                        <h3 class="font-serif text-xl mb-1">Amor Propio</h3>
-                        <p class="text-size-4">Ilustración Conceptual</p>
-                    </div>
-                </div>
-
-                <!-- Imagen 7 -->
-                <div class="gallery-item aspect-square">
-                    <img src="img/bella-y-bestia-arte-digital.png" alt="Bella y Bestia">
-                    <div class="gallery-overlay">
-                        <h3 class="font-serif text-xl mb-1">Bella y Bestia</h3>
-                        <p class="text-size-4">Fanart / Reinterpretación</p>
-                    </div>
-                </div>
-
-                <!-- Imagen 8 -->
-                <div class="gallery-item aspect-square">
-                    <img src="img/dulce-hogar-arte-digital.png" alt="Dulce Hogar">
-                    <div class="gallery-overlay">
-                        <h3 class="font-serif text-xl mb-1">Dulce Hogar</h3>
-                        <p class="text-size-4">Escenario</p>
-                    </div>
-                </div>
-
-                <!-- Imagen 9 -->
-                <div class="gallery-item aspect-square">
-                    <img src="img/celestial-nightmares-coleccion.png" alt="Wicked">
+                <!-- Item 5 -->
+                <div class="gallery-item aspect-square" data-category="ilustracion">
+                    <img src="img/celestial-nightmares-coleccion.png" alt="Bruja">
                     <div class="gallery-overlay">
                         <h3 class="font-serif text-xl mb-1">Bruja</h3>
-                        <p class="text-size-4">Personaje</p>
+                        <p class="text-size-4">Ilustración</p>
+                    </div>
+                </div>
+
+                <!-- Item 6 (Nuevo) -->
+                <div class="gallery-item aspect-square" data-category="ilustracion">
+                    <img src="img/compañia-arte-digital.png"
+                        alt="Compañia">
+                    <div class="gallery-overlay">
+                        <h3 class="font-serif text-xl mb-1">Compañía</h3>
+                        <p class="text-size-4">Ilustración</p>
+                    </div>
+                </div>
+
+                <!-- Item 7 (Nuevo) -->
+                <div class="gallery-item aspect-square" data-category="ilustracion">
+                    <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?q=80&w=1000&auto=format&fit=crop"
+                        alt="Retrato Digital">
+                    <div class="gallery-overlay">
+                        <h3 class="font-serif text-xl mb-1">Mirada Digital</h3>
+                        <p class="text-size-4">Ilustración</p>
+                    </div>
+                </div>
+
+                <!-- Item 8 (Nuevo) -->
+                <div class="gallery-item aspect-square" data-category="ilustracion">
+                    <img src="img/descanso-en-naturaleza-arte-digital.png"
+                        alt="Descanso">
+                    <div class="gallery-overlay">
+                        <h3 class="font-serif text-xl mb-1">Reconectar</h3>
+                        <p class="text-size-4">Ilustración</p>
+                    </div>
+                </div>
+
+                <!-- Item 9 (Nuevo) -->
+                <div class="gallery-item aspect-square" data-category="ilustracion">
+                    <img src="img/mientras-todo-pasa-ilustracion.png"
+                        alt="mientras-todo-pasa">
+                    <div class="gallery-overlay">
+                        <h3 class="font-serif text-xl mb-1">Mientras todo pasa</h3>
+                        <p class="text-size-4">Ilustración</p>
+                    </div>
+                </div>
+
+
+                <!-- === EDITORIAL (9 Items) === -->
+
+                <!-- Item 10 -->
+                <div class="gallery-item aspect-square" data-category="editorial">
+                    <img src="img/vida-brillante-arte-editorial.png" alt="Vida Brillante">
+                    <div class="gallery-overlay">
+                        <h3 class="font-serif text-xl mb-1">Vida Brillante</h3>
+                        <p class="text-size-4">Editorial</p>
+                    </div>
+                </div>
+
+                <!-- Item 11 -->
+                <div class="gallery-item aspect-square" data-category="editorial">
+                    <img src="img/estar-aqui-arte-editorial.png" alt="Estar aquí">
+                    <div class="gallery-overlay">
+                        <h3 class="font-serif text-xl mb-1">Estar aquí</h3>
+                        <p class="text-size-4">Editorial</p>
+                    </div>
+                </div>
+
+                <!-- Item 12 -->
+                <div class="gallery-item aspect-square" data-category="editorial">
+                    <img src="img/blanca-navidad-arte-editorial.png" alt="Blanca Navidad">
+                    <div class="gallery-overlay">
+                        <h3 class="font-serif text-xl mb-1">Blanca Navidad</h3>
+                        <p class="text-size-4">Editorial</p>
+                    </div>
+                </div>
+
+                <!-- Item 13 -->
+                <div class="gallery-item aspect-square" data-category="editorial">
+                    <img src="img/summertime-editorial.png" alt="Holidays">
+                    <div class="gallery-overlay">
+                        <h3 class="font-serif text-xl mb-1">Holidays</h3>
+                        <p class="text-size-4">Editorial</p>
+                    </div>
+                </div>
+
+                <!-- Item 14 (Nuevo) -->
+                <div class="gallery-item aspect-square" data-category="editorial">
+                    <img src="img/anora-editorial.png"
+                        alt="Anora">
+                    <div class="gallery-overlay">
+                        <h3 class="font-serif text-xl mb-1">Anora</h3>
+                        <p class="text-size-4">Editorial</p>
+                    </div>
+                </div>
+
+                <!-- Item 15 (Nuevo) -->
+                <div class="gallery-item aspect-square" data-category="editorial">
+                    <img src="img/dreams-editorial.png"
+                        alt="Dreams">
+                    <div class="gallery-overlay">
+                        <h3 class="font-serif text-xl mb-1">Dreams</h3>
+                        <p class="text-size-4">Editorial</p>
+                    </div>
+                </div>
+
+                <!-- Item 16 (Nuevo) -->
+                <div class="gallery-item aspect-square" data-category="editorial">
+                    <img src="img/felicidad-obligada-editorial.png"
+                        alt="Felicidad obligada">
+                    <div class="gallery-overlay">
+                        <h3 class="font-serif text-xl mb-1">Felicidad obligada</h3>
+                        <p class="text-size-4">Editorial</p>
+                    </div>
+                </div>
+
+                <!-- Item 17 (Nuevo) -->
+                <div class="gallery-item aspect-square" data-category="editorial">
+                    <img src="img/no-para-todos-editorial.png"
+                        alt="no para todos">
+                    <div class="gallery-overlay">
+                        <h3 class="font-serif text-xl mb-1">No para todos</h3>
+                        <p class="text-size-4">Editorial</p>
+                    </div>
+                </div>
+
+                <!-- Item 18 (Nuevo) -->
+                <div class="gallery-item aspect-square" data-category="editorial">
+                    <img src="img/compras-navideñas-editorial.png"
+                        alt="Compras Navideñas">
+                    <div class="gallery-overlay">
+                        <h3 class="font-serif text-xl mb-1">Compras Navideñas</h3>
+                        <p class="text-size-4">Editorial</p>
                     </div>
                 </div>
 
@@ -330,15 +473,68 @@
     </div>
 
     <script>
-        document.getElementById('mobile-menu-button').addEventListener('click', () => {
-            document.getElementById('mobile-menu').classList.toggle('hidden');
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            const icon = mobileMenuButton.querySelector('i');
+            if (mobileMenu.classList.contains('hidden')) {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            } else {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            }
+        });
+
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-md');
+                navbar.classList.remove('bg-brand-bg');
+                navbar.classList.add('bg-brand-bg/70', 'backdrop-blur-md');
+            } else {
+                navbar.classList.remove('shadow-md', 'bg-brand-bg/70', 'backdrop-blur-md');
+                navbar.classList.add('bg-brand-bg');
+            }
+        });
+
+        // Lógica de Filtrado
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // 1. Gestionar clases de botones (Activo/Inactivo)
+                filterBtns.forEach(b => {
+                    b.classList.remove('bg-brand-accent', 'text-white', 'border-brand-accent');
+                    b.classList.add('bg-transparent', 'text-brand-dark', 'border-brand-muted/30');
+                });
+                btn.classList.remove('bg-transparent', 'text-brand-dark', 'border-brand-muted/30');
+                btn.classList.add('bg-brand-accent', 'text-white', 'border-brand-accent');
+
+                // 2. Filtrar imágenes
+                const filterValue = btn.getAttribute('data-filter');
+
+                galleryItems.forEach(item => {
+                    if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                        item.classList.remove('hidden-item');
+                        item.classList.add('animate-fade-in');
+                    } else {
+                        item.classList.add('hidden-item');
+                        item.classList.remove('animate-fade-in');
+                    }
+                });
+            });
         });
 
         // Lightbox Logic
         const lightbox = document.getElementById('lightbox');
         const lightboxImage = document.getElementById('lightbox-image');
         const lightboxClose = document.getElementById('lightbox-close');
-        const galleryItems = document.querySelectorAll('.gallery-item');
 
         galleryItems.forEach(item => {
             item.addEventListener('click', () => {

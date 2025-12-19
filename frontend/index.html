@@ -62,8 +62,12 @@
                         sans: ['Poppins', 'sans-serif'],
                     },
                     fontSize: {
-                        'size-1': ['3rem', { lineHeight: '1.1' }],
-                        'size-2': ['1.5rem', { lineHeight: '1.3' }],
+                        // JERARQUÍA OPTIMIZADA
+                        // H1 Principal: 2.5rem (40px)
+                        'size-1': ['2.5rem', { lineHeight: '1.2' }],
+                        // H2 Secundario: 2rem (32px)
+                        'size-2': ['2rem', { lineHeight: '1.3' }],
+                        // Texto cuerpo / H3: 1rem - 1.25rem
                         'size-3': ['0.95rem', { lineHeight: '1.7' }],
                         'size-4': ['0.75rem', { letterSpacing: '0.1em', textTransform: 'uppercase' }]
                     },
@@ -250,91 +254,118 @@
         .fade-in-delay-2 {
             animation-delay: 0.4s;
         }
+
+        /* Estilos de Validación en Tiempo Real */
+        .input-error {
+            border-bottom-color: #ff4d4d !important;
+            /* Rojo claro */
+        }
+
+        .input-success {
+            border-bottom-color: #4dff88 !important;
+            /* Verde claro */
+        }
     </style>
 </head>
 
-<body class="antialiased bg-brand-bg text-brand-muted font-sans selection:bg-brand-accent selection:text-white">
+<body
+    class="antialiased bg-brand-bg text-brand-muted font-sans selection:bg-brand-accent selection:text-white flex flex-col min-h-screen">
 
-    <!-- Header -->
-    <header class="bg-brand-bg/95 backdrop-blur-md z-50 border-b border-brand-muted/10">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center" aria-label="Navegación principal">
-            <!-- LOGO -->
-            <a href="#inicio" class="focus:outline-none focus:ring-2 focus:ring-brand-accent rounded-sm"
-                aria-label="Ir al inicio - Daneli Artist">
-                <img src="img/logo-principal-arte-digital.png"
-                    alt="Logotipo Daneli Artist - Arte Digital y Desarrollo Web" class="h-36 w-auto object-contain">
+    <!-- Header / Navbar -->
+    <header class="fixed w-full top-0 bg-brand-bg z-50 border-b border-brand-muted/10 transition-all duration-300"
+        id="navbar">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html"
+                class="focus:outline-none focus:ring-2 focus:ring-brand-accent rounded-sm flex items-center gap-2 group">
+                <div
+                    class="h-12 w-12 bg-brand-dark text-white flex items-center justify-center font-serif text-2xl group-hover:bg-brand-accent transition-colors duration-300">
+                    D</div>
+                <span class="font-serif text-xl font-bold text-brand-dark tracking-wide">DANELI</span>
             </a>
 
-            <!-- MENÚ ESCRITORIO ACTUALIZADO -->
             <div class="hidden md:flex space-x-8 items-center text-size-4 font-semibold tracking-wider">
-                <a href="#inicio"
-                    class="text-brand-dark hover:text-brand-accent transition focus:outline-none focus:text-brand-accent">INICIO</a>
-
-                <!-- Enlaces Directos Separados -->
-                <a href="galeria.html"
-                    class="text-brand-dark hover:text-brand-accent transition focus:outline-none focus:text-brand-accent">GALERÍA</a>
-
+                <a href="index.html" class="text-brand-accent font-bold transition relative group">
+                    INICIO
+                    <span class="absolute -bottom-1 left-0 w-full h-0.5 bg-brand-accent"></span>
+                </a>
+                <a href="galeria.html" class="text-brand-dark hover:text-brand-accent transition relative group">
+                    GALERÍA
+                    <span
+                        class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-accent transition-all duration-300 group-hover:w-full"></span>
+                </a>
                 <a href="storytelling_main.html"
-                    class="text-brand-dark hover:text-brand-accent transition focus:outline-none focus:text-brand-accent">STORYTELLING</a>
-
-                <a href="#tienda"
-                    class="text-brand-dark hover:text-brand-accent transition focus:outline-none focus:text-brand-accent">TIENDA</a>
-                <a href="animaciones.html"
-                    class="text-brand-dark hover:text-brand-accent transition focus:outline-none focus:text-brand-accent">PROYECTOS</a>
-                <a href="miperfil.html"
-                    class="text-brand-dark hover:text-brand-accent transition focus:outline-none focus:text-brand-accent">PERFIL</a>
-                <!-- Botón de contacto -->
-                <a href="#contacto"
-                    class="bg-brand-accent text-brand-white px-6 py-2 hover:bg-brand-dark transition-colors duration-300 text-size-4 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-accent"
-                    aria-label="Ir a sección de contacto">
+                    class="text-brand-dark hover:text-brand-accent transition relative group">
+                    STORYTELLING
+                    <span
+                        class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-accent transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="index.html#tienda" class="text-brand-dark hover:text-brand-accent transition relative group">
+                    TIENDA
+                    <span
+                        class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-accent transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="animaciones.html" class="text-brand-dark hover:text-brand-accent transition relative group">
+                    PROYECTOS
+                    <span
+                        class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-accent transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="miperfil.html" class="text-brand-dark hover:text-brand-accent transition relative group">
+                    PERFIL
+                    <span
+                        class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-accent transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="index.html#contacto"
+                    class="bg-brand-accent text-white px-8 py-3 hover:bg-brand-dark transition-colors duration-300 text-xs font-bold tracking-widest uppercase border border-brand-accent hover:border-brand-dark">
                     CONTACTO
                 </a>
             </div>
 
-            <button id="mobile-menu-button"
-                class="md:hidden text-brand-accent focus:outline-none focus:ring-2 focus:ring-brand-accent rounded"
-                aria-label="Abrir menú de navegación móvil">
-                <i class="fas fa-bars fa-lg" aria-hidden="true"></i>
+            <button id="mobile-menu-button" class="md:hidden text-brand-dark hover:text-brand-accent transition p-2">
+                <i class="fas fa-bars fa-lg"></i>
             </button>
         </nav>
 
-        <!-- Mobile Menu Actualizado -->
-        <div id="mobile-menu" class="hidden md:hidden px-6 pb-6 bg-brand-bg border-b border-brand-muted/10">
-            <a href="galeria.html"
-                class="block py-3 text-size-4 text-brand-dark hover:text-brand-accent border-b border-brand-muted/5">GALERÍA</a>
-            <a href="storytelling_main.html"
-                class="block py-3 text-size-4 text-brand-dark hover:text-brand-accent border-b border-brand-muted/5">STORYTELLING</a>
-            <a href="#tienda"
-                class="block py-3 text-size-4 text-brand-dark hover:text-brand-accent border-b border-brand-muted/5">TIENDA</a>
-            <a href="animaciones.html"
-                class="block py-3 text-size-4 text-brand-dark hover:text-brand-accent border-b border-brand-muted/5">PROYECTOS</a>
-            <a href="miperfil.html"
-                class="block py-3 text-size-4 text-brand-dark hover:text-brand-accent border-b border-brand-muted/5">PERFIL</a>
-            <a href="#contacto"
-                class="block mt-6 bg-brand-accent text-brand-white px-4 py-3 text-center text-size-4 hover:bg-brand-dark transition-colors">CONTACTAR</a>
+        <div id="mobile-menu"
+            class="hidden md:hidden bg-brand-bg border-t border-brand-muted/10 absolute w-full shadow-lg">
+            <div class="flex flex-col px-6 py-4">
+                <a href="index.html"
+                    class="py-3 text-size-4 text-brand-accent font-bold border-b border-brand-muted/5">INICIO</a>
+                <a href="galeria.html"
+                    class="py-3 text-size-4 text-brand-dark hover:text-brand-accent border-b border-brand-muted/5">GALERÍA</a>
+                <a href="storytelling_main.html"
+                    class="py-3 text-size-4 text-brand-dark hover:text-brand-accent border-b border-brand-muted/5">STORYTELLING</a>
+                <a href="index.html#tienda"
+                    class="py-3 text-size-4 text-brand-dark hover:text-brand-accent border-b border-brand-muted/5">TIENDA</a>
+                <a href="animaciones.html"
+                    class="py-3 text-size-4 text-brand-dark hover:text-brand-accent border-b border-brand-muted/5">PROYECTOS</a>
+                <a href="miperfil.html"
+                    class="py-3 text-size-4 text-brand-dark hover:text-brand-accent border-b border-brand-muted/5">PERFIL</a>
+                <a href="index.html#contacto"
+                    class="mt-4 bg-brand-accent text-white px-4 py-3 text-center text-size-4 hover:bg-brand-dark transition-colors uppercase font-bold tracking-widest">Contactar</a>
+            </div>
         </div>
     </header>
 
-    <main>
+    <main class="flex-grow">
 
         <!-- Hero Section -->
         <section id="inicio"
-            class="relative flex flex-col items-center justify-start text-center overflow-hidden px-4 sm:px-8 pt-32 pb-10">
+            class="relative flex flex-col items-center justify-start text-center overflow-hidden px-4 sm:px-8 pt-32 pb-10 mt-10">
             <div class="relative z-10 w-full max-w-7xl mx-auto">
 
                 <div class="mb-16 fade-in-on-load fade-in-delay-1">
-                    <h1
-                        class="text-3xl md:text-5xl lg:text-6xl text-brand-accent font-serif font-medium mb-4 leading-tight">
+                    <!-- H1 AJUSTADO a size-1 -->
+                    <h1 class="text-size-1 text-brand-accent font-serif font-medium mb-4 leading-tight">
                         Daneli Artist
                     </h1>
-                    <div class="w-12 h-px mx-auto mb-6"></div>
+                    <div class="w-12 h-px mx-auto mb-6 bg-brand-muted/30"></div>
                     <p class="text-size-3 text-brand-muted max-w-xl mx-auto font-light leading-relaxed">
                         Artista de arte IA, código y desarrollo web, creando mundos donde la estética digital y la
                         lógica se encuentran.
                     </p>
                 </div>
 
-                <!-- 3 Columnas Editoriales - 2 Filas -->
+                <!-- Grid de Obras -->
                 <div
                     class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 w-full fade-in-on-load fade-in-delay-2 text-left items-start">
 
@@ -342,22 +373,22 @@
                     <div class="flex flex-col gap-12">
                         <div class="group">
                             <div class="w-full overflow-hidden mb-3 aspect-[16/9]">
-                                <img src="img/dulce-amanecer-arte-digital.png" alt="Obra de arte digital Dulce Amanecer"
+                                <img src="img/navidad-urbana.png" alt="Obra de arte navidad urbana"
                                     class="w-full h-full object-cover hover:scale-105 transition duration-700 ease-in-out">
                             </div>
                             <h3
-                                class="font-serif text-xl italic text-brand-dark group-hover:text-brand-accent transition-colors">
-                                Dulce Amanecer</h3>
+                                class="font-serif text-xl text-brand-dark group-hover:text-brand-accent transition-colors">
+                                Navidad Urbana</h3>
                         </div>
 
                         <div class="group">
                             <div class="w-full overflow-hidden mb-3 aspect-[16/9]">
-                                <img src="img/alegria-animal.png" alt="Obra Calma Felina Digital"
+                                <img src="img/feliz-navidad-ilustracion.png" alt="Obra feliz-navidad-ilustracion Digital"
                                     class="w-full h-full object-cover hover:scale-105 transition duration-700 ease-in-out">
                             </div>
                             <h3
-                                class="font-serif text-xl italic text-brand-dark group-hover:text-brand-accent transition-colors">
-                                Calma Felina</h3>
+                                class="font-serif text-xl text-brand-dark group-hover:text-brand-accent transition-colors">
+                                Feliz Navidad</h3>
                         </div>
                     </div>
 
@@ -365,22 +396,22 @@
                     <div class="flex flex-col gap-12">
                         <div class="group">
                             <div class="w-full overflow-hidden mb-3 aspect-[16/9]">
-                                <img src="img/campos-de-amor-arte-digital.png" alt="Obra digital campos de amor"
+                                <img src="img/aprobacion-flat-art.png" alt="Obra de arte flat aprobación"
                                     class="w-full h-full object-cover hover:scale-105 transition duration-700 ease-in-out">
                             </div>
                             <h3
-                                class="font-serif text-xl italic text-brand-dark group-hover:text-brand-accent transition-colors">
-                                Caminata de Amor</h3>
+                                class="font-serif text-xl text-brand-dark group-hover:text-brand-accent transition-colors">
+                                Aprobación</h3>
                         </div>
 
                         <div class="group">
                             <div class="w-full overflow-hidden mb-3 aspect-[16/9]">
-                                <img src="img/tocar-pasto-arte-digital.png" alt="Ilustración Melancolía Urbana"
+                                <img src="img/compañia-arte-digital.png" alt="Ilustración compañia"
                                     class="w-full h-full object-cover hover:scale-105 transition duration-700 ease-in-out">
                             </div>
                             <h3
-                                class="font-serif text-xl italic text-brand-dark group-hover:text-brand-accent transition-colors">
-                                Tocar Pasto</h3>
+                                class="font-serif text-xl text-brand-dark group-hover:text-brand-accent transition-colors">
+                                Compañia</h3>
                         </div>
                     </div>
 
@@ -388,22 +419,22 @@
                     <div class="flex flex-col gap-12">
                         <div class="group">
                             <div class="w-full overflow-hidden mb-3 aspect-[16/9]">
-                                <img src="img/huevos-naturales-arte-digital.png" alt="Obra conceptual Calma Costera"
+                                <img src="img/tocar-pasto-arte-digital.png" alt="Ilustración Tocar Pasto"
                                     class="w-full h-full object-cover hover:scale-105 transition duration-700 ease-in-out">
                             </div>
                             <h3
-                                class="font-serif text-xl italic text-brand-dark group-hover:text-brand-accent transition-colors">
-                                Comer y Rezar</h3>
+                                class="font-serif text-xl text-brand-dark group-hover:text-brand-accent transition-colors">
+                                Tocar Pasto</h3>
                         </div>
 
                         <div class="group">
                             <div class="w-full overflow-hidden mb-3 aspect-[16/9]">
-                                <img src="img/desayunar-arte-digital.png" alt="Obra digital Guardián Blanco"
+                                <img src="img/rutina-festiva-ilustracion.png" alt="Obra digital Rutina Festiva"
                                     class="w-full h-full object-cover hover:scale-105 transition duration-700 ease-in-out">
                             </div>
                             <h3
-                                class="font-serif text-xl italic text-brand-dark group-hover:text-brand-accent transition-colors">
-                                Rutina de Amor</h3>
+                                class="font-serif text-xl text-brand-dark group-hover:text-brand-accent transition-colors">
+                                Rutina Festiva</h3>
                         </div>
                     </div>
 
@@ -423,7 +454,8 @@
 
                     <!-- Columna Izquierda -->
                     <div class="flex flex-col items-start gap-6">
-                        <h2 class="text-3xl md:text-4xl font-serif text-brand-accent leading-tight">
+                        <!-- H2 AJUSTADO a size-2 -->
+                        <h2 class="text-size-2 font-serif text-brand-accent leading-tight">
                             Sobre Mí
                         </h2>
 
@@ -461,7 +493,8 @@
             <div class="container mx-auto px-6 lg:px-20">
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start mb-16">
                     <div class="md:col-span-3 text-left">
-                        <h2 class="text-3xl md:text-4xl font-serif text-brand-accent leading-tight">
+                        <!-- H2 AJUSTADO a size-2 -->
+                        <h2 class="text-size-2 font-serif text-brand-accent leading-tight">
                             Tienda
                         </h2>
                     </div>
@@ -483,7 +516,7 @@
                         </div>
                         <h3 class="text-size-2 font-serif text-brand-dark mb-2">Reconectando con la Naturaleza</h3>
                         <p class="text-size-3 text-brand-muted mb-6 font-light">Colección NFT</p>
-                        <a href="http://salvor.io/collections/0xa7a90ca7c3bbc736140b95ad9c63fca451005a23/5"
+                        <a href="https://salvor.io/collections/0xa7a90ca7c3bbc736140b95ad9c63fca451005a23"
                             target="_blank" rel="noopener noreferrer"
                             class="block w-full text-center bg-brand-dark text-white py-3 text-size-4 hover:bg-brand-accent transition-colors btn-base focus:ring-2 focus:ring-offset-2 focus:ring-brand-accent">
                             ADQUIRIR
@@ -499,7 +532,7 @@
                         </div>
                         <h3 class="text-size-2 font-serif text-brand-dark mb-2">Visiones Arcanas</h3>
                         <p class="text-size-3 text-brand-muted mb-6 font-light">Colección NFT</p>
-                        <a href="https://salvor.io/collections/0x1923cbaf23b9cd05d541cae24d546deecfe0d998/4"
+                        <a href="https://salvor.io/collections/0xf070be70e7d2ce660491f3c319d9539e49db7fcb"
                             target="_blank" rel="noopener noreferrer"
                             class="block w-full text-center bg-brand-dark text-white py-3 text-size-4 hover:bg-brand-accent transition-colors btn-base focus:ring-2 focus:ring-offset-2 focus:ring-brand-accent">
                             ADQUIRIR
@@ -515,7 +548,7 @@
                         </div>
                         <h3 class="text-size-2 font-serif text-brand-dark mb-2">Pesadillas Celestiales</h3>
                         <p class="text-size-3 text-brand-muted mb-6 font-light">Colección NFT</p>
-                        <a href="https://salvor.io/collections/0x1923cbaf23b9cd05d541cae24d546deecfe0d998/2"
+                        <a href="https://salvor.io/collections/0x1923cbaf23b9cd05d541cae24d546deecfe0d998"
                             target="_blank" rel="noopener noreferrer"
                             class="block w-full text-center bg-brand-dark text-white py-3 text-size-4 hover:bg-brand-accent transition-colors btn-base focus:ring-2 focus:ring-offset-2 focus:ring-brand-accent">
                             ADQUIRIR
@@ -558,6 +591,7 @@
             class="relative z-20 fade-in-section w-full max-w-4xl mx-auto px-4 md:px-0 mt-20 mb-20">
             <div class="w-full bg-brand-bg border border-brand-accent/10 p-10 md:p-16 text-center shadow-sm">
                 <div class="mb-10">
+                    <!-- H3 AJUSTADO -->
                     <h3 class="text-size-2 font-serif text-brand-dark mb-4">Newsletter | Arte e IA</h3>
                     <p class="text-size-3 text-brand-muted max-w-lg mx-auto font-light">
                         Regístrate para recibir noticias sobre creatividad digital y lanzamientos.
@@ -671,7 +705,7 @@
 
     <script>
 
-       // --- 1. CONFIGURACIÓN DEL BACKEND ---
+        // --- 1. CONFIGURACIÓN DEL BACKEND ---
         const isProduction = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
 
         const BACKEND_URL = isProduction
@@ -679,10 +713,37 @@
             : "http://localhost:3000";
 
         console.log(`🌍 Conectando a: ${BACKEND_URL}`);
-        
+
         // --- Mobile Menu Toggle ---
-        document.getElementById('mobile-menu-button').addEventListener('click', () => {
-            document.getElementById('mobile-menu').classList.toggle('hidden');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            // Animar icono
+            const icon = mobileMenuButton.querySelector('i');
+            if (mobileMenu.classList.contains('hidden')) {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            } else {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            }
+        });
+
+        // Navbar Scroll Effect (MODIFICADO: Transparente/Blur al bajar)
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                // Al bajar: Sombra + Fondo semitransparente con Blur (Glass effect)
+                navbar.classList.add('shadow-md');
+                navbar.classList.remove('bg-brand-bg');
+                navbar.classList.add('bg-brand-bg/70', 'backdrop-blur-md');
+            } else {
+                // Arriba: Fondo sólido (sin ver el contenido detrás)
+                navbar.classList.remove('shadow-md', 'bg-brand-bg/70', 'backdrop-blur-md');
+                navbar.classList.add('bg-brand-bg');
+            }
         });
 
         // --- Intersection Observers ---
@@ -711,7 +772,7 @@
         h2Titles.forEach(h2 => h2Observer.observe(h2));
 
         // --- Newsletter Logic ---
-       const newsletterForm = document.getElementById('newsletter-form');
+        const newsletterForm = document.getElementById('newsletter-form');
 
         if (newsletterForm) {
             const emailInput = document.getElementById('email-newsletter');
@@ -754,7 +815,34 @@
 
         // --- Contact Form Logic ---
         const contactForm = document.getElementById('contact-form');
+
         if (contactForm) {
+            // NEW: Real-time validation
+            const inputs = contactForm.querySelectorAll('input[required], textarea[required]');
+
+            inputs.forEach(input => {
+                input.addEventListener('input', function () {
+                    if (this.type === 'email') {
+                        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        if (emailPattern.test(this.value)) {
+                            this.classList.remove('input-error');
+                            this.classList.add('input-success');
+                        } else {
+                            this.classList.remove('input-success');
+                            this.classList.add('input-error');
+                        }
+                    } else {
+                        if (this.value.trim() !== '') {
+                            this.classList.remove('input-error');
+                            this.classList.add('input-success');
+                        } else {
+                            this.classList.remove('input-success');
+                            this.classList.add('input-error');
+                        }
+                    }
+                });
+            });
+
             contactForm.addEventListener('submit', async function (e) {
                 e.preventDefault();
                 const formData = {
@@ -777,6 +865,10 @@
                     if (result.status === 'success') {
                         alert("¡Mensaje enviado con éxito!");
                         contactForm.reset();
+                        // Reset validation classes
+                        inputs.forEach(input => {
+                            input.classList.remove('input-success', 'input-error');
+                        });
                     } else {
                         alert("Hubo un error al enviar el mensaje.");
                     }
